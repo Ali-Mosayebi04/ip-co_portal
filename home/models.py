@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import os
 import uuid
 
-from __future__ import annotations
 from typing import Optional
 from django.conf import settings
 from django.core.cache import cache
