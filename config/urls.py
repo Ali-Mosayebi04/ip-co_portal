@@ -12,8 +12,11 @@ def health(_request):
 urlpatterns = [
     path("health/", health),
     path("admin/", admin.site.urls),
-    path("", include("home.urls", namespace="home")),
+    path("core/", include("apps.core.urls", namespace="core")),
+    path("workgroups/", include("apps.workgroups.urls", namespace="workgroups")),
+    path("", include("apps.home.urls", namespace="home")),
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

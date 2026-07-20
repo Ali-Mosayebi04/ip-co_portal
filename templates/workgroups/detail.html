@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ workgroup.name }}</title>
+</head>
+<body>
+    <h1>{{ workgroup.name }}</h1>
+    <p>{{ workgroup.description|default:"No description provided." }}</p>
+    <p><a href="{% url 'workgroups:list' %}">Back to work groups</a></p>
+</body>
+</html>
