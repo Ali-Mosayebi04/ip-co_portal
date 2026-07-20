@@ -1,6 +1,8 @@
 services:
   web:
     build: .
+    volumes:
+      - .:/app
     container_name: ipco_web
     env_file: .env
     ports:
