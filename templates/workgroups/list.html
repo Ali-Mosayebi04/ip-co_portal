@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Work Groups</title>
+</head>
+<body>
+    <h1>Work Groups</h1>
+    <ul>
+        {% for group in workgroups %}
+            <li><a href="{% url 'workgroups:detail' group.slug %}">{{ group.name }}</a></li>
+        {% empty %}
+            <li>No work groups yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

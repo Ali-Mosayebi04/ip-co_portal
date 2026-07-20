@@ -3,7 +3,7 @@
 import django.core.validators
 import django.db.models.deletion
 import django.utils.timezone
-import home.models
+import apps.home.models
 from django.conf import settings
 from django.db import migrations, models
 
@@ -200,8 +200,8 @@ class Migration(migrations.Migration):
                         null=True,
                         upload_to="site/",
                         validators=[
-                            home.models.validate_image_size,
-                            home.models.validate_image_content,
+                            apps.home.models.validate_image_size,
+                            apps.home.models.validate_image_content,
                             django.core.validators.FileExtensionValidator(
                                 ["jpg", "jpeg", "png", "webp"]
                             ),
@@ -266,10 +266,10 @@ class Migration(migrations.Migration):
                     models.ImageField(
                         blank=True,
                         null=True,
-                        upload_to=home.models.news_cover_upload_path,
+                        upload_to=apps.home.models.news_cover_upload_path,
                         validators=[
-                            home.models.validate_image_size,
-                            home.models.validate_image_content,
+                            apps.home.models.validate_image_size,
+                            apps.home.models.validate_image_content,
                             django.core.validators.FileExtensionValidator(
                                 ["jpg", "jpeg", "png", "webp"]
                             ),
