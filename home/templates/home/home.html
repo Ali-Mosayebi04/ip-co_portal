@@ -1,0 +1,61 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}صفحه اصلی | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+
+    <section class="about-section container">
+        <h1>{{ site_info.about_title }}</h1>
+        <p class="about-text">{{ site_info.about_text|linebreaksbr }}</p>
+    </section>
+
+    <section class="news-section container">
+        <div class="section-header">
+            <h2>جدیدترین اخبار</h2>
+            <a class="see-all" href="{% url 'home:index' %}#">مشاهده همه</a>
+        </div>
+
+        {% if latest_news %}
+            <div class="news-grid">
+                {% for item in latest_news %}
+                    <article class="news-card">
+                        {% if item.cover_image %}
+                            <a href="{{ item.get_absolute_url }}" class="news-card-image">
+                                <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
+                            </a>
+                        {% endif %}
+                        <div class="news-card-body">
+                            <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                            <p>{{ item.summary }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">در حال حاضر خبری برای نمایش وجود ندارد.</p>
+        {% endif %}
+    </section>
+
+    <section class="sections-links container">
+        <div class="section-header">
+            <h2>بخش‌های شرکت</h2>
+        </div>
+
+        {% if section_links %}
+            <div class="sections-grid">
+                {% for link in section_links %}
+                    <a class="section-card" href="{{ link.url }}">
+                        {% if link.icon %}<i class="{{ link.icon }}" aria-hidden="true"></i>{% endif %}
+                        <span class="section-card-title">{{ link.title }}</span>
+                        {% if link.description %}<span class="section-card-desc">{{ link.description }}</span>{% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">لینکی برای بخش‌های شرکت ثبت نشده است.</p>
+        {% endif %}
+    </section>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "home/base.html" %}
+
+{% block title %}{{ news_item.title }} | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <article class="news-detail container">
+        <a class="back-link" href="{% url 'home:index' %}">&rarr; بازگشت به صفحه اصلی</a>
+
+        <h1>{{ news_item.title }}</h1>
+        <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>
+
+        {% if news_item.cover_image %}
+            <img class="news-detail-image" src="{{ news_item.cover_image.url }}" alt="{{ news_item.title }}">
+        {% endif %}
+
+        <div class="news-detail-body">
+            {{ news_item.body|linebreaksbr }}
+        </div>
+    </article>
+{% endblock %}

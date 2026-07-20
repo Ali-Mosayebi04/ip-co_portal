@@ -1,7 +1,3 @@
-"""
-Django settings for config project.
-"""
-
 import os
 from pathlib import Path
 
@@ -37,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "home",
 ]
 
 MIDDLEWARE = [
@@ -106,14 +103,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+LANGUAGE_CODE = "fa"
+TIME_ZONE = "Asia/Tehran"
 USE_I18N = True
 USE_TZ = True
 
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
