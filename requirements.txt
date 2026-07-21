@@ -1,6 +1,6 @@
 asgiref==3.12.1
 Django==5.2.4
-gunicorn==23.0.0g
+gunicorn==23.0.0
 packaging==26.2
 pillow==11.3.0
 psycopg==3.2.13
