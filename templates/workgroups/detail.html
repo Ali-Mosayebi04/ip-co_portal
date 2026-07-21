@@ -1,12 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>{{ workgroup.name }}</title>
-</head>
-<body>
-    <h1>{{ workgroup.name }}</h1>
-    <p>{{ workgroup.description|default:"No description provided." }}</p>
-    <p><a href="{% url 'workgroups:list' %}">Back to work groups</a></p>
-</body>
-</html>
+{% extends "home/base.html" %}
+
+{% block title %}{{ workgroup.name }} | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="workgroup-detail container">
+        <a class="back-link" href="{% url 'workgroups:list' %}">&rarr; بازگشت به کارگروه‌ها</a>
+
+        <h1>{{ workgroup.name }}</h1>
+        {% if workgroup.description %}
+            <p class="workgroup-description">{{ workgroup.description|linebreaksbr }}</p>
+        {% endif %}
+
+        <div class="section-header">
+            <h2>کارمندان این کارگروه</h2>
+        </div>
+
+        {% if workgroup.employees.all %}
+            <div class="employee-grid">
+                {% for employee in workgroup.employees.all %}
+                    <article class="employee-card">
+                        {% if employee.photo %}
+                            <img src="{{ employee.photo.url }}" alt="{{ employee.full_name }}" class="employee-photo">
+                        {% else %}
+                            <div class="employee-photo employee-photo-placeholder" aria-hidden="true">
+                                {{ employee.full_name|slice:":1" }}
+                            </div>
+                        {% endif %}
+                        <div class="employee-info">
+                            <h3>{{ employee.full_name }}</h3>
+                            {% if employee.position %}<p class="employee-position">{{ employee.position }}</p>{% endif %}
+                            {% if employee.email %}
+                                <p class="employee-contact"><a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+                            {% endif %}
+                            {% if employee.phone %}<p class="employee-contact">{{ employee.phone }}</p>{% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">برای این کارگروه هنوز کارمندی ثبت نشده است.</p>
+        {% endif %}
+    </section>
+{% endblock %}

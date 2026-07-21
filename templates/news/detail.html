@@ -4,7 +4,7 @@
 
 {% block content %}
     <article class="news-detail container">
-        <a class="back-link" href="{% url 'home:index' %}">&rarr; بازگشت به صفحه اصلی</a>
+        <a class="back-link" href="{% url 'news:list' %}">&rarr; بازگشت به آرشیو اخبار</a>
 
         <h1>{{ news_item.title }}</h1>
         <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>

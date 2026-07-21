@@ -6,5 +6,7 @@ app_name = "workgroups"
 
 urlpatterns = [
     path("", WorkGroupListView.as_view(), name="list"),
-    path("<slug:slug>/", WorkGroupDetailView.as_view(), name="detail"),
+    # str, not the built-in slug converter: WorkGroup.slug allows unicode
+    # (Persian) characters, which the ASCII-only slug converter rejects.
+    path("<str:slug>/", WorkGroupDetailView.as_view(), name="detail"),
 ]

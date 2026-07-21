@@ -13,6 +13,7 @@ urlpatterns = [
     path("health/", health),
     path("admin/", admin.site.urls),
     path("core/", include("apps.core.urls", namespace="core")),
+    path("news/", include("apps.news.urls", namespace="news")),
     path("workgroups/", include("apps.workgroups.urls", namespace="workgroups")),
     path("", include("apps.home.urls", namespace="home")),
 ]
