@@ -1,32 +1,6 @@
 from django.contrib import admin
-from django.utils.html import format_html
 
-from .models import NavItem, News, QuickLink, SectionLink, SiteInfo
-
-
-@admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
-    list_display = ("title", "status", "published_at", "cover_preview")
-    list_filter = ("published_at", "status")
-    search_fields = ("title", "summary", "body")
-    prepopulated_fields = {"slug": ("title",)}
-    date_hierarchy = "published_at"
-    readonly_fields = ("created_at", "updated_at", "cover_preview")
-    fieldsets = (
-    (None, {"fields": ("title", "slug", "summary", "body")}),
-    ("رسانه", {"fields": ("cover_image", "cover_preview")}),
-    ("انتشار", {"fields": ("status", "published_at")}),
-    ("اطلاعات سیستمی", {"fields": ("created_at", "updated_at")}),
-    )
-
-    @admin.display(description="پیش‌نمایش")
-    def cover_preview(self, obj):
-        if obj.cover_image:
-            return format_html(
-                '<img src="{}" style="max-height:80px;border-radius:6px;" />',
-                obj.cover_image.url,
-            )
-        return "—"
+from .models import NavItem, QuickLink, SectionLink, SiteInfo
 
 
 class OrderedLinkAdmin(admin.ModelAdmin):

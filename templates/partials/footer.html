@@ -1,0 +1,24 @@
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-about">
+            <h3>{{ site_info.about_title|default:"ایران خودرو" }}</h3>
+            {% if site_info.address %}<p>{{ site_info.address }}</p>{% endif %}
+            {% if site_info.phone %}<p>تلفن: {{ site_info.phone }}</p>{% endif %}
+            {% if site_info.email %}<p>ایمیل: {{ site_info.email }}</p>{% endif %}
+        </div>
+
+        <div class="footer-links">
+            <h3>لینک‌های سریع</h3>
+            <ul>
+                {% for link in quick_links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% empty %}
+                    <li>لینکی ثبت نشده است.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {% now "Y" %} شرکت ایران خودرو - تمامی حقوق محفوظ است.</p>
+    </div>
+</footer>

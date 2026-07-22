@@ -1,17 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Work Groups</title>
-</head>
-<body>
-    <h1>Work Groups</h1>
-    <ul>
-        {% for group in workgroups %}
-            <li><a href="{% url 'workgroups:detail' group.slug %}">{{ group.name }}</a></li>
-        {% empty %}
-            <li>No work groups yet.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "home/base.html" %}
+
+{% block title %}کارگروه‌ها | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="workgroups-archive container">
+        <div class="section-header">
+            <h1>کارگروه‌ها</h1>
+        </div>
+
+        {% if workgroups %}
+            <div class="sections-grid">
+                {% for group in workgroups %}
+                    <a class="section-card" href="{{ group.get_absolute_url }}">
+                        <span class="section-card-title">{{ group.name }}</span>
+                        {% if group.description %}
+                            <span class="section-card-desc">{{ group.description|truncatewords:14 }}</span>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">در حال حاضر کارگروهی ثبت نشده است.</p>
+        {% endif %}
+    </section>
+{% endblock %}

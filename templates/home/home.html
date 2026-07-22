@@ -5,15 +5,41 @@
 
 {% block content %}
 
+    {% with featured=latest_news.0 %}
+        {% if featured %}
+            <section class="hero">
+                <div class="container hero-inner">
+                    <div>
+                        <span class="hero-eyebrow">آخرین خبر شرکت</span>
+                        <h1 class="hero-title"><a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a></h1>
+                        <p class="hero-summary">{{ featured.summary }}</p>
+                        <div class="hero-meta">
+                            <span class="badge">خبر شرکت</span>
+                            <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
+                        </div>
+                        <a class="btn btn-primary" href="{{ featured.get_absolute_url }}">مطالعه کامل خبر</a>
+                    </div>
+                    <div class="hero-media">
+                        {% if featured.cover_image %}
+                            <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}">
+                        {% else %}
+                            <div class="hero-media-placeholder">بدون تصویر شاخص</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endwith %}
+
     <section class="about-section container">
         <h1>{{ site_info.about_title }}</h1>
         <p class="about-text">{{ site_info.about_text|linebreaksbr }}</p>
     </section>
 
-    <section class="news-section container">
+    <section class="section news-section container">
         <div class="section-header">
             <h2>جدیدترین اخبار</h2>
-            <a class="see-all" href="{% url 'home:index' %}#">مشاهده همه</a>
+            <a class="see-all" href="{% url 'news:list' %}">مشاهده همه &larr;</a>
         </div>
 
         {% if latest_news %}
@@ -26,9 +52,15 @@
                             </a>
                         {% endif %}
                         <div class="news-card-body">
-                            <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                            <div class="news-card-meta">
+                                <span class="badge">خبر شرکت</span>
+                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                            </div>
                             <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
                             <p>{{ item.summary }}</p>
+                            <div class="news-card-footer">
+                                <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب &larr;</a>
+                            </div>
                         </div>
                     </article>
                 {% endfor %}
@@ -38,7 +70,7 @@
         {% endif %}
     </section>
 
-    <section class="sections-links container">
+    <section class="section sections-links container">
         <div class="section-header">
             <h2>بخش‌های شرکت</h2>
         </div>
@@ -47,7 +79,11 @@
             <div class="sections-grid">
                 {% for link in section_links %}
                     <a class="section-card" href="{{ link.url }}">
-                        {% if link.icon %}<i class="{{ link.icon }}" aria-hidden="true"></i>{% endif %}
+                        {% if link.icon %}
+                            <i class="{{ link.icon }}" aria-hidden="true"></i>
+                        {% else %}
+                            <span class="section-card-icon" aria-hidden="true">{{ link.title|slice:":1" }}</span>
+                        {% endif %}
                         <span class="section-card-title">{{ link.title }}</span>
                         {% if link.description %}<span class="section-card-desc">{{ link.description }}</span>{% endif %}
                     </a>
