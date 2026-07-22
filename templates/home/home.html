@@ -94,4 +94,44 @@
         {% endif %}
     </section>
 
+        {% if announcements %}
+        <section class="announcement-section container">
+            <div class="section-header">
+                <h2>اطلاعیه‌ها</h2>
+            </div>
+
+            <div class="announcement-gallery">
+                {% for announcement in announcements %}
+                    <article class="announcement-card">
+                        <button
+                            type="button"
+                            class="announcement-card-button"
+                            data-image-url="{{ announcement.image.url }}"
+                            data-title="{{ announcement.title }}"
+                            aria-label="نمایش اطلاعیه {{ announcement.title }}">
+                            <img
+                                src="{{ announcement.image.url }}"
+                                alt="{{ announcement.title }}"
+                                class="announcement-card-image"
+                                loading="lazy">
+                            <div class="announcement-card-overlay">
+                                <span class="announcement-card-title">{{ announcement.title }}</span>
+                            </div>
+                        </button>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="announcement-modal" aria-hidden="true">
+            <div class="announcement-modal-panel" role="dialog" aria-modal="true" aria-label="نمایش اطلاعیه">
+                <button type="button" class="announcement-modal-close" aria-label="بستن">×</button>
+                <figure class="announcement-modal-figure">
+                    <img class="announcement-modal-image" src="" alt="">
+                    <figcaption class="announcement-modal-caption announcement-modal-title"></figcaption>
+                </figure>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}

@@ -168,6 +168,59 @@
     if (event.key === "Escape") {
       closeAllDropdowns(null);
       closeThemeSwitcher();
+      closeAnnouncementModal();
     }
   });
+
+  /* Announcement lightbox */
+  var announcementModal = document.querySelector('.announcement-modal');
+  var announcementModalImage = announcementModal && announcementModal.querySelector('.announcement-modal-image');
+  var announcementModalTitle = announcementModal && announcementModal.querySelector('.announcement-modal-title');
+  var announcementModalClose = announcementModal && announcementModal.querySelector('.announcement-modal-close');
+  var announcementButtons = document.querySelectorAll('.announcement-card-button');
+
+  function openAnnouncementModal(imageUrl, title) {
+    if (!announcementModal || !announcementModalImage || !announcementModalTitle) {
+      return;
+    }
+    announcementModalImage.src = imageUrl;
+    announcementModalImage.alt = title;
+    announcementModalTitle.textContent = title;
+    announcementModal.classList.add('open');
+    announcementModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAnnouncementModal() {
+    if (!announcementModal) {
+      return;
+    }
+    announcementModal.classList.remove('open');
+    announcementModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (announcementModalImage) {
+      announcementModalImage.src = '';
+    }
+    if (announcementModalTitle) {
+      announcementModalTitle.textContent = '';
+    }
+  }
+
+  announcementButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      openAnnouncementModal(button.dataset.imageUrl, button.dataset.title);
+    });
+  });
+
+  if (announcementModal) {
+    announcementModal.addEventListener('click', function (event) {
+      if (event.target === announcementModal) {
+        closeAnnouncementModal();
+      }
+    });
+  }
+
+  if (announcementModalClose) {
+    announcementModalClose.addEventListener('click', closeAnnouncementModal);
+  }
 })();

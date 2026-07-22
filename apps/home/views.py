@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 
 from apps.news.models import News
 
-from .models import SectionLink
+from .models import Announcement, SectionLink
 
 LATEST_NEWS_COUNT = 6
 
@@ -36,9 +36,14 @@ class HomeView(TemplateView):
             {
                 "section_links": self._get_section_links(),
                 "latest_news": self._get_latest_news(),
+                "announcements": self._get_announcements(),
             }
         )
         return context
+
+    @staticmethod
+    def _get_announcements() -> QuerySet[Announcement]:
+        return Announcement.objects.filter(is_active=True)
 
     @staticmethod
     def _get_section_links() -> QuerySet[SectionLink]:

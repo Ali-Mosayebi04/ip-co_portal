@@ -98,6 +98,27 @@ class SectionLink(OrderedLink):
         verbose_name_plural = "لینک‌های بخش‌های شرکت"
 
 
+class Announcement(models.Model):
+    """Public announcement blocks shown on the home page."""
+
+    title = models.CharField("عنوان", max_length=200)
+    image = models.ImageField(
+        "تصویر اعلان",
+        upload_to="announcements/",
+        validators=IMAGE_VALIDATORS,
+    )
+    is_active = models.BooleanField("فعال", default=True)
+    created_at = models.DateTimeField("تاریخ ایجاد", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "اطلاعیه"
+        verbose_name_plural = "اطلاعیه‌ها"
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return self.title
+
+
 class QuickLink(OrderedLink):
     """Footer quick links."""
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import NavItem, QuickLink, SectionLink, SiteInfo
+from .models import Announcement, NavItem, QuickLink, SectionLink, SiteInfo
 
 
 class OrderedLinkAdmin(admin.ModelAdmin):
@@ -18,6 +18,14 @@ class NavItemAdmin(OrderedLinkAdmin):
 @admin.register(SectionLink)
 class SectionLinkAdmin(OrderedLinkAdmin):
     list_display = OrderedLinkAdmin.list_display + ("icon",)
+
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ("title", "is_active", "created_at")
+    search_fields = ("title",)
+    list_filter = ("is_active",)
+    ordering = ("-created_at",)
 
 
 @admin.register(QuickLink)
