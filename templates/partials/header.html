@@ -57,7 +57,41 @@
                 <span class="dot" aria-hidden="true"></span>
             </button>
 
-            <a href="#" class="user-avatar" aria-label="حساب کاربری">ک</a>
+            {% if request.user.is_authenticated %}
+                <div class="nav-item-dropdown account-menu">
+                    <button
+                        type="button"
+                        class="dropdown-toggle"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-controls="account-dropdown"
+                        aria-label="حساب کاربری"
+                    >
+                        <span class="user-avatar" aria-hidden="true">
+                            {{ request.user.get_full_name|default:request.user.username|first|upper }}
+                        </span>
+                    </button>
+                    <div class="dropdown-panel" id="account-dropdown">
+                        <div class="dropdown-menu-wrap">
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-user-name">
+                                    {{ request.user.get_full_name|default:request.user.username }}
+                                </li>
+                                <hr class="dropdown-divider">
+                                <li><a href="{% url 'meetings:upcoming' %}">جلسات پیش رو</a></li>
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit">خروج</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="login-link">ورود</a>
+            {% endif %}
 
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="باز کردن منو">
                 <span></span><span></span><span></span>

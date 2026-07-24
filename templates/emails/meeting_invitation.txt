@@ -1,0 +1,21 @@
+{% autoescape off %}سلام {{ employee.full_name }} عزیز،
+
+برای شرکت در جلسه‌ی زیر از شما دعوت به عمل می‌آید:
+
+عنوان جلسه: {{ meeting.title }}
+تاریخ: {{ meeting.date|date:"Y/m/d" }}
+ساعت: از {{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}
+اتاق: {{ meeting.room.name }}{% if meeting.room.location %} ({{ meeting.room.location }}){% endif %}
+{% if meeting.agenda %}
+دستور جلسه:
+{{ meeting.agenda }}
+{% endif %}
+{% if meeting.organizer %}
+برگزارکننده: {{ meeting.organizer.get_full_name|default:meeting.organizer.username }}
+{% endif %}
+
+لطفاً در زمان مقرر در محل جلسه حضور داشته باشید.
+
+--
+این ایمیل به‌صورت خودکار از پورتال ایران خودرو ارسال شده است.
+{% endautoescape %}

@@ -1,0 +1,14 @@
+{% autoescape off %}سلام {{ employee.full_name }} عزیز،
+
+جلسه‌ی زیر که پیش‌تر برای آن دعوت شده بودید، لغو شده است:
+
+عنوان جلسه: {{ meeting.title }}
+تاریخ: {{ meeting.date|date:"Y/m/d" }}
+ساعت: از {{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}
+اتاق: {{ meeting.room.name }}
+
+در صورت هماهنگی مجدد، دعوت‌نامه‌ی جدیدی برای شما ارسال خواهد شد.
+
+--
+این ایمیل به‌صورت خودکار از پورتال ایران خودرو ارسال شده است.
+{% endautoescape %}
