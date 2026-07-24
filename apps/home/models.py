@@ -1,11 +1,3 @@
-"""Domain models for the ``home`` app.
-
-Everything the company home page needs to render *besides* the news
-feed (see ``apps.news``) and the work-group directory (see
-``apps.workgroups``): the "about us" block, header navigation, the
-eight links to other company sections, and the footer quick links.
-"""
-
 from __future__ import annotations
 
 from django.core.cache import cache
@@ -18,7 +10,7 @@ from common.validators import IMAGE_VALIDATORS
 
 def _validate_internal_or_absolute_url(value: str) -> None:
     """A link must be either an internal path (``/hr/``) or a full,
-    well-formed absolute URL. Used by :class:`OrderedLink` subclasses."""
+    well-formed absolute URL. Used by : class:`OrderedLink` subclasses."""
     if not value:
         return
     if value.startswith("/"):
