@@ -1,0 +1,32 @@
+{% extends "home/base.html" %}
+
+{% block title %}{{ course.title }} | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <article class="news-detail course-detail container">
+        <a class="back-link" href="{% url 'training:list' %}">&rarr; بازگشت به آموزش</a>
+
+        <div class="news-card-meta">
+            {% if course.category %}<span class="badge">{{ course.category.name }}</span>{% endif %}
+            <span class="badge badge-info">{{ course.get_level_display }}</span>
+        </div>
+
+        <h1>{{ course.title }}</h1>
+
+        <div class="course-detail-meta">
+            {% if course.duration_hours %}<span>مدت: {{ course.duration_hours }} ساعت</span>{% endif %}
+            {% if course.instructor %}
+                <span>مدرس: {{ course.instructor.get_full_name|default:course.instructor.username }}</span>
+            {% endif %}
+            <time datetime="{{ course.published_at|date:'c' }}">{{ course.published_at|date:"j F Y" }}</time>
+        </div>
+
+        {% if course.cover_image %}
+            <img class="news-detail-image" src="{{ course.cover_image.url }}" alt="{{ course.title }}">
+        {% endif %}
+
+        <div class="news-detail-body">
+            {{ course.description|linebreaksbr }}
+        </div>
+    </article>
+{% endblock %}

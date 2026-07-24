@@ -1,0 +1,13 @@
+{% extends "home/base.html" %}
+
+{% block title %}خروج از پورتال | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="auth-page container">
+        <div class="auth-card">
+            <h1 class="auth-title">خروج انجام شد</h1>
+            <p class="auth-subtitle">با موفقیت از حساب کاربری خود خارج شدید.</p>
+            <a href="{% url 'home:index' %}" class="btn btn-brand auth-submit">بازگشت به صفحه اصلی</a>
+        </div>
+    </section>
+{% endblock %}

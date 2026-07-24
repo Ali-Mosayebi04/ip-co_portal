@@ -1,0 +1,92 @@
+{% extends "home/base.html" %}
+
+{% block title %}آموزش | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="news-archive training-archive container">
+        <div class="section-header">
+            <h1>دوره‌های آموزشی</h1>
+        </div>
+
+        <div class="filter-bar">
+            <form role="search" method="get">
+                {% if active_category %}
+                    <input type="hidden" name="category" value="{{ active_category }}">
+                {% endif %}
+                <input type="search" name="q" placeholder="جست‌وجو در عنوان یا خلاصه دوره…" value="{{ search_query }}">
+                <button type="submit" class="btn btn-outline">جست‌وجو</button>
+            </form>
+        </div>
+
+        {% if categories %}
+            <div class="category-filters">
+                <a
+                    href="{% url 'training:list' %}{% if search_query %}?q={{ search_query }}{% endif %}"
+                    class="category-chip {% if not active_category %}active{% endif %}"
+                >همه</a>
+                {% for category in categories %}
+                    <a
+                        href="?category={{ category.slug }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                        class="category-chip {% if active_category == category.slug %}active{% endif %}"
+                    >
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if search_query %}
+            <p class="search-result-note">نتایج جست‌وجو برای «{{ search_query }}»</p>
+        {% endif %}
+
+        {% if courses %}
+            <div class="news-grid course-grid">
+                {% for course in courses %}
+                    <article class="news-card course-card">
+                        {% if course.cover_image %}
+                            <a href="{{ course.get_absolute_url }}" class="news-card-image">
+                                <img src="{{ course.cover_image.url }}" alt="{{ course.title }}" loading="lazy">
+                            </a>
+                        {% endif %}
+                        <div class="news-card-body">
+                            <div class="news-card-meta">
+                                {% if course.category %}
+                                    <span class="badge">{{ course.category.name }}</span>
+                                {% endif %}
+                                <span class="badge badge-info">{{ course.get_level_display }}</span>
+                            </div>
+                            <h3><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></h3>
+                            <p>{{ course.summary }}</p>
+                            <div class="news-card-footer">
+                                <a class="btn-link" href="{{ course.get_absolute_url }}">مشاهده دوره &larr;</a>
+                                {% if course.duration_hours %}
+                                    <span class="course-duration">{{ course.duration_hours }} ساعت</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+
+            {% if is_paginated %}
+                <nav class="pagination" aria-label="صفحه‌بندی دوره‌ها">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}">&rarr; قبلی</a>
+                    {% endif %}
+                    <span class="pagination-current">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if active_category %}&category={{ active_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}">بعدی &larr;</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        {% else %}
+            <p class="empty-state">
+                {% if search_query %}
+                    دوره‌ای مطابق با جست‌وجوی شما یافت نشد.
+                {% else %}
+                    در حال حاضر دوره‌ای برای نمایش وجود ندارد.
+                {% endif %}
+            </p>
+        {% endif %}
+    </section>
+{% endblock %}

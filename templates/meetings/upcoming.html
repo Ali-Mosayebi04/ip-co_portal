@@ -1,0 +1,49 @@
+{% extends "home/base.html" %}
+
+{% block title %}جلسات پیش رو | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="meetings-page container">
+        <div class="section-header">
+            <h1>جلسات پیش رو</h1>
+        </div>
+
+        {% if not employee %}
+            <p class="empty-state">
+                حساب کاربری شما به هیچ پروفایل کارمندی متصل نیست، بنابراین امکان
+                نمایش جلسات وجود ندارد. لطفاً با مدیر سیستم تماس بگیرید تا حساب
+                شما به پروفایل کارمندی‌تان متصل شود.
+            </p>
+        {% elif meetings %}
+            <div class="meeting-list">
+                {% for meeting in meetings %}
+                    <article class="meeting-card">
+                        <div class="meeting-date">
+                            <span class="meeting-date-day">{{ meeting.date|date:"j" }}</span>
+                            <span class="meeting-date-month">{{ meeting.date|date:"F" }}</span>
+                        </div>
+                        <div class="meeting-info">
+                            <h3>{{ meeting.title }}</h3>
+                            <div class="meeting-meta">
+                                <span class="badge badge-info">
+                                    {{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}
+                                </span>
+                                <span class="badge">{{ meeting.room.name }}</span>
+                                {% if meeting.organizer %}
+                                    <span class="meeting-organizer">
+                                        برگزارکننده: {{ meeting.organizer.get_full_name|default:meeting.organizer.username }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {% if meeting.agenda %}
+                                <p class="meeting-agenda">{{ meeting.agenda|linebreaksbr }}</p>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">در حال حاضر جلسه‌ی پیش رویی برای شما ثبت نشده است.</p>
+        {% endif %}
+    </section>
+{% endblock %}

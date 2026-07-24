@@ -1,0 +1,44 @@
+{% extends "home/base.html" %}
+
+{% block title %}ورود به پورتال | پورتال ایران خودرو{% endblock %}
+
+{% block content %}
+    <section class="auth-page container">
+        <div class="auth-card">
+            <h1 class="auth-title">ورود به پورتال</h1>
+            <p class="auth-subtitle">برای مشاهده‌ی جلسات پیش رو، وارد حساب کاربری خود شوید.</p>
+
+            {% if form.non_field_errors %}
+                <div class="auth-alert" role="alert">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+
+                <div class="auth-field">
+                    <label for="{{ form.username.id_for_label }}">نام کاربری</label>
+                    {{ form.username }}
+                    {% for error in form.username.errors %}
+                        <p class="auth-field-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="auth-field">
+                    <label for="{{ form.password.id_for_label }}">رمز عبور</label>
+                    {{ form.password }}
+                    {% for error in form.password.errors %}
+                        <p class="auth-field-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <button type="submit" class="btn btn-brand auth-submit">ورود</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
