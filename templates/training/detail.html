@@ -1,8 +1,18 @@
 {% extends "home/base.html" %}
 
-{% block title %}{{ course.title }} | پورتال ایران خودرو{% endblock %}
+{% block title %}{{ course.title }} | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
+    <nav class="breadcrumb-bar" aria-label="مسیر صفحه">
+        <div class="container breadcrumb">
+            <a href="{% url 'home:index' %}">پورتال</a>
+            <span aria-hidden="true">/</span>
+            <a href="{% url 'training:list' %}">آموزش‌ها</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ course.title }}</span>
+        </div>
+    </nav>
+
     <article class="news-detail course-detail container">
         <a class="back-link" href="{% url 'training:list' %}">&rarr; بازگشت به آموزش</a>
 

@@ -149,7 +149,7 @@
       } else {
         item.classList.add("open");
         button.setAttribute("aria-expanded", "true");
-        var firstLink = item.querySelector(".dropdown-menu a");
+        var firstLink = item.querySelector(".dropdown-menu a, .dropdown-menu button");
         if (firstLink) {
           firstLink.focus({ preventScroll: true });
         }
@@ -223,4 +223,34 @@
   if (announcementModalClose) {
     announcementModalClose.addEventListener('click', closeAnnouncementModal);
   }
+})();
+
+// ---- Copy article link (news detail share row) ----
+(function () {
+  document.querySelectorAll('[data-copy-link]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var url = button.getAttribute('data-copy-link');
+      var reset = function () {
+        button.removeAttribute('data-copied');
+      };
+      var done = function () {
+        button.setAttribute('data-copied', 'true');
+        button.setAttribute('aria-label', 'پیوند کپی شد');
+        setTimeout(function () {
+          button.setAttribute('aria-label', 'کپی پیوند خبر');
+          reset();
+        }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done).catch(function () {});
+      } else {
+        var temp = document.createElement('textarea');
+        temp.value = url;
+        document.body.appendChild(temp);
+        temp.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(temp);
+      }
+    });
+  });
 })();
