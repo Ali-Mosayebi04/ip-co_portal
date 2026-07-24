@@ -6,6 +6,7 @@ from __future__ import annotations
 import os
 import uuid
 
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -61,6 +62,15 @@ class Employee(models.Model):
         on_delete=models.CASCADE,
         related_name="employees",
         verbose_name="کارگروه",
+    )
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="employee_profile",
+        verbose_name="حساب کاربری",
+        help_text="در صورت اتصال، این کارمند می‌تواند وارد پورتال شده و جلسات پیش رو خود را ببیند.",
     )
     full_name = models.CharField("نام و نام خانوادگی", max_length=150)
     position = models.CharField("سمت", max_length=150, blank=True)

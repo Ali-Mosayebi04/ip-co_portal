@@ -25,8 +25,26 @@ class WorkGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("full_name", "workgroup", "position", "email", "phone", "order")
+    list_display = (
+        "full_name",
+        "workgroup",
+        "position",
+        "email",
+        "phone",
+        "user",
+        "order",
+    )
     list_filter = ("workgroup",)
     search_fields = ("full_name", "position", "email")
-    autocomplete_fields = ("workgroup",)
+    autocomplete_fields = ("workgroup", "user")
     ordering = ("workgroup", "order", "full_name")
+    fields = (
+        "workgroup",
+        "full_name",
+        "position",
+        "photo",
+        "email",
+        "phone",
+        "order",
+        "user",
+    )
