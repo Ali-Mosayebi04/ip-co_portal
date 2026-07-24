@@ -1,13 +1,34 @@
 {% extends "home/base.html" %}
+{% load static %}
 
-{% block title %}{{ news_item.title }} | پورتال ایران خودرو{% endblock %}
+{% block title %}{{ news_item.title }} | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
+    <nav class="breadcrumb-bar" aria-label="مسیر صفحه">
+        <div class="container breadcrumb">
+            <a href="{% url 'home:index' %}">پورتال</a>
+            <span aria-hidden="true">/</span>
+            <a href="{% url 'news:list' %}">اخبار</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ news_item.title }}</span>
+        </div>
+    </nav>
+
     <article class="news-detail container">
         <a class="back-link" href="{% url 'news:list' %}">&rarr; بازگشت به آرشیو اخبار</a>
 
         <h1>{{ news_item.title }}</h1>
-        <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>
+
+        <div class="article-meta">
+            <span class="article-meta-item">
+                <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>
+            </span>
+            {% if news_item.author %}
+                <span class="article-meta-item">{{ news_item.author.get_full_name|default:news_item.author.username }}</span>
+            {% endif %}
+            <span class="article-meta-item">{{ reading_minutes }} دقیقه مطالعه</span>
+            <span class="article-meta-item">{{ news_item.views }} بازدید</span>
+        </div>
 
         {% if news_item.cover_image %}
             <img class="news-detail-image" src="{{ news_item.cover_image.url }}" alt="{{ news_item.title }}">
@@ -16,5 +37,45 @@
         <div class="news-detail-body">
             {{ news_item.body|linebreaksbr }}
         </div>
+
+        <div class="article-share">
+            <span class="article-share-label">اشتراک‌گذاری:</span>
+            <a class="icon-btn" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ news_item.title|urlencode }}" target="_blank" rel="noopener noreferrer" aria-label="اشتراک در تلگرام">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4 3 11l6 2m12-9-3 15-7-5m10-10-10 10m0 0-2 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <button type="button" class="icon-btn" data-copy-link="{{ request.build_absolute_uri }}" aria-label="کپی پیوند خبر">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+        </div>
     </article>
+
+    {% if related_news %}
+        <section class="related-news container" aria-labelledby="related-news-heading">
+            <div class="section-header">
+                <h2 id="related-news-heading">اخبار مرتبط</h2>
+            </div>
+            <div class="news-grid">
+                {% for item in related_news %}
+                    <article class="news-card">
+                        {% if item.cover_image %}
+                            <a href="{{ item.get_absolute_url }}" class="news-card-image">
+                                <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
+                            </a>
+                        {% endif %}
+                        <div class="news-card-body">
+                            <div class="news-card-meta">
+                                <span class="badge">خبر شرکت</span>
+                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                            </div>
+                            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                            <p>{{ item.summary }}</p>
+                            <div class="news-card-footer">
+                                <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب &larr;</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}

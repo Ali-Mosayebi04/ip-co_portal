@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %}صفحه اصلی | پورتال ایران خودرو{% endblock %}
+{% block title %}صفحه اصلی | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
 
@@ -17,7 +17,11 @@
                             <span class="badge">خبر شرکت</span>
                             <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
                         </div>
-                        <a class="btn btn-primary" href="{{ featured.get_absolute_url }}">مطالعه کامل خبر</a>
+                        <div class="hero-actions">
+                            <a class="btn btn-primary" href="{{ featured.get_absolute_url }}">مطالعه کامل خبر</a>
+                            <a class="btn btn-secondary-light" href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a>
+                            <a class="btn btn-secondary-light" href="{% url 'training:list' %}">مشاهده آموزش‌ها</a>
+                        </div>
                     </div>
                     <div class="hero-media">
                         {% if featured.cover_image %}
@@ -34,6 +38,20 @@
     <section class="about-section container">
         <h1>{{ site_info.about_title }}</h1>
         <p class="about-text">{{ site_info.about_text|linebreaksbr }}</p>
+    </section>
+
+    <section class="portal-shortcuts container" aria-label="دسترسی سریع کارکنان">
+        <div class="portal-shortcuts-card">
+            <div class="portal-shortcuts-copy">
+                <span class="section-kicker">دسترسی سریع</span>
+                <h2>ورود سریع به جلسات و آموزش‌های سازمانی</h2>
+                <p>برای دسترسی مستقیم به برنامه جلسات، دوره‌های آموزشی و جریان رسمی اطلاعات داخلی، از میانبرهای زیر استفاده کنید.</p>
+            </div>
+            <div class="portal-shortcuts-actions">
+                <a class="btn btn-brand" href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a>
+                <a class="btn btn-outline" href="{% url 'training:list' %}">مشاهده آموزش‌ها</a>
+            </div>
+        </div>
     </section>
 
     <section class="section news-section container">
@@ -94,8 +112,8 @@
         {% endif %}
     </section>
 
-        {% if announcements %}
-        <section class="announcement-section container">
+    {% if announcements %}
+        <section class="announcement-section container" id="announcements">
             <div class="section-header">
                 <h2>اطلاعیه‌ها</h2>
             </div>

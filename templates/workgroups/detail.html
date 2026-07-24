@@ -1,8 +1,18 @@
 {% extends "home/base.html" %}
 
-{% block title %}{{ workgroup.name }} | پورتال ایران خودرو{% endblock %}
+{% block title %}{{ workgroup.name }} | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
+    <nav class="breadcrumb-bar" aria-label="مسیر صفحه">
+        <div class="container breadcrumb">
+            <a href="{% url 'home:index' %}">پورتال</a>
+            <span aria-hidden="true">/</span>
+            <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ workgroup.name }}</span>
+        </div>
+    </nav>
+
     <section class="workgroup-detail container">
         <a class="back-link" href="{% url 'workgroups:list' %}">&rarr; بازگشت به کارگروه‌ها</a>
 

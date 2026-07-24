@@ -58,6 +58,21 @@ class NewsDetailView(DetailView):
         self._record_view(obj)
         return obj
 
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        news_item: News = context["news_item"]
+
+        word_count = len(news_item.body.split())
+        context["reading_minutes"] = max(1, round(word_count / 180))
+
+        context["related_news"] = (
+            News.objects.published()
+            .exclude(pk=news_item.pk)
+            .only(*_NEWS_LIST_FIELDS)
+            .order_by("-published_at")[:3]
+        )
+        return context
+
     @staticmethod
     def _record_view(news_item: News) -> None:
         """Increment the view counter with a single atomic UPDATE
