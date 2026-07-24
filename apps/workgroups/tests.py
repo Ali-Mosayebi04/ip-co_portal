@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
 from .models import Employee, WorkGroup
+
+User = get_user_model()
 
 
 class WorkGroupModelTests(TestCase):
@@ -65,3 +68,28 @@ class WorkGroupsHeaderDropdownTests(TestCase):
         WorkGroup.objects.create(name="حقوقی")
         response = self.client.get(reverse("home:index"))
         self.assertContains(response, "حقوقی")
+
+
+class EmployeeUserLinkTests(TestCase):
+    def setUp(self):
+        self.group = WorkGroup.objects.create(name="فناوری اطلاعات")
+
+    def test_employee_can_exist_without_a_linked_account(self):
+        employee = Employee.objects.create(workgroup=self.group, full_name="بدون حساب")
+        self.assertIsNone(employee.user)
+
+    def test_employee_can_be_linked_to_one_account(self):
+        user = User.objects.create_user(username="alice", password="pass12345")
+        employee = Employee.objects.create(
+            workgroup=self.group, full_name="علی رضایی", user=user
+        )
+        self.assertEqual(user.employee_profile, employee)
+
+    def test_deleting_linked_account_does_not_delete_employee(self):
+        user = User.objects.create_user(username="alice", password="pass12345")
+        employee = Employee.objects.create(
+            workgroup=self.group, full_name="علی رضایی", user=user
+        )
+        user.delete()
+        employee.refresh_from_db()
+        self.assertIsNone(employee.user)
