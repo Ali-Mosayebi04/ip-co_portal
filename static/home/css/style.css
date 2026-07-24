@@ -865,7 +865,42 @@ main { display: block; }
 /* =============================================================
    Pagination
    ============================================================= */
-.news-archive, .workgroups-archive { padding: var(--sp-6) 0 var(--sp-7); }
+.news-archive, .workgroups-archive, .training-archive { padding: var(--sp-6) 0 var(--sp-7); }
+
+/* =============================================================
+   Training / courses
+   ============================================================= */
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: var(--sp-4);
+}
+.category-chip {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: var(--border-width) solid var(--border-default);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
+}
+.category-chip:hover { border-color: var(--brand); color: var(--brand); }
+.category-chip.active { background: var(--brand); border-color: var(--brand); color: var(--text-on-brand); }
+
+.news-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.course-duration { color: var(--text-muted); font-size: var(--fs-xs); }
+
+.course-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  margin: 8px 0 var(--sp-2);
+}
 .pagination {
   display: flex;
   align-items: center;
@@ -1006,3 +1041,141 @@ main { display: block; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
 }
+
+/* =============================================================
+   Buttons — brand-colored variant (for use on light backgrounds,
+   e.g. the auth card, where .btn-primary's white-on-transparent
+   look — designed for the dark hero — would be invisible)
+   ============================================================= */
+.btn-brand { background: var(--brand); color: var(--text-on-brand); }
+.btn-brand:hover { background: var(--ikco-blue-800); color: var(--text-on-brand); }
+
+/* =============================================================
+   Account menu (login / logged-in dropdown in the header)
+   ============================================================= */
+.account-menu .dropdown-toggle {
+  padding: 4px;
+  border-radius: 50%;
+}
+.account-menu .dropdown-panel { left: 0; right: auto; min-width: 220px; }
+[dir="rtl"] .account-menu .dropdown-panel { left: 0; right: auto; }
+.dropdown-menu li form { margin: 0; }
+.dropdown-menu li form button {
+  display: block;
+  width: 100%;
+  text-align: right;
+  background: none;
+  border: none;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  text-decoration: none;
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.dropdown-menu li form button:hover { background: var(--bg-subtle); color: var(--brand); }
+.dropdown-menu .dropdown-user-name {
+  display: block;
+  padding: 10px 12px 4px;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+}
+.dropdown-menu .dropdown-divider {
+  border: none;
+  border-top: var(--border-width) solid var(--border-default);
+  margin: 6px 4px;
+}
+.login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-default);
+  white-space: nowrap;
+}
+.login-link:hover { border-color: var(--brand); color: var(--brand); }
+
+/* =============================================================
+   Auth pages (login)
+   ============================================================= */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: var(--sp-8) 0;
+}
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg-surface-raised);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--sp-5);
+}
+.auth-title { font-size: var(--fs-lg); margin: 0 0 4px; }
+.auth-subtitle { color: var(--text-secondary); font-size: var(--fs-sm); margin: 0 0 var(--sp-4); }
+.auth-field { margin-bottom: var(--sp-3); }
+.auth-field label { display: block; font-size: var(--fs-sm); font-weight: 600; margin-bottom: 6px; }
+.auth-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: var(--border-width) solid var(--border-default);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font: inherit;
+  box-sizing: border-box;
+}
+.auth-field input:focus { border-color: var(--brand); outline: none; }
+.auth-field-error { color: var(--color-error); font-size: var(--fs-xs); margin: 4px 0 0; }
+.auth-alert {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+}
+.auth-submit { width: 100%; justify-content: center; margin-top: 4px; }
+
+/* =============================================================
+   Upcoming meetings
+   ============================================================= */
+.meetings-page { padding: var(--sp-6) 0 var(--sp-7); }
+.meeting-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.meeting-card {
+  display: flex;
+  gap: var(--sp-4);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-default);
+  border-radius: var(--radius);
+  padding: var(--sp-4);
+}
+.meeting-date {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+  background: var(--brand-soft);
+  color: var(--brand);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+.meeting-date-day { font-size: var(--fs-lg); font-weight: 800; }
+.meeting-date-month { font-size: var(--fs-xs); font-weight: 600; }
+.meeting-info { flex: 1; min-width: 0; }
+.meeting-info h3 { margin: 0 0 8px; font-size: var(--fs-md); }
+.meeting-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 8px; }
+.meeting-organizer { color: var(--text-muted); font-size: var(--fs-xs); }
+.meeting-agenda { color: var(--text-secondary); font-size: var(--fs-sm); margin: 0; }
