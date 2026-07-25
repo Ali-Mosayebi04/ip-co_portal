@@ -176,10 +176,50 @@
         </div>
     </div>
 
+    <div class="nav-backdrop" aria-hidden="true"></div>
+
     <div class="nav-bar" id="main-nav">
         <nav class="main-nav" aria-label="منوی اصلی">
             <div class="container">
                 <ul>
+                    <li class="nav-item nav-item-dropdown">
+                        <button
+                            type="button"
+                            class="nav-link dropdown-toggle"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            aria-controls="company-dropdown"
+                        >
+                            شرکت
+                            <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-panel mega-panel" id="company-dropdown">
+                            <div class="dropdown-menu-wrap">
+                                <div class="mega-grid">
+                                    <div class="mega-column">
+                                        <h3>درباره ایپکو</h3>
+                                        <a href="{% url 'home:about_company' %}">درباره شرکت</a>
+                                        <a href="{% url 'news:list' %}">اخبار و رویدادها</a>
+                                        <a href="{% url 'training:list' %}">آموزش و توانمندسازی</a>
+                                        <a href="{% url 'meetings:upcoming' %}">جلسات و رویدادهای سازمانی</a>
+                                    </div>
+                                    <div class="mega-column">
+                                        <h3>سازمان</h3>
+                                        <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
+                                        <a href="{% url 'home:contact' %}">ارتباط با سازمان</a>
+                                        <a href="{% url 'training:list' %}">دوره‌های آموزشی</a>
+                                    </div>
+                                    <div class="mega-card">
+                                        <span class="hero-panel-tag">پیشرو در مهندسی</span>
+                                        <h4>قدرت صنعتی در خدمت آینده</h4>
+                                        <p>ایپکو با رویکردی دقیق، مدرن و آینده‌محور در مسیر ارتقای فناوری و تولید پیش می‌رود.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="nav-item nav-item-dropdown">
                         <button
                             type="button"
@@ -208,6 +248,8 @@
                     <li><a href="{% url 'meetings:upcoming' %}">جلسات</a></li>
                     <li><a href="{% url 'training:list' %}">آموزش‌ها</a></li>
                     <li><a href="{% url 'news:list' %}">اخبار</a></li>
+                    <li><a href="{% url 'home:about_company' %}">درباره ما</a></li>
+                    <li><a href="{% url 'home:contact' %}">تماس</a></li>
 
                     {% for item in nav_items %}
                         <li>

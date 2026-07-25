@@ -17,35 +17,39 @@
     <article class="news-detail container">
         <a class="back-link" href="{% url 'news:list' %}">&rarr; بازگشت به آرشیو اخبار</a>
 
-        <h1>{{ news_item.title }}</h1>
+        <div class="article-shell">
+            <div class="article-intro">
+                <span class="section-kicker">خبر شرکت</span>
+                <h1>{{ news_item.title }}</h1>
+                <div class="article-meta">
+                    <span class="article-meta-item">
+                        <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>
+                    </span>
+                    {% if news_item.author %}
+                        <span class="article-meta-item">{{ news_item.author.get_full_name|default:news_item.author.username }}</span>
+                    {% endif %}
+                    <span class="article-meta-item">{{ reading_minutes }} دقیقه مطالعه</span>
+                    <span class="article-meta-item">{{ news_item.views }} بازدید</span>
+                </div>
+            </div>
 
-        <div class="article-meta">
-            <span class="article-meta-item">
-                <time datetime="{{ news_item.published_at|date:'c' }}">{{ news_item.published_at|date:"j F Y - H:i" }}</time>
-            </span>
-            {% if news_item.author %}
-                <span class="article-meta-item">{{ news_item.author.get_full_name|default:news_item.author.username }}</span>
+            {% if news_item.cover_image %}
+                <img class="news-detail-image" src="{{ news_item.cover_image.url }}" alt="{{ news_item.title }}">
             {% endif %}
-            <span class="article-meta-item">{{ reading_minutes }} دقیقه مطالعه</span>
-            <span class="article-meta-item">{{ news_item.views }} بازدید</span>
-        </div>
 
-        {% if news_item.cover_image %}
-            <img class="news-detail-image" src="{{ news_item.cover_image.url }}" alt="{{ news_item.title }}">
-        {% endif %}
+            <div class="news-detail-body">
+                {{ news_item.body|linebreaksbr }}
+            </div>
 
-        <div class="news-detail-body">
-            {{ news_item.body|linebreaksbr }}
-        </div>
-
-        <div class="article-share">
-            <span class="article-share-label">اشتراک‌گذاری:</span>
-            <a class="icon-btn" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ news_item.title|urlencode }}" target="_blank" rel="noopener noreferrer" aria-label="اشتراک در تلگرام">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4 3 11l6 2m12-9-3 15-7-5m10-10-10 10m0 0-2 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <button type="button" class="icon-btn" data-copy-link="{{ request.build_absolute_uri }}" aria-label="کپی پیوند خبر">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            </button>
+            <div class="article-share">
+                <span class="article-share-label">اشتراک‌گذاری:</span>
+                <a class="icon-btn" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ news_item.title|urlencode }}" target="_blank" rel="noopener noreferrer" aria-label="اشتراک در تلگرام">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4 3 11l6 2m12-9-3 15-7-5m10-10-10 10m0 0-2 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <button type="button" class="icon-btn" data-copy-link="{{ request.build_absolute_uri }}" aria-label="کپی پیوند خبر">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </button>
+            </div>
         </div>
     </article>
 

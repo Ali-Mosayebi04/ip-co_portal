@@ -44,3 +44,11 @@ class HomePageTests(TestCase):
     def test_home_page_shows_site_info_from_context_processor(self):
         response = self.client.get(reverse("home:index"))
         self.assertContains(response, "متن آزمایشی درباره ما")
+
+    def test_about_company_page_status_code(self):
+        response = self.client.get(reverse("home:about_company"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_contact_page_status_code(self):
+        response = self.client.get(reverse("home:contact"))
+        self.assertEqual(response.status_code, 200)

@@ -1,7 +1,9 @@
 <footer class="site-footer">
     <div class="container footer-inner">
         <div class="footer-about">
+            <span class="section-kicker">ایپکو</span>
             <h3>{{ site_info.about_title|default:"ایران خودرو" }}</h3>
+            <p>شرکت تحقیق، طراحی و تولید موتور ایران‌خودرو با تمرکز بر مهندسی دقیق، نوآوری صنعتی و تولید پایدار در مسیر رشد و توسعه قرار دارد.</p>
             {% if site_info.address %}<p>{{ site_info.address }}</p>{% endif %}
             {% if site_info.phone %}<p>تلفن: {{ site_info.phone }}</p>{% endif %}
             {% if site_info.email %}<p>ایمیل: {{ site_info.email }}</p>{% endif %}
@@ -10,12 +12,22 @@
         <div class="footer-links">
             <h3>لینک‌های سریع</h3>
             <ul>
+                <li><a href="{% url 'home:index' %}">صفحه اصلی</a></li>
+                <li><a href="{% url 'news:list' %}">اخبار</a></li>
+                <li><a href="{% url 'training:list' %}">آموزش‌ها</a></li>
+                <li><a href="{% url 'meetings:upcoming' %}">جلسات</a></li>
                 {% for link in quick_links %}
                     <li><a href="{{ link.url }}">{{ link.title }}</a></li>
                 {% empty %}
                     <li>لینکی ثبت نشده است.</li>
                 {% endfor %}
             </ul>
+        </div>
+
+        <div class="footer-links footer-cta">
+            <h3>ارتباط با سازمان</h3>
+            <p>برای دسترسی به اخبار، آموزش‌ها و رویدادهای سازمانی، از مسیرهای بالا استفاده کنید.</p>
+            <a class="btn btn-outline btn-outline-light" href="{% url 'home:index' %}#announcements">مشاهده اطلاعیه‌ها</a>
         </div>
     </div>
     <div class="footer-bottom">

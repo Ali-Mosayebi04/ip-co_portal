@@ -11,6 +11,14 @@ from __future__ import annotations
 from django.db.models import QuerySet
 from django.views.generic import TemplateView
 
+
+class AboutCompanyView(TemplateView):
+    template_name = "home/about_company.html"
+
+
+class ContactView(TemplateView):
+    template_name = "home/contact.html"
+
 from apps.news.models import News
 
 from .models import Announcement, SectionLink
