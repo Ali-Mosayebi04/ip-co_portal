@@ -51,6 +51,16 @@
                 </button>
             </div>
         </div>
+
+        <div class="article-share">
+            <span class="article-share-label">اشتراک‌گذاری:</span>
+            <a class="icon-btn" href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ news_item.title|urlencode }}" target="_blank" rel="noopener noreferrer" aria-label="اشتراک در تلگرام">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 4 3 11l6 2m12-9-3 15-7-5m10-10-10 10m0 0-2 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <button type="button" class="icon-btn" data-copy-link="{{ request.build_absolute_uri }}" aria-label="کپی پیوند خبر">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+        </div>
     </article>
 
     {% if related_news %}
