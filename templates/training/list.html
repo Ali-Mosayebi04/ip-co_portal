@@ -50,7 +50,7 @@
         {% if courses %}
             <div class="news-grid course-grid">
                 {% for course in courses %}
-                    <article class="news-card course-card">
+                    <article class="news-card course-card" data-reveal>
                         {% if course.cover_image %}
                             <a href="{{ course.get_absolute_url }}" class="news-card-image">
                                 <img src="{{ course.cover_image.url }}" alt="{{ course.title }}" loading="lazy">

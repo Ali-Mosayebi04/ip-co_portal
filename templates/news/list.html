@@ -28,9 +28,9 @@
         {% endif %}
 
         {% if news_list %}
-            <div class="news-grid">
+            <div class="news-grid news-grid--archive">
                 {% for item in news_list %}
-                    <article class="news-card">
+                    <article class="news-card{% if forloop.first and not search_query %} news-card--featured{% endif %}" data-reveal>
                         {% if item.cover_image %}
                             <a href="{{ item.get_absolute_url }}" class="news-card-image">
                                 <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">

@@ -70,7 +70,7 @@
             </div>
             <div class="news-grid">
                 {% for item in related_news %}
-                    <article class="news-card">
+                    <article class="news-card" data-reveal>
                         {% if item.cover_image %}
                             <a href="{{ item.get_absolute_url }}" class="news-card-image">
                                 <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">

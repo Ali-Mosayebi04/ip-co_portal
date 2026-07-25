@@ -17,7 +17,7 @@
         {% elif meetings %}
             <div class="meeting-list">
                 {% for meeting in meetings %}
-                    <article class="meeting-card">
+                    <article class="meeting-card" data-reveal>
                         <div class="meeting-date">
                             <span class="meeting-date-day">{{ meeting.date|date:"j" }}</span>
                             <span class="meeting-date-month">{{ meeting.date|date:"F" }}</span>
