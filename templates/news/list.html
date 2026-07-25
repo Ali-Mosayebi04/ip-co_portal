@@ -3,11 +3,19 @@
 {% block title %}آرشیو اخبار | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
-    <section class="news-archive container">
-        <div class="section-header">
-            <h1>آرشیو اخبار</h1>
+    <section class="page-hero page-hero-news container">
+        <div class="page-hero-copy">
+            <span class="section-kicker">اخبار و رویدادها</span>
+            <h1>آرشیو اخبار ایپکو</h1>
+            <p>از تحولات فنی و صنعتی تا رویدادهای سازمانی، همه خبرها در یک تجربه خوانش مدرن و قابل‌فهم گردآوری شده‌اند.</p>
         </div>
+        <div class="page-hero-panel">
+            <span class="hero-panel-tag">به‌روزترین رویدادها</span>
+            <p>اخبار منتشرشده در شرکت با تمرکز بر شفافیت، دقت و روایت حرفه‌ای نمایش داده می‌شوند.</p>
+        </div>
+    </section>
 
+    <section class="news-archive container">
         <div class="filter-bar">
             <form role="search" method="get">
                 <input type="search" name="q" placeholder="جست‌وجو در عنوان یا خلاصه خبر…" value="{{ search_query }}">

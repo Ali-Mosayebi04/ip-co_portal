@@ -4,118 +4,306 @@
 {% block title %}صفحه اصلی | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
-
-    {% with featured=latest_news.0 %}
-        {% if featured %}
-            <section class="hero">
-                <div class="container hero-inner">
-                    <div>
-                        <span class="hero-eyebrow">آخرین خبر شرکت</span>
-                        <h1 class="hero-title"><a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a></h1>
-                        <p class="hero-summary">{{ featured.summary }}</p>
-                        <div class="hero-meta">
-                            <span class="badge">خبر شرکت</span>
-                            <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
-                        </div>
-                        <div class="hero-actions">
-                            <a class="btn btn-primary" href="{{ featured.get_absolute_url }}">مطالعه کامل خبر</a>
-                            <a class="btn btn-secondary-light" href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a>
-                            <a class="btn btn-secondary-light" href="{% url 'training:list' %}">مشاهده آموزش‌ها</a>
-                        </div>
+    <section class="hero-shell hero-shell-cinematic" aria-label="معرفی شرکت" data-reveal>
+        <div class="container hero-landing">
+            <div class="hero-copy">
+                <span class="hero-eyebrow">شرکت تحقیق، طراحی و تولید موتور ایران‌خودرو</span>
+                <h1>مهندسی پیشرو برای آینده‌ی حمل‌ونقل</h1>
+                <p>
+                    ایپکو با تمرکز بر نوآوری، دقت مهندسی و توان تولید صنعتی، هویت یک شرکت خودروسازی پیشرفته را در سطح ملی و بین‌المللی شکل می‌دهد.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-solid" href="{% url 'news:list' %}">مشاهده اخبار و رویدادها</a>
+                    <a class="btn btn-outline btn-outline-light" href="{% url 'training:list' %}">سرنخ‌های فناوری و آموزش</a>
+                </div>
+                <div class="hero-badges">
+                    <span class="hero-pill">تحقیقات و توسعه</span>
+                    <span class="hero-pill">طراحی و ساخت</span>
+                    <span class="hero-pill">کیفیت و ایمنی</span>
+                </div>
+                <div class="hero-metrics" role="list" aria-label="دستاوردهای کلیدی">
+                    <div class="metric-card" role="listitem">
+                        <strong>۲۵+</strong>
+                        <span>سال تجربه در طراحی و تولید موتور</span>
                     </div>
-                    <div class="hero-media">
-                        {% if featured.cover_image %}
-                            <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}">
-                        {% else %}
-                            <div class="hero-media-placeholder">بدون تصویر شاخص</div>
-                        {% endif %}
+                    <div class="metric-card" role="listitem">
+                        <strong>۱۰۰٪</strong>
+                        <span>تمرکز بر کیفیت و دقت صنعتی</span>
+                    </div>
+                    <div class="metric-card" role="listitem">
+                        <strong>R&amp;D</strong>
+                        <span>تیم‌های پژوهش و توسعه در حال رشد</span>
                     </div>
                 </div>
-            </section>
-        {% endif %}
-    {% endwith %}
-
-    <section class="about-section container">
-        <h1>{{ site_info.about_title }}</h1>
-        <p class="about-text">{{ site_info.about_text|linebreaksbr }}</p>
-    </section>
-
-    <section class="portal-shortcuts container" aria-label="دسترسی سریع کارکنان">
-        <div class="portal-shortcuts-card">
-            <div class="portal-shortcuts-copy">
-                <span class="section-kicker">دسترسی سریع</span>
-                <h2>ورود سریع به جلسات و آموزش‌های سازمانی</h2>
-                <p>برای دسترسی مستقیم به برنامه جلسات، دوره‌های آموزشی و جریان رسمی اطلاعات داخلی، از میانبرهای زیر استفاده کنید.</p>
             </div>
-            <div class="portal-shortcuts-actions">
-                <a class="btn btn-brand" href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a>
-                <a class="btn btn-outline" href="{% url 'training:list' %}">مشاهده آموزش‌ها</a>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-orb"></div>
+                <div class="hero-panel">
+                    <span class="hero-panel-tag">پلتفرم تولید آینده</span>
+                    <h2>قدرت صنعتی، دقت مهندسی</h2>
+                    <p>از طراحی مفهومی تا تولید، هر مرحله با رویکردی دقیق، قابل اتکا و مدرن انجام می‌شود.</p>
+                    <ul class="hero-highlights">
+                        <li>تجهیزات پیشرفته و بهره‌وری بالا</li>
+                        <li>توسعه محصول با رویکرد آینده‌نگر</li>
+                        <li>تعهد به کیفیت و ایمنی</li>
+                    </ul>
+                    <div class="hero-panel-footer">
+                        <span>عملکرد قابل پیگیری</span>
+                        <strong>99.2%</strong>
+                    </div>
+                </div>
+                <div class="hero-scroll-indicator" aria-hidden="true">
+                    <span>اسکرول برای کشف بیشتر</span>
+                    <div class="hero-scroll-line"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section news-section container">
-        <div class="section-header">
-            <h2>جدیدترین اخبار</h2>
-            <a class="see-all" href="{% url 'news:list' %}">مشاهده همه &larr;</a>
-        </div>
+    <section class="section intro-band" data-reveal>
+        <div class="container intro-grid editorial-grid">
+            <div class="intro-copy editorial-copy">
+                <span class="section-kicker">درباره ایپکو</span>
+                <h2>{{ site_info.about_title }}</h2>
+                <p>{{ site_info.about_text|linebreaksbr }}</p>
+                <div class="intro-actions">
+                    <a class="btn btn-brand" href="{% url 'home:index' %}#announcements">مشاهده اطلاعیه‌ها</a>
+                    <a class="btn btn-outline" href="{% url 'meetings:upcoming' %}">برنامه‌های سازمانی</a>
+                </div>
+            </div>
 
-        {% if latest_news %}
-            <div class="news-grid">
-                {% for item in latest_news %}
-                    <article class="news-card">
-                        {% if item.cover_image %}
-                            <a href="{{ item.get_absolute_url }}" class="news-card-image">
-                                <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
-                            </a>
-                        {% endif %}
-                        <div class="news-card-body">
-                            <div class="news-card-meta">
-                                <span class="badge">خبر شرکت</span>
-                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
-                            </div>
-                            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-                            <p>{{ item.summary }}</p>
-                            <div class="news-card-footer">
-                                <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب &larr;</a>
-                            </div>
+            <div class="intro-cards editorial-cards">
+                <article class="feature-card">
+                    <h3>توسعه محصول</h3>
+                    <p>طراحی و بهینه‌سازی محصولات با تمرکز بر کارایی، دوام و نوآوری.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>تحقیق و پژوهش</h3>
+                    <p>استفاده از رویکردهای علمی و مهندسی برای ارتقای ظرفیت‌های تولیدی.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>همکاری‌های صنعتی</h3>
+                    <p>ایجاد بسترهای هم‌افزایی با شرکای راهبردی در صنعت خودرو.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section premium-automotive-section" data-reveal>
+        <div class="container premium-automotive-shell">
+            <div class="premium-automotive-copy">
+                <span class="section-kicker">هویت مهندسی ایپکو</span>
+                <h2>از طراحی مهندسی تا تولید با دقت، اعتماد و نگاه آینده</h2>
+                <p>ایپکو در مسیر توسعه محصول، با رویکردی صنعتی و آینده‌محور، از تحلیل فنی تا اجرای دقیق، هویت یک برند خودروسازی پیشرفته را در هر مرحله تثبیت می‌کند.</p>
+                <div class="premium-automotive-badges">
+                    <span class="premium-badge">طراحی و تحلیل موتور</span>
+                    <span class="premium-badge">بهینه‌سازی عملکرد</span>
+                    <span class="premium-badge">کنترل کیفیت و ایمنی</span>
+                </div>
+            </div>
+            <div class="premium-automotive-visual">
+                <div class="automotive-glow" aria-hidden="true"></div>
+                <div class="premium-automotive-card">
+                    <div class="premium-automotive-card-header">
+                        <span class="badge badge-info">پلتفرم مهندسی</span>
+                        <strong>سیستم تولید هوشمند</strong>
+                    </div>
+                    <div class="premium-automotive-line"></div>
+                    <div class="premium-automotive-stats">
+                        <div>
+                            <strong>18</strong>
+                            <span>پارامتر کنترل فنی</span>
                         </div>
-                    </article>
-                {% endfor %}
+                        <div>
+                            <strong>99.2%</strong>
+                            <span>دقت در فرآیند</span>
+                        </div>
+                        <div>
+                            <strong>24/7</strong>
+                            <span>پایش و پشتیبانی</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% else %}
-            <p class="empty-state">در حال حاضر خبری برای نمایش وجود ندارد.</p>
-        {% endif %}
+        </div>
     </section>
 
-    <section class="section sections-links container">
-        <div class="section-header">
-            <h2>بخش‌های شرکت</h2>
-        </div>
-
-        {% if section_links %}
-            <div class="sections-grid">
-                {% for link in section_links %}
-                    <a class="section-card" href="{{ link.url }}">
-                        {% if link.icon %}
-                            <i class="{{ link.icon }}" aria-hidden="true"></i>
-                        {% else %}
-                            <span class="section-card-icon" aria-hidden="true">{{ link.title|slice:":1" }}</span>
-                        {% endif %}
-                        <span class="section-card-title">{{ link.title }}</span>
-                        {% if link.description %}<span class="section-card-desc">{{ link.description }}</span>{% endif %}
-                    </a>
-                {% endfor %}
+    <section class="section section-surface" data-reveal>
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">توانمندی‌های کلیدی</span>
+                    <h2>بخش‌های اصلی شرکت</h2>
+                </div>
+                <a class="see-all" href="{% url 'news:list' %}">مشاهده رویدادها</a>
             </div>
-        {% else %}
-            <p class="empty-state">لینکی برای بخش‌های شرکت ثبت نشده است.</p>
-        {% endif %}
+
+            {% if section_links %}
+                <div class="sections-grid">
+                    {% for link in section_links %}
+                        <a class="section-card capability-card editorial-card" href="{{ link.url }}" data-reveal>
+                            {% if link.icon %}
+                                <i class="{{ link.icon }}" aria-hidden="true"></i>
+                            {% else %}
+                                <span class="section-card-icon" aria-hidden="true">{{ link.title|slice:":1" }}</span>
+                            {% endif %}
+                            <span class="section-card-title">{{ link.title }}</span>
+                            {% if link.description %}<span class="section-card-desc">{{ link.description }}</span>{% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">لینکی برای بخش‌های شرکت ثبت نشده است.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="section split-section" data-reveal>
+        <div class="container split-grid">
+            <article class="split-panel panel-strong editorial-panel">
+                <span class="section-kicker">پژوهش و توسعه</span>
+                <h2>از ایده تا محصول قابل اعتماد</h2>
+                <p>در ایپکو، مسیر تحول محصول با یک رویکرد مهندسی دقیق آغاز می‌شود؛ از تحلیل نیاز تا تست نهایی، همه مراحل با شناخت فنی عمیق و نظارت حرفه‌ای همراه است.</p>
+                <ul class="stack-list">
+                    <li>تحلیل و طراحی سیستم‌های موتور</li>
+                    <li>بهینه‌سازی عملکرد و مصرف سوخت</li>
+                    <li>به‌روزرسانی‌های فناورانه و نوآوری</li>
+                </ul>
+            </article>
+
+            <article class="split-panel panel-soft editorial-panel">
+                <span class="section-kicker">نوآوری</span>
+                <h2>فناوری‌های مدرن در خدمت صنعت</h2>
+                <p>ایپکو با رویکردی آینده‌محور، از روش‌های نوین مهندسی و مدیریت داده برای خلق محصولات با کیفیت بالا بهره می‌برد.</p>
+                <div class="pill-row">
+                    <span class="pill">تحلیل داده</span>
+                    <span class="pill">مدیریت کیفیت</span>
+                    <span class="pill">پلتفرم تولید دیجیتال</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section news-section-modern" data-reveal>
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">اخبار و رویدادها</span>
+                    <h2>آخرین تحولات شرکت</h2>
+                </div>
+                <a class="see-all" href="{% url 'news:list' %}">مشاهده آرشیو کامل</a>
+            </div>
+
+            {% if latest_news %}
+                <div class="news-modern-grid">
+                    {% with featured=latest_news.0 %}
+                        {% if featured %}
+                            <article class="news-featured" data-reveal>
+                                {% if featured.cover_image %}
+                                    <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}" loading="lazy">
+                                {% endif %}
+                                <div class="news-featured-body">
+                                    <span class="badge">خبر شرکت</span>
+                                    <h3><a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a></h3>
+                                    <p>{{ featured.summary }}</p>
+                                    <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
+                                </div>
+                            </article>
+                        {% endif %}
+                    {% endwith %}
+
+                    <div class="news-stack">
+                        {% for item in latest_news|slice:":4" %}
+                            <article class="news-stack-item" data-reveal>
+                                <div>
+                                    <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                                    <p>{{ item.summary }}</p>
+                                </div>
+                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="empty-state">در حال حاضر خبری برای نمایش وجود ندارد.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container manufacturing-grid">
+            <article class="manufacturing-card editorial-panel" data-reveal>
+                <span class="section-kicker">ظرفیت تولید</span>
+                <h2>تجهیزات و فرایندهای دقیق برای تولید صنعتی مدرن</h2>
+                <p>از خطوط مونتاژ تا کنترل کیفیت، ایپکو با بهره‌گیری از ساختارهای تخصصی در مسیر تولید پایدار و دقیق حرکت می‌کند.</p>
+                <div class="stats-list">
+                    <div>
+                        <strong>۴+</strong>
+                        <span>سامانه تولیدی پیشرفته</span>
+                    </div>
+                    <div>
+                        <strong>۳۶۰°</strong>
+                        <span>کنترل کیفیت در همه مراحل</span>
+                    </div>
+                    <div>
+                        <strong>24/7</strong>
+                        <span>پشتیبانی فنی و برنامه‌ریزی</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="manufacturing-card panel-soft editorial-panel" data-reveal>
+                <span class="section-kicker">از طراحی تا اجرا</span>
+                <h2>سیر تحول محصول در یک نگاه</h2>
+                <div class="timeline-compact">
+                    <div class="timeline-step">
+                        <span>01</span>
+                        <div>
+                            <strong>تحلیل و طراحی</strong>
+                            <p>تدوین راهکارهای فنی و مهندسی</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <span>02</span>
+                        <div>
+                            <strong>توسعه و ساخت</strong>
+                            <p>اجرای نمونه و آماده‌سازی تولید</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <span>03</span>
+                        <div>
+                            <strong>ارزیابی و بهبود</strong>
+                            <p>بهینه‌سازی عملکرد و کیفیت</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" data-reveal>
+        <div class="container cta-card">
+            <div>
+                <span class="section-kicker">همکاری و فرصت‌های شغلی</span>
+                <h2>برای رشد با یک شرکت پیشرو در صنعت خودروی ایران، در کنار ما باشید.</h2>
+                <p>در مسیر نوآوری، فناوری و تولید، فرصت‌های مختلفی برای همکاری با متخصصان، شرکای تجاری و دانشجویان فراهم است.</p>
+            </div>
+            <div class="cta-actions">
+                <a class="btn btn-solid" href="{% url 'training:list' %}">مشاهده آموزش‌ها</a>
+                <a class="btn btn-outline" href="{% url 'meetings:upcoming' %}">دسترسی به برنامه‌های داخلی</a>
+            </div>
+        </div>
     </section>
 
     {% if announcements %}
         <section class="announcement-section container" id="announcements">
             <div class="section-header">
-                <h2>اطلاعیه‌ها</h2>
+                <div>
+                    <span class="section-kicker">اطلاعیه‌های شرکت</span>
+                    <h2>گالری رویدادها و اطلاعیه‌ها</h2>
+                </div>
             </div>
 
             <div class="announcement-gallery">
@@ -151,5 +339,4 @@
             </div>
         </div>
     {% endif %}
-
 {% endblock %}

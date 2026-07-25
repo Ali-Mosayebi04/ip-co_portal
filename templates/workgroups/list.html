@@ -3,15 +3,23 @@
 {% block title %}کارگروه‌ها | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
-    <section class="workgroups-archive container">
-        <div class="section-header">
-            <h1>کارگروه‌ها</h1>
+    <section class="page-hero container" data-reveal>
+        <div class="page-hero-copy">
+            <span class="section-kicker">سازمان و ساختار</span>
+            <h1>کارگروه‌های تخصصی ایپکو</h1>
+            <p>بخش‌های مختلف شرکت با تمرکز بر تخصص، همکاری و نوآوری در مسیر توسعه فناوری و تولید هماهنگ عمل می‌کنند.</p>
         </div>
+        <div class="page-hero-panel editorial-panel">
+            <span class="hero-panel-tag">شبکه تخصصی</span>
+            <p>هر کارگروه بخشی از ساختار راهبردی ایپکو است که در حوزه‌های مختلف مهندسی و تولید فعالیت می‌کند.</p>
+        </div>
+    </section>
 
+    <section class="workgroups-archive container" data-reveal>
         {% if workgroups %}
-            <div class="sections-grid">
+            <div class="sections-grid workgroups-grid">
                 {% for group in workgroups %}
-                    <a class="section-card" href="{{ group.get_absolute_url }}">
+                    <a class="section-card editorial-card workgroup-card" href="{{ group.get_absolute_url }}" data-reveal>
                         <span class="section-card-title">{{ group.name }}</span>
                         {% if group.description %}
                             <span class="section-card-desc">{{ group.description|truncatewords:14 }}</span>

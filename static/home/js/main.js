@@ -87,6 +87,61 @@
     root.classList.remove("theme-init");
   });
 
+  var header = document.querySelector('.site-header');
+  function updateHeaderState() {
+    if (header) {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    }
+  }
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+
+  var heroVisual = document.querySelector('.hero-visual');
+  var heroPanel = document.querySelector('.hero-panel');
+  if (heroVisual && heroPanel) {
+    heroVisual.addEventListener('mousemove', function (event) {
+      var rect = heroVisual.getBoundingClientRect();
+      var x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+      var y = ((event.clientY - rect.top) / rect.height - 0.5) * 10;
+      heroPanel.style.transform = 'perspective(900px) rotateY(' + (x * -0.7).toFixed(2) + 'deg) rotateX(' + (y * 0.5).toFixed(2) + 'deg) translateY(-4px)';
+    });
+    heroVisual.addEventListener('mouseleave', function () {
+      heroPanel.style.transform = '';
+    });
+  }
+
+  var revealItems = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  revealItems.forEach(function (item, index) {
+    item.style.setProperty('--reveal-index', index);
+    item.style.transitionDelay = (index * 70) + 'ms';
+  });
+
+  function revealOnScroll() {
+    revealItems.forEach(function (item) {
+      var rect = item.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 110) {
+        item.classList.add('is-visible');
+      }
+    });
+  }
+  revealOnScroll();
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    revealItems.forEach(function (item) {
+      revealObserver.observe(item);
+    });
+  } else {
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
+    window.addEventListener('resize', revealOnScroll);
+  }
+
   /* ---------------------------------------------------------------
    * Mobile nav drawer toggle
    * ------------------------------------------------------------- */
@@ -97,7 +152,20 @@
     toggle.addEventListener("click", function () {
       var isOpen = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      document.body.classList.toggle("nav-open", isOpen);
       if (!isOpen) {
+        closeAllDropdowns(null);
+      }
+    });
+  }
+
+  var backdrop = document.querySelector('.nav-backdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', function () {
+      if (nav) {
+        nav.classList.remove('open');
+        toggle && toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
         closeAllDropdowns(null);
       }
     });
