@@ -220,7 +220,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item nav-item-dropdown">
+                  <!-- <li class="nav-item nav-item-dropdown">
                         <button
                             type="button"
                             class="nav-link dropdown-toggle"
@@ -244,13 +244,13 @@
                                 </ul>
                             </div>
                         </div>
-                    </li>
-                    <li><a href="{% url 'meetings:upcoming' %}">جلسات</a></li>
+                    </li>--> 
+                 <!--  <li><a href="{% url 'meetings:upcoming' %}">جلسات</a></li>
                     <li><a href="{% url 'training:list' %}">آموزش‌ها</a></li>
                     <li><a href="{% url 'news:list' %}">اخبار</a></li>
                     <li><a href="{% url 'home:about_company' %}">درباره ما</a></li>
                     <li><a href="{% url 'home:contact' %}">تماس</a></li>
-
+--> 
                     {% for item in nav_items %}
                         <li>
                             <a href="{{ item.url }}" {% if item.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
