@@ -18,6 +18,7 @@
             <a class="back-link" href="{% url 'workgroups:list' %}">&rarr; بازگشت به کارگروه‌ها</a>
 
             <div class="workgroup-intro">
+                <span class="section-kicker">ساختار سازمانی</span>
                 <h1>{{ workgroup.name }}</h1>
                 {% if workgroup.description %}
                     <p class="workgroup-description">{{ workgroup.description|linebreaksbr }}</p>

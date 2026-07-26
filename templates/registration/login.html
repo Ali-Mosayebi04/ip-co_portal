@@ -3,10 +3,13 @@
 {% block title %}ورود به پورتال | پورتال داخلی ایپکو{% endblock %}
 
 {% block content %}
-    <section class="auth-page container">
+    <section class="auth-page container" data-reveal>
         <div class="auth-card">
-            <h1 class="auth-title">ورود به پورتال</h1>
-            <p class="auth-subtitle">برای مشاهده جلسات، اعلان‌های اختصاصی و دسترسی به خدمات داخلی، وارد حساب کاربری خود شوید.</p>
+            <div class="auth-card-intro">
+                <span class="section-kicker">دسترسی اختصاصی</span>
+                <h1 class="auth-title">ورود به پورتال</h1>
+                <p class="auth-subtitle">برای مشاهده جلسات، اعلان‌های اختصاصی و دسترسی به خدمات داخلی، وارد حساب کاربری خود شوید.</p>
+            </div>
 
             {% if form.non_field_errors %}
                 <div class="auth-alert" role="alert">

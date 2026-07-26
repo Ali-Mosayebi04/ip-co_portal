@@ -3,7 +3,14 @@ from django.contrib import admin
 from .models import Announcement, NavItem, QuickLink, SectionLink, SiteInfo
 
 
-class OrderedLinkAdmin(admin.ModelAdmin):
+class ThemeAdminMixin(admin.ModelAdmin):
+    class Media:
+        css = {
+            "all": ("admin/css/custom_admin.css",),
+        }
+
+
+class OrderedLinkAdmin(ThemeAdminMixin):
     list_display = ("title", "url", "order", "is_active")
     list_editable = ("order", "is_active")
     search_fields = ("title", "url")
@@ -21,7 +28,7 @@ class SectionLinkAdmin(OrderedLinkAdmin):
 
 
 @admin.register(Announcement)
-class AnnouncementAdmin(admin.ModelAdmin):
+class AnnouncementAdmin(ThemeAdminMixin):
     list_display = ("title", "is_active", "created_at")
     search_fields = ("title",)
     list_filter = ("is_active",)
@@ -34,7 +41,7 @@ class QuickLinkAdmin(OrderedLinkAdmin):
 
 
 @admin.register(SiteInfo)
-class SiteInfoAdmin(admin.ModelAdmin):
+class SiteInfoAdmin(ThemeAdminMixin):
     list_display = ("about_title", "phone", "email", "updated_at")
 
     def has_add_permission(self, request):
@@ -43,3 +50,8 @@ class SiteInfoAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+admin.site.site_header = "پورتال داخلی ایپکو"
+admin.site.site_title = "ایپکو | مدیریت"
+admin.site.index_title = "مدیریت محتوا و تنظیمات"
