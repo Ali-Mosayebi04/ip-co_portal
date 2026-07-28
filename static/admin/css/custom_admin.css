@@ -1,22 +1,22 @@
 :root {
   color-scheme: light;
-  --admin-accent: #8f4d20;
-  --admin-accent-soft: #f4e8dc;
-  --admin-surface: #fffdf9;
-  --admin-surface-alt: #fcf7f1;
-  --admin-border: #e7ded3;
-  --admin-text: #231913;
-  --admin-muted: #786658;
+  --admin-accent: #1b4d8c;
+  --admin-accent-soft: #e7edf6;
+  --admin-surface: #ffffff;
+  --admin-surface-alt: #fafbfd;
+  --admin-border: #e1e6ee;
+  --admin-text: #101a2c;
+  --admin-muted: #4b5768;
 }
 
 body {
-  background: linear-gradient(180deg, #f5efe8 0%, #f8f2ea 100%);
+  background: #f3f5f9;
   color: var(--admin-text);
-  font-family: "Vazirmatn", "IRANSansX", Tahoma, sans-serif;
+  font-family: "IBM Plex Sans Arabic", "Vazirmatn", "IRANSansX", Tahoma, sans-serif;
 }
 
 #header {
-  background: linear-gradient(135deg, #1f252b 0%, #2b342c 100%);
+  background: #0a1f3a;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -33,45 +33,47 @@ div.breadcrumbs {
 .module {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(35, 25, 19, 0.06);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(10, 22, 41, 0.06);
 }
 
 .module h2, .module caption, .inline-group h2 {
-  background: linear-gradient(90deg, var(--admin-accent-soft), transparent);
+  background: var(--admin-accent-soft);
   color: var(--admin-accent);
   border-bottom: 1px solid var(--admin-border);
 }
 
 .button, input[type="submit"], input[type="button"], .submit-row input, a.button {
-  border-radius: 999px;
-  border: 1px solid var(--admin-border);
-  background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-soft));
+  border-radius: 8px;
+  border: 1px solid var(--admin-accent);
+  background: var(--admin-accent);
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
+  transition: background 180ms ease, border-color 180ms ease;
 }
 
 .button:hover, input[type="submit"]:hover, input[type="button"]:hover, .submit-row input:hover, a.button:hover {
-  background: linear-gradient(135deg, #8f4d20, #b86a2b);
+  background: #123563;
+  border-color: #123563;
 }
 
 .select2-container--admin-autocomplete .select2-selection, input[type="text"], input[type="password"], input[type="email"], input[type="url"], textarea, select {
   border: 1px solid var(--admin-border);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--admin-surface);
   color: var(--admin-text);
 }
 
 .fieldset {
   border: 1px solid var(--admin-border);
-  border-radius: 14px;
+  border-radius: 10px;
   background: var(--admin-surface-alt);
 }
 
 .change-list .actions, .paginator {
   background: var(--admin-surface);
   border: 1px solid var(--admin-border);
-  border-radius: 14px;
+  border-radius: 10px;
 }
 
 .object-tools a, .object-tools li a {
