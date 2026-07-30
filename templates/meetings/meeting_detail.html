@@ -1,0 +1,271 @@
+{% extends "home/base.html" %}
+
+{% block title %}{{ meeting.title }} | پورتال خبری ایران‌خودرو{% endblock %}
+
+{% block content %}
+    <section class="page-hero container">
+        <div class="page-hero-copy">
+            <span class="section-kicker">جزئیات جلسه</span>
+            <h1>{{ meeting.title }}</h1>
+            {% if meeting.is_cancelled %}
+                <p><span class="badge badge-danger">این جلسه لغو شده است</span></p>
+            {% endif %}
+        </div>
+        <div class="page-hero-panel">
+            {% if not meeting.is_cancelled %}
+                <a href="{% url 'meetings:edit' meeting.pk %}" class="btn btn-primary">ویرایش</a>
+                <a href="{% url 'meetings:delete' meeting.pk %}" class="btn btn-danger">لغو جلسه</a>
+            {% endif %}
+            <a href="{% url 'meetings:list' %}" class="btn btn-secondary">بازگشت به لیست</a>
+        </div>
+    </section>
+
+    <section class="meeting-detail container">
+        <div class="meeting-info-card">
+            <h2>اطلاعات جلسه</h2>
+
+            <div class="info-row">
+                <span class="info-label">تاریخ:</span>
+                <span class="info-value">{{ meeting.date|date:"l j F Y" }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">زمان:</span>
+                <span class="info-value">{{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">اتاق:</span>
+                <span class="info-value">{{ meeting.room.name }}</span>
+            </div>
+
+            {% if meeting.room.location %}
+                <div class="info-row">
+                    <span class="info-label">محل:</span>
+                    <span class="info-value">{{ meeting.room.location }}</span>
+                </div>
+            {% endif %}
+
+            {% if meeting.organizer %}
+                <div class="info-row">
+                    <span class="info-label">برگزارکننده:</span>
+                    <span class="info-value">{{ meeting.organizer.get_full_name|default:meeting.organizer.username }}</span>
+                </div>
+            {% endif %}
+
+            {% if meeting.agenda %}
+                <div class="info-row">
+                    <span class="info-label">دستور جلسه:</span>
+                    <div class="info-value">{{ meeting.agenda|linebreaksbr }}</div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="attendees-card">
+            <h2>شرکت‌کنندگان ({{ meeting.attendees.count }} نفر)</h2>
+
+            {% if meeting.attendees.exists %}
+                <div class="attendees-list">
+                    {% for attendee in meeting.attendees.all %}
+                        <div class="attendee-item">
+                            {% if attendee.photo %}
+                                <img src="{{ attendee.photo.url }}" alt="{{ attendee.full_name }}" class="attendee-photo">
+                            {% else %}
+                                <div class="attendee-photo-placeholder">{{ attendee.full_name|first }}</div>
+                            {% endif %}
+                            <div class="attendee-info">
+                                <strong>{{ attendee.full_name }}</strong>
+                                {% if attendee.position %}
+                                    <span class="attendee-position">{{ attendee.position }}</span>
+                                {% endif %}
+                                <span class="attendee-workgroup">{{ attendee.workgroup.name }}</span>
+                                {% if attendee.email %}
+                                    <span class="attendee-email">{{ attendee.email }}</span>
+                                {% endif %}
+
+                                {% with invitation=meeting.invitations.all|first %}
+                                    {% if invitation.sent_at %}
+                                        <span class="badge badge-success">دعوت‌نامه ارسال شد</span>
+                                    {% elif invitation.send_error %}
+                                        <span class="badge badge-danger" title="{{ invitation.send_error }}">خطا در ارسال</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">در انتظار ارسال</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">هیچ شرکت‌کننده‌ای انتخاب نشده است.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <style>
+        .meeting-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .meeting-info-card,
+        .attendees-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .meeting-info-card h2,
+        .attendees-card h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .attendees-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .attendee-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+
+        .attendee-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .attendee-photo-placeholder {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #0066cc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .attendee-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .attendee-info strong {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .attendee-position,
+        .attendee-workgroup,
+        .attendee-email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .meeting-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}
