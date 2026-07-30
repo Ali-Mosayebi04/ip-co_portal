@@ -1,6 +1,6 @@
 {% extends "home/base.html" %}
 
-{% block title %}آرشیو اخبار | پورتال داخلی ایپکو{% endblock %}
+{% block title %}آرشیو اخبار | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
     <section class="page-hero page-hero-news container">
@@ -18,13 +18,13 @@
     <section class="news-archive container">
         <div class="filter-bar">
             <form role="search" method="get">
-                <input type="search" name="q" placeholder="جست‌وجو در عنوان یا خلاصه خبر…" value="{{ search_query }}">
-                <button type="submit" class="btn btn-outline">جست‌وجو</button>
+                <input type="search" name="q" placeholder="جست‌وجو در عنوان یا خلاصه خبر…" value="{{ search_query }}" aria-label="جست‌وجو در اخبار">
+                <button type="submit" class="btn btn-solid">جست‌وجو</button>
             </form>
         </div>
 
         {% if search_query %}
-            <p class="search-result-note">نتایج جست‌وجو برای «{{ search_query }}»</p>
+            <p class="search-result-note">نتایج جست‌وجو برای «<strong>{{ search_query }}</strong>»</p>
         {% endif %}
 
         {% if news_list %}
@@ -32,7 +32,7 @@
                 {% for item in news_list %}
                     <article class="news-card{% if forloop.first and not search_query %} news-card--featured{% endif %}" data-reveal>
                         {% if item.cover_image %}
-                            <a href="{{ item.get_absolute_url }}" class="news-card-image">
+                            <a href="{{ item.get_absolute_url }}" class="news-card-image" aria-hidden="true" tabindex="-1">
                                 <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
                             </a>
                         {% endif %}
@@ -44,7 +44,7 @@
                             <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
                             <p>{{ item.summary }}</p>
                             <div class="news-card-footer">
-                                <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب &larr;</a>
+                                <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب</a>
                             </div>
                         </div>
                     </article>
@@ -54,7 +54,7 @@
             {% if is_paginated %}
                 <nav class="pagination" aria-label="صفحه‌بندی اخبار">
                     {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">&rarr; قبلی</a>
+                        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}">قبلی &rarr;</a>
                     {% endif %}
                     <span class="pagination-current">صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</span>
                     {% if page_obj.has_next %}
@@ -65,7 +65,7 @@
         {% else %}
             <p class="empty-state">
                 {% if search_query %}
-                    خبری مطابق با جست‌وجوی شما یافت نشد.
+                    خبری مطابق با جست‌وجوی شما یافت نشد. عبارت دیگری را امتحان کنید.
                 {% else %}
                     در حال حاضر خبری برای نمایش وجود ندارد.
                 {% endif %}
