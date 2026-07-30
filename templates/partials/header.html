@@ -2,7 +2,7 @@
 <header class="site-header">
     <div class="header-utility">
         <div class="container">
-            <span>پورتال داخلی شرکت تحقیق، طراحی و تولید موتور ایران‌خودرو (ایپکو)</span>
+            <span>پورتال رسمی شرکت تحقیق، طراحی و تولید موتور ایران‌خودرو (ایپکو)</span>
             <span>{% now "l، j F Y" %}</span>
         </div>
     </div>
@@ -16,109 +16,138 @@
             {% endif %}
             <span class="brand-title">
                 ایپکو
-                <small>پورتال داخلی اطلاع‌رسانی و خدمات سازمانی</small>
+                <small>پورتال اطلاع‌رسانی و خدمات سازمانی</small>
             </span>
         </a>
 
         <form class="header-search" role="search" action="{% url 'news:list' %}" method="get">
-            <div class="header-search-field">
-                <label for="site-search" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">جست‌وجو در اخبار</label>
-                <input type="search" id="site-search" name="q" placeholder="جست‌وجو در اخبار و اطلاعیه‌ها…" value="{{ request.GET.q }}">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-                    <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+            <div class="search-overlay-panel">
+                <div class="header-search-field">
+                    <label for="site-search" class="sr-only">جست‌وجو در اخبار</label>
+                    <input type="search" id="site-search" name="q"
+                           placeholder="موضوع، دسته یا عنوان خبر را بنویسید…" value="{{ request.GET.q }}"
+                           autocomplete="off">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+                        <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <button type="button" class="search-close" aria-label="بستن جست‌وجو">×</button>
+                <div class="search-hints" aria-hidden="true">
+                    <span class="search-hints-label">دسترسی سریع</span>
+                    <a href="{% url 'news:list' %}">آرشیو اخبار</a>
+                    <a href="{% url 'meetings:upcoming' %}">جلسات سازمانی</a>
+                    <a href="{% url 'training:list' %}">دوره‌های آموزشی</a>
+                    <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
+                </div>
+                <p class="search-empty-note">برای جست‌وجو بنویسید و Enter را بزنید · با کلید Esc بسته می‌شود</p>
             </div>
         </form>
 
         <div class="header-actions">
-            <button type="button" class="icon-btn header-search-toggle" id="header-search-toggle" aria-expanded="false" aria-controls="site-search" aria-label="جست‌وجو در پورتال">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
-                    <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                </svg>
-            </button>
-
-            <div class="theme-switcher" id="theme-switcher">
-                <button type="button" class="icon-btn" id="theme-switcher-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="theme-switcher-menu" aria-label="تغییر پوسته نمایش">
-                    <svg id="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
-                        <path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
-                    <svg id="theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none;">
-                        <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <div class="theme-switcher-menu" id="theme-switcher-menu" role="menu" aria-label="گزینه‌های پوسته">
-                    <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">حالت روشن</button>
-                    <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">حالت تیره</button>
-                    <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="false">هماهنگ با سیستم</button>
-                </div>
-            </div>
-
-            <div class="nav-item-dropdown notifications-menu">
-                <button
-                    type="button"
-                    class="icon-btn dropdown-toggle notification-trigger"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    aria-controls="notifications-dropdown"
-                    aria-label="اعلان‌ها و به‌روزرسانی‌های پورتال"
-                >
+                <button type="button" class="icon-btn header-search-toggle" id="header-search-toggle"
+                        aria-expanded="false" aria-controls="site-search" aria-label="جست‌وجو در پورتال">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-                        <path d="M9.5 17.5a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"></circle>
+                        <path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
                     </svg>
-                    {% if header_notification_count %}
-                        <span class="dot" aria-hidden="true"></span>
-                    {% endif %}
                 </button>
-                <div class="dropdown-panel" id="notifications-dropdown">
-                    <div class="dropdown-menu-wrap">
-                        <div class="dropdown-menu dropdown-menu-notifications">
-                            <div class="dropdown-menu-title-row">
-                                <strong>اعلان‌های پورتال</strong>
-                                <span>{{ header_notification_count }} مورد</span>
-                            </div>
-                            {% if header_notifications %}
-                                <ul class="notification-list">
-                                    {% for item in header_notifications %}
-                                        <li>
-                                            <a href="{{ item.url }}" class="notification-item notification-item--{{ item.kind }}">
-                                                <span class="notification-badge notification-badge--{{ item.kind }}">{{ item.label }}</span>
-                                                <span class="notification-body">
+
+                <div class="theme-switcher" id="theme-switcher">
+                    <button type="button" class="icon-btn" id="theme-switcher-toggle" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="theme-switcher-menu" aria-label="تغییر پوسته نمایش">
+                        <svg id="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                             aria-hidden="true">
+                            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"></circle>
+                            <path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"
+                                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                        </svg>
+                        <svg id="theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                             aria-hidden="true" style="display:none;">
+                            <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" stroke="currentColor"
+                                  stroke-width="1.8" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                    <div class="theme-switcher-menu" id="theme-switcher-menu" role="menu" aria-label="گزینه‌های پوسته">
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light"
+                                aria-checked="false">حالت روشن
+                        </button>
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark"
+                                aria-checked="false">حالت تیره
+                        </button>
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system"
+                                aria-checked="false">هماهنگ با سیستم
+                        </button>
+                    </div>
+                </div>
+
+                <div class="nav-item-dropdown notifications-menu">
+                    <button
+                            type="button"
+                            class="icon-btn dropdown-toggle notification-trigger"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            aria-controls="notifications-dropdown"
+                            aria-label="اعلان‌ها و به‌روزرسانی‌های پورتال"
+                    >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M6 9a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9Z" stroke="currentColor"
+                                  stroke-width="1.8" stroke-linejoin="round"></path>
+                            <path d="M9.5 17.5a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round"></path>
+                        </svg>
+                        {% if header_notification_count %}
+                            <span class="dot" aria-hidden="true"></span>
+                        {% endif %}
+                    </button>
+                    <div class="dropdown-panel" id="notifications-dropdown">
+                        <div class="dropdown-menu-wrap">
+                            <div class="dropdown-menu dropdown-menu-notifications">
+                                <div class="dropdown-menu-title-row">
+                                    <strong>اعلان‌های پورتال</strong>
+                                    <span>{{ header_notification_count }} مورد</span>
+                                </div>
+                                {% if header_notifications %}
+                                    <ul class="notification-list">
+                                        {% for item in header_notifications %}
+                                            <li>
+                                                <a href="{{ item.url }}"
+                                                   class="notification-item notification-item--{{ item.kind }}">
+                                                    <span class="notification-badge notification-badge--{{ item.kind }}">{{ item.label }}</span>
+                                                    <span class="notification-body">
                                                     <strong>{{ item.title }}</strong>
-                                                    {% if item.meta %}<small>{{ item.meta }}</small>{% endif %}
+                                                        {% if item.meta %}<small>{{ item.meta }}</small>{% endif %}
                                                 </span>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p class="dropdown-empty dropdown-empty-block">اعلان جدیدی برای نمایش وجود ندارد.</p>
-                            {% endif %}
-                            <div class="dropdown-footer-link">
-                                <a href="{% url 'home:index' %}#announcements">مشاهده اطلاعیه‌ها در صفحه اصلی</a>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p class="dropdown-empty dropdown-empty-block">اعلان جدیدی برای نمایش وجود
+                                        ندارد.</p>
+                                {% endif %}
+                                <div class="dropdown-footer-link">
+                                    <a href="{% url 'home:index' %}#announcements">مشاهده اطلاعیه‌ها در صفحه اصلی</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {% if request.user.is_authenticated %}
-                <div class="nav-item-dropdown account-menu">
-                    <button
-                        type="button"
-                        class="dropdown-toggle account-trigger"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-controls="account-dropdown"
-                        aria-label="حساب کاربری"
-                    >
+                {% if request.user.is_authenticated %}
+                    <div class="nav-item-dropdown account-menu">
+                        <button
+                                type="button"
+                                class="dropdown-toggle account-trigger"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                aria-controls="account-dropdown"
+                                aria-label="حساب کاربری"
+                        >
                         <span class="user-avatar" aria-hidden="true">
                             {{ request.user.get_full_name|default:request.user.username|first|upper }}
                         </span>
-                        <span class="account-trigger-text">
+                            <span class="account-trigger-text">
                             <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
                             <small>
                                 {% if header_employee and header_employee.position %}
@@ -130,57 +159,63 @@
                                 {% endif %}
                             </small>
                         </span>
-                    </button>
-                    <div class="dropdown-panel" id="account-dropdown">
-                        <div class="dropdown-menu-wrap">
-                            <div class="dropdown-menu dropdown-menu-account">
-                                <div class="dropdown-account-summary">
+                            <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-panel" id="account-dropdown">
+                            <div class="dropdown-menu-wrap">
+                                <div class="dropdown-menu dropdown-menu-account">
+                                    <div class="dropdown-account-summary">
                                     <span class="user-avatar" aria-hidden="true">
                                         {{ request.user.get_full_name|default:request.user.username|first|upper }}
                                     </span>
-                                    <div>
-                                        <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
-                                        <small>
-                                            {% if header_employee and header_employee.position %}
-                                                {{ header_employee.position }}
-                                            {% elif header_employee and header_employee.workgroup %}
-                                                {{ header_employee.workgroup.name }}
-                                            {% else %}
-                                                دسترسی به بخش‌های داخلی پورتال
-                                            {% endif %}
-                                        </small>
+                                        <div>
+                                            <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
+                                            <small>
+                                                {% if header_employee and header_employee.position %}
+                                                    {{ header_employee.position }}
+                                                {% elif header_employee and header_employee.workgroup %}
+                                                    {{ header_employee.workgroup.name }}
+                                                {% else %}
+                                                    دسترسی به بخش‌های داخلی پورتال
+                                                {% endif %}
+                                            </small>
+                                        </div>
                                     </div>
+                                    <ul class="dropdown-menu-list">
+                                        <li><a href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a></li>
+                                        <li><a href="{% url 'training:list' %}">مشاهده آموزش‌ها</a></li>
+                                        <li><a href="{% url 'news:list' %}">آرشیو اخبار</a></li>
+                                        <li>
+                                            <form method="post" action="{% url 'logout' %}">
+                                                {% csrf_token %}
+                                                <button type="submit">خروج امن از پورتال</button>
+                                            </form>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="dropdown-menu-list">
-                                    <li><a href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a></li>
-                                    <li><a href="{% url 'training:list' %}">مشاهده آموزش‌ها</a></li>
-                                    <li><a href="{% url 'news:list' %}">آرشیو اخبار</a></li>
-                                    <li>
-                                        <form method="post" action="{% url 'logout' %}">
-                                            {% csrf_token %}
-                                            <button type="submit">خروج امن از پورتال</button>
-                                        </form>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% else %}
-                <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="login-link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M15 12H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                        <path d="M20 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
-                    <span>ورود به پورتال</span>
-                </a>
-            {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="login-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M10 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                            <path d="M15 12H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                            <path d="M20 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                        </svg>
+                        <span>ورود به پورتال</span>
+                    </a>
+                {% endif %}
 
-            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="باز کردن منو">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav"
+                        aria-label="باز کردن منو">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
     </div>
 
     <div class="nav-backdrop" aria-hidden="true"></div>
@@ -191,15 +226,16 @@
                 <ul>
                     <li class="nav-item nav-item-dropdown">
                         <button
-                            type="button"
-                            class="nav-link dropdown-toggle{% if nav_company_menu_active %} is-active{% endif %}"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            aria-controls="company-dropdown"
+                                type="button"
+                                class="nav-link dropdown-toggle{% if nav_company_menu_active %} is-active{% endif %}"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                aria-controls="company-dropdown"
                         >
                             شرکت
                             <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
-                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
                         </button>
                         <div class="dropdown-panel mega-panel" id="company-dropdown">
@@ -221,46 +257,17 @@
                                     <div class="mega-card">
                                         <span class="hero-panel-tag">پیشرو در مهندسی</span>
                                         <h4>قدرت صنعتی در خدمت آینده</h4>
-                                        <p>ایپکو با رویکردی دقیق، مدرن و آینده‌محور در مسیر ارتقای فناوری و تولید پیش می‌رود.</p>
+                                        <p>ایپکو با رویکردی دقیق، مدرن و آینده‌محور در مسیر ارتقای فناوری و تولید پیش
+                                            می‌رود.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </li>
-                  <!-- <li class="nav-item nav-item-dropdown">
-                        <button
-                            type="button"
-                            class="nav-link dropdown-toggle"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            aria-controls="workgroups-dropdown"
-                        >
-                            کارگروه‌ها
-                            <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
-                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <div class="dropdown-panel" id="workgroups-dropdown">
-                            <div class="dropdown-menu-wrap">
-                                <ul class="dropdown-menu">
-                                    {% for group in workgroups_nav %}
-                                        <li><a href="{{ group.get_absolute_url }}">{{ group.name }}</a></li>
-                                    {% empty %}
-                                        <li class="dropdown-empty">کارگروهی ثبت نشده است.</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </li>--> 
-                 <!--  <li><a href="{% url 'meetings:upcoming' %}">جلسات</a></li>
-                    <li><a href="{% url 'training:list' %}">آموزش‌ها</a></li>
-                    <li><a href="{% url 'news:list' %}">اخبار</a></li>
-                    <li><a href="{% url 'home:about_company' %}">درباره ما</a></li>
-                    <li><a href="{% url 'home:contact' %}">تماس</a></li>
---> 
                     {% for item in nav_items %}
                         <li>
-                            <a href="{{ item.url }}" class="{% if item.is_current %}is-active{% endif %}" {% if item.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                            <a href="{{ item.url }}" class="{% if item.is_current %}is-active{% endif %}"
+                               {% if item.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
                                 {{ item.title }}
                             </a>
                         </li>
