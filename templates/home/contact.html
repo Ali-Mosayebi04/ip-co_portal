@@ -1,6 +1,6 @@
 {% extends "home/base.html" %}
 
-{% block title %}تماس با ما | پورتال داخلی ایپکو{% endblock %}
+{% block title %}تماس با ما | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
     <section class="page-hero container" data-reveal>
@@ -17,24 +17,56 @@
 
     <section class="section container" data-reveal>
         <div class="news-grid">
-            <article class="news-card">
+            <article class="news-card" data-reveal>
                 <div class="news-card-body">
+                    <span class="section-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 13a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="2" y="13" width="5" height="7" rx="2" stroke="currentColor" stroke-width="1.6"/><rect x="17" y="13" width="5" height="7" rx="2" stroke="currentColor" stroke-width="1.6"/></svg>
+                    </span>
                     <h3>پشتیبانی پورتال</h3>
                     <p>برای ارسال درخواست‌های فنی و پشتیبانی داخلی، با واحد فناوری اطلاعات تماس بگیرید.</p>
                 </div>
             </article>
-            <article class="news-card">
+            <article class="news-card" data-reveal>
                 <div class="news-card-body">
+                    <span class="section-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </span>
                     <h3>ارتباط با مدیریت</h3>
                     <p>در صورت نیاز به هماهنگی سازمانی یا پیگیری امور اداری، با دفتر مدیریت ارتباط برقرار کنید.</p>
                 </div>
             </article>
-            <article class="news-card">
+            <article class="news-card" data-reveal>
                 <div class="news-card-body">
+                    <span class="section-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                    </span>
                     <h3>دسترسی سریع</h3>
                     <p>از طریق مسیرهای موجود در این صفحه، به بخش‌های خبری، آموزشی و رویدادهای سازمانی دسترسی پیدا کنید.</p>
                 </div>
             </article>
         </div>
+
+        {% if site_info.address or site_info.phone or site_info.email %}
+            <div class="split-grid mt-6">
+                {% if site_info.address %}
+                    <article class="feature-card" data-reveal>
+                        <h3>نشانی</h3>
+                        <p>{{ site_info.address }}</p>
+                    </article>
+                {% endif %}
+                {% if site_info.phone %}
+                    <article class="feature-card" data-reveal>
+                        <h3>تلفن</h3>
+                        <p>{{ site_info.phone }}</p>
+                    </article>
+                {% endif %}
+                {% if site_info.email %}
+                    <article class="feature-card" data-reveal>
+                        <h3>ایمیل</h3>
+                        <p>{{ site_info.email }}</p>
+                    </article>
+                {% endif %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

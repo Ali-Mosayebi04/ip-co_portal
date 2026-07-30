@@ -1,13 +1,18 @@
 {% extends "home/base.html" %}
 
-{% block title %}خروج از پورتال | پورتال داخلی ایپکو{% endblock %}
+{% block title %}خروج از پورتال | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
-    <section class="auth-page container">
-        <div class="auth-card">
-            <h1 class="auth-title">خروج انجام شد</h1>
-            <p class="auth-subtitle">با موفقیت از حساب کاربری خود خارج شدید.</p>
-            <a href="{% url 'home:index' %}" class="btn btn-brand auth-submit">بازگشت به صفحه اصلی</a>
+    <section class="auth-page container" data-reveal>
+        <div class="auth-card auth-card--center">
+            <span class="brand-mark mx-auto" aria-hidden="true">IP</span>
+            <h1 class="auth-title mt-5">خروج انجام شد</h1>
+            <p class="auth-subtitle">با موفقیت از حساب کاربری خود خارج شدید. برای دسترسی مجدد به خدمات داخلی، دوباره
+                وارد شوید.</p>
+            <div class="error-page-actions mt-6">
+                <a href="{% url 'login' %}" class="btn btn-brand">ورود مجدد</a>
+                <a href="{% url 'home:index' %}" class="btn btn-outline">بازگشت به صفحه اصلی</a>
+            </div>
         </div>
     </section>
 {% endblock %}

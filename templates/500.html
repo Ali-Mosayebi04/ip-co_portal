@@ -3,47 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خطای سرور | پورتال داخلی ایپکو</title>
+    <title>خطای سرور | پورتال خبری ایران‌خودرو</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Vazirmatn:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Vazirmatn:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
     <style>
-        :root { color-scheme: light; }
+        :root {
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: "IBM Plex Sans Arabic", "Vazirmatn", Tahoma, sans-serif;
-            background: #f3f5f9;
-            color: #101a2c;
+            font-family: "Vazirmatn", "IBM Plex Sans Arabic", Tahoma, sans-serif;
+            background: radial-gradient(720px 380px at 85% 0%, rgba(63, 127, 184, 0.14), transparent 65%),
+            linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+            color: #141c28;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.9;
         }
+
         .card {
             text-align: center;
-            max-width: 440px;
+            max-width: 520px;
             padding: 48px 32px;
         }
-        .code { font-size: 4rem; font-weight: 800; color: #1b4d8c; margin: 0 0 16px; line-height: 1; }
-        h1 { font-size: 1.375rem; margin: 0 0 12px; }
-        p { color: #4b5768; margin: 0 0 28px; line-height: 1.75; }
+
+        .code {
+            font-size: clamp(4rem, 14vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0 0 20px;
+            background: linear-gradient(140deg, #155fa0, #0a1c30);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .rule {
+            width: 42px;
+            height: 2px;
+            margin: 0 auto 20px;
+            background: #a97c50;
+            border-radius: 2px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 0 12px;
+        }
+
+        p {
+            color: #3d4a5d;
+            margin: 0 0 32px;
+        }
+
         a {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #1b4d8c;
+            display: inline-flex;
+            align-items: center;
+            min-height: 48px;
+            padding: 0 24px;
+            background: #155fa0;
             color: #fff;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 6px 18px -6px rgba(10, 28, 48, 0.35);
+            transition: transform 160ms ease, background 160ms ease;
+        }
+
+        a:hover {
+            background: #11385f;
+            transform: translateY(-1px);
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <p class="code" aria-hidden="true">۵۰۰</p>
-        <h1>خطایی در سرور رخ داد</h1>
-        <p>در حال حاضر مشکلی در پردازش درخواست شما پیش آمده است. تیم فنی از این موضوع مطلع شده و در حال بررسی است. لطفاً کمی بعد دوباره تلاش کنید.</p>
-        <a href="/static">بازگشت به صفحه اصلی</a>
-    </div>
+<div class="card">
+    <p class="code" aria-hidden="true">۵۰۰</p>
+    <div class="rule" aria-hidden="true"></div>
+    <h1>خطایی در سرور رخ داد</h1>
+    <p>در حال حاضر مشکلی در پردازش درخواست شما پیش آمده است. تیم فنی از این موضوع مطلع شده و در حال بررسی است. لطفاً کمی
+        بعد دوباره تلاش کنید.</p>
+    <a href="/">بازگشت به صفحه اصلی</a>
+</div>
 </body>
 </html>

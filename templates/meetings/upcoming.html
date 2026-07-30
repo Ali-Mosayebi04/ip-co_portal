@@ -1,13 +1,21 @@
 {% extends "home/base.html" %}
 
-{% block title %}جلسات پیش رو | پورتال داخلی ایپکو{% endblock %}
+{% block title %}جلسات پیش رو | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
-    <section class="meetings-page container">
-        <div class="section-header">
+    <section class="page-hero container">
+        <div class="page-hero-copy">
+            <span class="section-kicker">برنامه‌های سازمانی</span>
             <h1>جلسات پیش رو</h1>
+            <p>جلسات آتی مرتبط با شما با دستور جلسه، زمان و محل برگزاری در یک نمای منسجم و قابل پیگیری.</p>
         </div>
+        <div class="page-hero-panel">
+            <span class="hero-panel-tag">تقویم کاری</span>
+            <p>پس از اتصال حساب کاربری به پروفایل کارمندی، جلسات اختصاصی شما به‌صورت خودکار فهرست می‌شود.</p>
+        </div>
+    </section>
 
+    <section class="meetings-page container">
         {% if not employee %}
             <p class="empty-state">
                 حساب کاربری شما به هیچ پروفایل کارمندی متصل نیست، بنابراین امکان
