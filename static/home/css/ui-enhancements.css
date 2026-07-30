@@ -1,0 +1,679 @@
+/* ==========================================================================
+   UI ENHANCEMENTS - Modern Design Improvements
+   Loaded after main style.css to enhance existing components
+   ========================================================================== */
+
+/* Enhanced Design Tokens */
+:root {
+    --gradient-primary: linear-gradient(135deg, #155fa0 0%, #0e2a48 100%);
+    --gradient-accent: linear-gradient(135deg, #3f7fb8 0%, #155fa0 100%);
+    --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+    --gradient-hover: linear-gradient(135deg, #14497c 0%, #0a1c30 100%);
+
+    /* Glass morphism */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+
+    /* Enhanced shadows */
+    --shadow-elevated: 0 10px 40px -10px rgba(10, 28, 48, 0.15);
+    --shadow-floating: 0 20px 60px -15px rgba(10, 28, 48, 0.25);
+    --shadow-intense: 0 30px 80px -20px rgba(10, 28, 48, 0.35);
+
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+[data-theme="dark"] {
+    --gradient-primary: linear-gradient(135deg, #63a1dd 0%, #111c2e 100%);
+    --gradient-accent: linear-gradient(135deg, #8fc0ee 0%, #63a1dd 100%);
+    --gradient-surface: linear-gradient(180deg, #0d1624 0%, #070d16 100%);
+    --gradient-hover: linear-gradient(135deg, #8fc0ee 0%, #4b82c0 100%);
+
+    --glass-bg: rgba(17, 28, 46, 0.7);
+    --glass-border: rgba(99, 161, 221, 0.18);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    --shadow-elevated: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+    --shadow-floating: 0 20px 60px -15px rgba(0, 0, 0, 0.5);
+    --shadow-intense: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   ENHANCED BUTTONS & INTERACTIONS
+   ========================================================================== */
+
+.btn, .btn-primary, .btn-secondary, .btn-brand, .btn-solid {
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary, .btn-brand {
+    background: var(--gradient-primary);
+    border: none;
+}
+
+.btn-primary:hover, .btn-brand:hover {
+    background: var(--gradient-hover);
+}
+
+/* Icon buttons with ripple effect */
+.icon-btn {
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.icon-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--bg-subtle);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================================================
+   ENHANCED CARDS
+   ========================================================================== */
+
+.news-card, .course-card, .meeting-card, .employee-card {
+    transition: var(--transition-smooth);
+    border: 1px solid var(--border-default);
+}
+
+.news-card:hover, .course-card:hover, .meeting-card:hover, .employee-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-floating);
+    border-color: var(--accent);
+}
+
+.news-card::before, .course-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transition: transform 0.3s var(--ease);
+}
+
+.news-card:hover::before, .course-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Card media effects */
+.news-card-media img, .course-card-media img {
+    transition: var(--transition-smooth);
+}
+
+.news-card:hover .news-card-media img,
+.course-card:hover .course-card-media img {
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   ENHANCED HEADER
+   ========================================================================== */
+
+.site-header {
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+.site-header.scrolled {
+    box-shadow: var(--shadow-elevated);
+}
+
+.brand {
+    transition: var(--transition-smooth);
+}
+
+.brand:hover {
+    transform: scale(1.05);
+}
+
+.brand-logo {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Navigation items */
+.nav-link {
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transition: width 0.3s var(--ease);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+    width: 100%;
+}
+
+/* Dropdown animations */
+.dropdown-panel {
+    animation: dropdownSlide 0.3s var(--ease-out);
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   ENHANCED PAGE HERO
+   ========================================================================== */
+
+.page-hero {
+    background: var(--gradient-surface);
+    border-bottom: 1px solid var(--border-default);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.page-hero-copy h1 {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.6s var(--ease-out);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-hero-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition-smooth);
+}
+
+.page-hero-panel:hover {
+    transform: translateX(-5px);
+    box-shadow: var(--shadow-elevated);
+}
+
+/* ==========================================================================
+   ENHANCED BADGES & TAGS
+   ========================================================================== */
+
+.badge {
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.badge:hover {
+    transform: scale(1.05);
+}
+
+.badge-success {
+    background: linear-gradient(135deg, var(--success) 0%, #1a9e5e 100%);
+}
+
+.badge-info {
+    background: linear-gradient(135deg, var(--info) 0%, #1e7eb5 100%);
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, var(--error) 0%, #c94640 100%);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #a68420 100%);
+}
+
+/* ==========================================================================
+   ENHANCED FORMS
+   ========================================================================== */
+
+.form-control, input[type="text"], input[type="email"],
+input[type="password"], input[type="search"],
+textarea, select {
+    transition: var(--transition-smooth);
+    border: 2px solid var(--border-default);
+}
+
+.form-control:hover {
+    border-color: var(--border-strong);
+}
+
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    transform: translateY(-2px);
+}
+
+/* Checkbox and radio with smooth animations */
+input[type="checkbox"], input[type="radio"] {
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ENHANCED MEETING CARDS
+   ========================================================================== */
+
+.meeting-card {
+    background: var(--gradient-surface);
+    position: relative;
+    overflow: hidden;
+}
+
+.meeting-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-accent);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+    pointer-events: none;
+}
+
+.meeting-card:hover::after {
+    opacity: 0.03;
+}
+
+.meeting-date {
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-elevated);
+    transition: var(--transition-smooth);
+}
+
+.meeting-card:hover .meeting-date {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* ==========================================================================
+   ENHANCED NOTIFICATIONS
+   ========================================================================== */
+
+.notification-item {
+    transition: var(--transition-smooth);
+    border-left: 3px solid transparent;
+}
+
+.notification-item:hover {
+    background: var(--bg-subtle);
+    border-left-color: var(--accent);
+    transform: translateX(-5px);
+}
+
+.notification-badge {
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-smooth);
+}
+
+.notification-item:hover .notification-badge {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ENHANCED PAGINATION
+   ========================================================================== */
+
+.pagination a {
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.pagination a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-accent);
+    transition: left 0.3s var(--ease);
+    z-index: -1;
+}
+
+.pagination a:hover::before {
+    left: 0;
+}
+
+.pagination a:hover {
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   ENHANCED BREADCRUMB
+   ========================================================================== */
+
+.breadcrumb-bar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+}
+
+.breadcrumb a {
+    transition: var(--transition-smooth);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.breadcrumb a:hover {
+    background: var(--accent-soft);
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   ENHANCED SEARCH
+   ========================================================================== */
+
+.header-search-field {
+    position: relative;
+}
+
+.header-search-field input {
+    transition: var(--transition-smooth);
+}
+
+.header-search-field input:focus {
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+}
+
+.search-hints a {
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.search-hints a::before {
+    content: '→';
+    position: absolute;
+    right: -20px;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.search-hints a:hover::before {
+    opacity: 1;
+    right: -15px;
+}
+
+/* ==========================================================================
+   SMOOTH SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: var(--radius-pill);
+    transition: var(--transition-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* ==========================================================================
+   LOADING ANIMATIONS
+   ========================================================================== */
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading-skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-subtle) 0%,
+        var(--bg-surface-raised) 50%,
+        var(--bg-subtle) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* ==========================================================================
+   ENHANCED HOVER EFFECTS
+   ========================================================================== */
+
+.hover-lift {
+    transition: var(--transition-smooth);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.hover-scale {
+    transition: var(--transition-smooth);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: var(--transition-smooth);
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px var(--accent-soft);
+}
+
+/* ==========================================================================
+   ENHANCED TABLES (for meeting attendees, etc.)
+   ========================================================================== */
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table th, table td {
+    transition: var(--transition-smooth);
+}
+
+table tbody tr {
+    transition: var(--transition-smooth);
+}
+
+table tbody tr:hover {
+    background: var(--bg-subtle);
+    transform: scale(1.01);
+}
+
+/* ==========================================================================
+   ENHANCED FOOTER
+   ========================================================================== */
+
+.site-footer {
+    background: var(--gradient-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    animation: footerPulse 15s ease-in-out infinite;
+}
+
+@keyframes footerPulse {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10%, 10%);
+    }
+}
+
+/* ==========================================================================
+   ENHANCED TOOLTIPS
+   ========================================================================== */
+
+[title] {
+    position: relative;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-inverse);
+    color: var(--accent-contrast);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    font-size: var(--fs-sm);
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: var(--shadow-elevated);
+    animation: tooltipFade 0.2s var(--ease);
+}
+
+@keyframes tooltipFade {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ==========================================================================
+   ENHANCED FOCUS STATES
+   ========================================================================== */
+
+*:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+    transition: outline-offset 0.2s var(--ease);
+}
+
+/* ==========================================================================
+   RESPONSIVE ENHANCEMENTS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .hover-lift:hover, .hover-scale:hover {
+        transform: none;
+    }
+
+    .btn:hover::before {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn, .badge, .card {
+        border-width: 2px;
+    }
+}

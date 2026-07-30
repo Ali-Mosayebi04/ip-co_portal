@@ -1,0 +1,76 @@
+{% if is_paginated %}
+    <nav class="pagination-wrapper" aria-label="صفحه‌بندی اخبار">
+        <div class="pagination-enhanced">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}"
+                   class="pagination-link pagination-first"
+                   aria-label="صفحه اول">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 17L13 12L18 7M11 17L6 12L11 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    اول
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                   class="pagination-link pagination-prev"
+                   aria-label="صفحه قبل">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    قبلی
+                </a>
+            {% endif %}
+
+            <div class="pagination-numbers">
+                {% if page_obj.number > 3 %}
+                    <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}"
+                       class="pagination-number">1</a>
+                    {% if page_obj.number > 4 %}
+                        <span class="pagination-ellipsis">...</span>
+                    {% endif %}
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <span class="pagination-number pagination-current" aria-current="page">{{ num }}</span>
+                    {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                        <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                           class="pagination-number">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                    {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                        <span class="pagination-ellipsis">...</span>
+                    {% endif %}
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                       class="pagination-number">{{ page_obj.paginator.num_pages }}</a>
+                {% endif %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                   class="pagination-link pagination-next"
+                   aria-label="صفحه بعد">
+                    بعدی
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                   class="pagination-link pagination-last"
+                   aria-label="صفحه آخر">
+                    آخر
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 17L11 12L6 7M13 17L18 12L13 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="pagination-info">
+            <span>صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}</span>
+            <span class="pagination-separator">•</span>
+            <span>مجموع {{ page_obj.paginator.count }} خبر</span>
+        </div>
+    </nav>
+{% endif %}

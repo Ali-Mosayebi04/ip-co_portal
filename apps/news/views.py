@@ -8,7 +8,7 @@ from django.views.generic import DetailView, ListView
 
 from .models import News
 
-PAGE_SIZE = 12
+PAGE_SIZE = 5
 _NEWS_LIST_FIELDS = ("id", "title", "slug", "summary", "cover_image", "published_at")
 
 
