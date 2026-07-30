@@ -36,7 +36,11 @@
                 <div class="search-hints" aria-hidden="true">
                     <span class="search-hints-label">دسترسی سریع</span>
                     <a href="{% url 'news:list' %}">آرشیو اخبار</a>
-                    <a href="{% url 'meetings:upcoming' %}">جلسات سازمانی</a>
+                    {% if request.user.is_authenticated and request.user.is_superuser %}
+                        <a href="{% url 'meetings:list' %}">مدیریت جلسات</a>
+                    {% else %}
+                        <a href="{% url 'meetings:upcoming' %}">جلسات سازمانی</a>
+                    {% endif %}
                     <a href="{% url 'training:list' %}">دوره‌های آموزشی</a>
                     <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
                 </div>
@@ -185,9 +189,16 @@
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu-list">
-                                        <li><a href="{% url 'meetings:upcoming' %}">مشاهده جلسات</a></li>
-                                        <li><a href="{% url 'training:list' %}">مشاهده آموزش‌ها</a></li>
-                                        <li><a href="{% url 'news:list' %}">آرشیو اخبار</a></li>
+                                        {% if request.user.is_superuser %}
+                                            <li><a href="{% url 'meetings:list' %}">مدیریت جلسات</a></li>
+                                            <li><a href="{% url 'admin:index' %}">پنل مدیریت</a></li>
+                                            <li><a href="{% url 'training:list' %}">مشاهده آموزش‌ها</a></li>
+                                            <li><a href="{% url 'news:list' %}">آرشیو اخبار</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'meetings:upcoming' %}">جلسات من</a></li>
+                                            <li><a href="{% url 'training:list' %}">مشاهده آموزش‌ها</a></li>
+                                            <li><a href="{% url 'news:list' %}">آرشیو اخبار</a></li>
+                                        {% endif %}
                                         <li>
                                             <form method="post" action="{% url 'logout' %}">
                                                 {% csrf_token %}
@@ -246,13 +257,24 @@
                                         <a href="{% url 'home:about_company' %}">درباره شرکت</a>
                                         <a href="{% url 'news:list' %}">اخبار و رویدادها</a>
                                         <a href="{% url 'training:list' %}">آموزش و توانمندسازی</a>
-                                        <a href="{% url 'meetings:upcoming' %}">جلسات و رویدادهای سازمانی</a>
+                                        {% if request.user.is_authenticated %}
+                                            {% if request.user.is_superuser %}
+                                                <a href="{% url 'meetings:list' %}">مدیریت جلسات</a>
+                                            {% else %}
+                                                <a href="{% url 'meetings:upcoming' %}">جلسات من</a>
+                                            {% endif %}
+                                        {% else %}
+                                            <a href="{% url 'meetings:upcoming' %}">جلسات سازمانی</a>
+                                        {% endif %}
                                     </div>
                                     <div class="mega-column">
                                         <h3>سازمان</h3>
                                         <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
                                         <a href="{% url 'home:contact' %}">ارتباط با سازمان</a>
                                         <a href="{% url 'training:list' %}">دوره‌های آموزشی</a>
+                                        {% if request.user.is_superuser %}
+                                            <a href="{% url 'admin:index' %}">پنل مدیریت</a>
+                                        {% endif %}
                                     </div>
                                     <div class="mega-card">
                                         <span class="hero-panel-tag">پیشرو در مهندسی</span>

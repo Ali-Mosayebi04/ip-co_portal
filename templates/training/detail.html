@@ -1,42 +1,154 @@
 {% extends "home/base.html" %}
+{% load static %}
 
-{% block title %}{{ course.title }} | پورتال داخلی ایپکو{% endblock %}
+{% block title %}{% firstof object.title training.title "دوره آموزشی" %} | آموزش‌های ایپکو{% endblock %}
 
 {% block content %}
-    <nav class="breadcrumb-bar" aria-label="مسیر صفحه">
-        <div class="container breadcrumb">
-            <a href="{% url 'home:index' %}">پورتال</a>
-            <span aria-hidden="true">/</span>
-            <a href="{% url 'training:list' %}">آموزش‌ها</a>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">{{ course.title }}</span>
-        </div>
-    </nav>
+    {% with item=course%}
 
-    <article class="news-detail course-detail container">
-        <a class="back-link" href="{% url 'training:list' %}">&rarr; بازگشت به آموزش</a>
+        <nav class="breadcrumb-bar" aria-label="مسیر صفحه">
+            <div class="container breadcrumb">
+                <a href="{% url 'home:index' %}">پورتال</a>
+                <span aria-hidden="true">/</span>
+                <a href="{% url 'training:list' %}">آموزش‌ها</a>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page">{{ course.title }}</span>
+            </div>
+        </nav>
 
-        <div class="news-card-meta">
-            {% if course.category %}<span class="badge">{{ course.category.name }}</span>{% endif %}
-            <span class="badge badge-info">{{ course.get_level_display }}</span>
-        </div>
+        <article class="news-detail course-detail container">
+            <a class="back-link" href="{% url 'training:list' %}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                </svg>
+                بازگشت به آرشیو آموزش‌ها
+            </a>
 
-        <h1>{{ course.title }}</h1>
+            <div class="article-shell course-shell">
+                <div class="course-layout">
+                    <div class="article-main">
+                        <div class="article-intro">
+                            <span class="section-kicker">دوره‌ی آموزشی</span>
+                            <h1>{{ course.title }}</h1>
+                            <div class="article-meta">
+                                {% if course.category %}
+                                    <span class="article-meta-item"><span
+                                            class="badge badge-success">{{ course.category }}</span></span>
+                                {% endif %}
+                                {% if course.level %}
+                                    <span class="article-meta-item"><span
+                                            class="badge">{{ course.get_level_display }}</span></span>
+                                {% endif %}
+                                {% if course.duration_hours %}
+                                    <span class="article-meta-item">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle
+                                            cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle><path
+                                            d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round"></path></svg>
+                                    {{ course.duration_hours }} ساعت
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
 
-        <div class="course-detail-meta">
-            {% if course.duration_hours %}<span>مدت: {{ course.duration_hours }} ساعت</span>{% endif %}
-            {% if course.instructor %}
-                <span>مدرس: {{ course.instructor.get_full_name|default:course.instructor.username }}</span>
-            {% endif %}
-            <time datetime="{{ course.published_at|date:'c' }}">{{ course.published_at|date:"j F Y" }}</time>
-        </div>
+                        {% if course.cover_image %}
+                            <img class="news-detail-image" src="{{ course.cover_image.url }}" alt="{{ course.title }}">
+                        {% endif %}
 
-        {% if course.cover_image %}
-            <img class="news-detail-image" src="{{ course.cover_image.url }}" alt="{{ course.title }}">
-        {% endif %}
+                        <div class="news-detail-body">
+                            {{ course.description|linebreaksbr }}
+                        </div>
+                    </div>
 
-        <div class="news-detail-body">
-            {{ course.description|linebreaksbr }}
-        </div>
-    </article>
+                    <aside aria-label="مشخصات دوره">
+                        <div class="course-info-card">
+                            <h2 class="course-info-title">مشخصات دوره</h2>
+                            {% if course.published_at %}
+                                <div class="course-info-row">
+                                <span class="course-info-icon" aria-hidden="true">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="4"
+                                                                                                      width="18"
+                                                                                                      height="17" rx="2"
+                                                                                                      stroke="currentColor"
+                                                                                                      stroke-width="1.6"></rect><path
+                                            d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round"></path></svg>
+                                </span>
+                                    <div>
+                                        <span class="course-info-label">تاریخ انتشار</span>
+                                        <span class="course-info-value">{{ course.published_at|date:"j F Y" }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if course.level %}
+                                <div class="course-info-row">
+                                <span class="course-info-icon" aria-hidden="true">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path
+                                            d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor"
+                                            stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                                </span>
+                                    <div>
+                                        <span class="course-info-label">سطح دوره</span>
+                                        <span class="course-info-value">{{ course.get_level_display }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if course.duration_hours %}
+                                <div class="course-info-row">
+                                <span class="course-info-icon" aria-hidden="true">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12"
+                                                                                                        r="9"
+                                                                                                        stroke="currentColor"
+                                                                                                        stroke-width="1.6"></circle><path
+                                            d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6"
+                                            stroke-linecap="round"></path></svg>
+                                </span>
+                                    <div>
+                                        <span class="course-info-label">مدت دوره</span>
+                                        <span class="course-info-value">{{ course.duration_hours }} ساعت</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if course.instructor %}
+                                <div class="course-info-row">
+                                <span class="course-info-icon" aria-hidden="true">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path
+                                            d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor"
+                                            stroke-width="1.6"></path><path d="M4 21a8 8 0 0 1 16 0"
+                                                                            stroke="currentColor"
+                                                                            stroke-width="1.6"
+                                                                            stroke-linecap="round"></path></svg>
+                                </span>
+                                    <div>
+                                        <span class="course-info-label">مدرس</span>
+                                        <span class="course-info-value">{{ course.instructor.get_full_name|default:course.instructor }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if course.views %}
+                                <div class="course-info-row">
+                                <span class="course-info-icon" aria-hidden="true">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path
+                                            d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="currentColor"
+                                            stroke-width="1.6"></path><circle cx="12" cy="12" r="3"
+                                                                              stroke="currentColor"
+                                                                              stroke-width="1.6"></circle></svg>
+                                </span>
+                                    <div>
+                                        <span class="course-info-label">تعداد بازدید</span>
+                                        <span class="course-info-value">{{ course.views }} بار</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="course-info-cta">
+                                <a class="btn btn-brand" href="{% url 'home:contact' %}">درخواست ثبت‌نام</a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </article>
+
+    {% endwith %}
 {% endblock %}

@@ -1,0 +1,115 @@
+{% extends "home/base.html" %}
+
+{% block title %}لغو جلسه: {{ meeting.title }} | پورتال خبری ایران‌خودرو{% endblock %}
+
+{% block content %}
+    <section class="page-hero container">
+        <div class="page-hero-copy">
+            <span class="section-kicker">لغو جلسه</span>
+            <h1>آیا مطمئن هستید؟</h1>
+        </div>
+    </section>
+
+    <section class="confirm-delete container">
+        <div class="confirm-card">
+            <h2>لغو جلسه: {{ meeting.title }}</h2>
+
+            <div class="warning-box">
+                <p><strong>هشدار:</strong> با لغو این جلسه، اطلاعیه لغو برای تمامی شرکت‌کنندگانی که دعوت‌نامه دریافت کرده‌اند ارسال خواهد شد.</p>
+            </div>
+
+            <div class="meeting-summary">
+                <p><strong>تاریخ:</strong> {{ meeting.date|date:"l j F Y" }}</p>
+                <p><strong>زمان:</strong> {{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}</p>
+                <p><strong>اتاق:</strong> {{ meeting.room.name }}</p>
+                <p><strong>شرکت‌کنندگان:</strong> {{ meeting.attendees.count }} نفر</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-danger">بله، جلسه را لغو کن</button>
+                    <a href="{% url 'meetings:detail' meeting.pk %}" class="btn btn-secondary">خیر، بازگشت</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <style>
+        .confirm-delete {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .confirm-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .confirm-card h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .warning-box p {
+            margin: 0;
+            color: #856404;
+        }
+
+        .meeting-summary {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meeting-summary p {
+            margin: 0.5rem 0;
+            color: #495057;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+{% endblock %}
