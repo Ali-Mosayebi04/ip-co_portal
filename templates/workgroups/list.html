@@ -17,12 +17,15 @@
 
     <section class="workgroups-archive container" data-reveal>
         {% if workgroups %}
-            <div class="sections-grid workgroups-grid">
+            <div class="workgroup-grid">
                 {% for group in workgroups %}
-                    <a class="section-card editorial-card workgroup-card" href="{{ group.get_absolute_url }}" data-reveal>
-                        <span class="section-card-title">{{ group.name }}</span>
+                    <a class="card-base workgroup-card" href="{{ group.get_absolute_url }}" data-reveal>
+                        <div class="workgroup-card-header">
+                            <span class="workgroup-icon" aria-hidden="true">{{ group.name|slice:":1" }}</span>
+                        </div>
+                        <h3>{{ group.name }}</h3>
                         {% if group.description %}
-                            <span class="section-card-desc">{{ group.description|truncatewords:14 }}</span>
+                            <p class="workgroup-card-description">{{ group.description }}</p>
                         {% endif %}
                     </a>
                 {% endfor %}
