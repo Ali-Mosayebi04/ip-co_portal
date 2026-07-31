@@ -1,3 +1,4 @@
+{% load jalali_tags %}
 <footer class="site-footer">
     <div class="container footer-inner">
         <div class="footer-about">
@@ -93,7 +94,7 @@
     </div>
 
     <div class="container footer-bottom">
-        <p>&copy; {% now "Y" %} شرکت ایران خودرو — تمامی حقوق محفوظ است.</p>
+        <p>&copy; {% jalali_now "%Y" %} شرکت ایران خودرو — تمامی حقوق محفوظ است.</p>
         <span class="footer-bottom-note">پلتفرم رسمی اطلاع‌رسانی و خدمات سازمانی ایپکو</span>
     </div>
 </footer>

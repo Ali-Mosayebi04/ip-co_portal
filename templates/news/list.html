@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load jalali_tags %}
 
 {% block title %}آرشیو اخبار | پورتال خبری ایران‌خودرو{% endblock %}
 
@@ -32,22 +33,20 @@
         {% if news_list %}
             <div class="news-grid news-grid--archive">
                 {% for item in news_list %}
-                    <article class="news-card{% if forloop.first and not search_query %} news-card--featured{% endif %}"
-                             data-reveal>
+                    <article class="card-base news-card{% if forloop.first and not search_query %} news-card--featured{% endif %}" data-reveal>
                         {% if item.cover_image %}
-                            <a href="{{ item.get_absolute_url }}" class="news-card-image" aria-hidden="true"
-                               tabindex="-1">
+                            <a href="{{ item.get_absolute_url }}" class="card-image" aria-hidden="true" tabindex="-1">
                                 <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
                             </a>
                         {% endif %}
-                        <div class="news-card-body">
-                            <div class="news-card-meta">
+                        <div class="card-body">
+                            <div class="card-meta">
                                 <span class="badge">خبر شرکت</span>
-                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|jalali:"%d %B %Y" }}</time>
                             </div>
-                            <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-                            <p>{{ item.summary }}</p>
-                            <div class="news-card-footer">
+                            <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                            <p class="card-description">{{ item.summary }}</p>
+                            <div class="card-footer">
                                 <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب</a>
                             </div>
                         </div>
