@@ -48,47 +48,41 @@
             {% endif %}
 
             {% if items %}
-                <div class="courses-grid">
+                <div class="training-grid">
                     {% for item in items %}
-                        <article class="course-card" data-reveal>
+                        <article class="card-base course-card" data-reveal>
                             {% if item.cover_image %}
-                                <a href="{{ item.get_absolute_url }}" class="course-card-media" aria-hidden="true"
-                                   tabindex="-1">
+                                <a href="{{ item.get_absolute_url }}" class="card-image" aria-hidden="true" tabindex="-1">
                                     <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
                                 </a>
                             {% else %}
-                                <span class="course-card-media course-card-media--placeholder" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none"><path
-                                        d="M12 6c-1.8-1.6-4.2-2-8-2v14c3.8 0 6.2.4 8 2 1.8-1.6 4.2-2 8-2V4c-3.8 0-6.2.4-8 2Z"
-                                        stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path
-                                        d="M12 6v14" stroke="currentColor" stroke-width="1.6"></path></svg>
-                            </span>
+                                <div class="card-image" style="display: flex; align-items: center; justify-content: center; background: var(--bg-subtle);" aria-hidden="true">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="color: var(--text-muted);">
+                                        <path d="M12 6c-1.8-1.6-4.2-2-8-2v14c3.8 0 6.2.4 8 2 1.8-1.6 4.2-2 8-2V4c-3.8 0-6.2.4-8 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+                                        <path d="M12 6v14" stroke="currentColor" stroke-width="1.6"></path>
+                                    </svg>
+                                </div>
                             {% endif %}
-                            <div class="course-card-meta">
-                                {% if item.category %}
-                                    <span class="badge badge-success">{{ item.category }}</span>{% endif %}
-                                {% if item.level %}
-                                    <span class="badge">{{ item.get_level_display }}</span>
-                                {% endif %}
-                            </div>
-                            <div class="course-card-body">
-                                <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                            <div class="card-body">
+                                <div class="card-meta">
+                                    {% if item.category %}<span class="badge badge-success">{{ item.category }}</span>{% endif %}
+                                    {% if item.level %}<span class="badge">{{ item.get_level_display }}</span>{% endif %}
+                                </div>
+                                <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
                                 {% if item.summary %}
-                                    <p>{{ item.summary }}</p>
+                                    <p class="card-description">{{ item.summary }}</p>
                                 {% elif item.description %}
-                                    <p>{{ item.description|truncatewords:24 }}</p>
+                                    <p class="card-description">{{ item.description|truncatewords:24 }}</p>
                                 {% endif %}
-                                <div class="course-card-footer">
+                                <div class="card-footer">
                                     {% if item.duration_hours %}
-                                        <span class="course-meta-token">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle
-                                                cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle><path
-                                                d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6"
-                                                stroke-linecap="round"></path></svg>
-                                        {{ item.duration_hours }} ساعت
-                                    </span>
-                                    {% else %}
-                                        <span></span>
+                                        <span class="course-meta-item">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle>
+                                                <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                                            </svg>
+                                            {{ item.duration_hours }} ساعت
+                                        </span>
                                     {% endif %}
                                     <a class="btn-link" href="{{ item.get_absolute_url }}">جزئیات دوره</a>
                                 </div>

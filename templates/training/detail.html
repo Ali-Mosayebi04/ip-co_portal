@@ -1,5 +1,6 @@
 {% extends "home/base.html" %}
 {% load static %}
+{% load jalali_tags %}
 
 {% block title %}{% firstof object.title training.title "دوره آموزشی" %} | آموزش‌های ایپکو{% endblock %}
 
@@ -77,7 +78,7 @@
                                 </span>
                                     <div>
                                         <span class="course-info-label">تاریخ انتشار</span>
-                                        <span class="course-info-value">{{ course.published_at|date:"j F Y" }}</span>
+                                        <span class="course-info-value">{{ course.published_at|jalali:"%d %B %Y" }}</span>
                                     </div>
                                 </div>
                             {% endif %}
