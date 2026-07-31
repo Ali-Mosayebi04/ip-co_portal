@@ -1,5 +1,6 @@
 {% extends "home/base.html" %}
 {% load static %}
+{% load jalali_tags %}
 
 {% block title %}صفحه اصلی | پورتال خبری ایران‌خودرو{% endblock %}
 
@@ -43,7 +44,7 @@
                                     <h2>{{ featured.title }}</h2>
                                     {% if featured.summary %}<p>{{ featured.summary }}</p>{% endif %}
                                     <div class="hero-story-meta">
-                                        <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
+                                        <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|jalali:"%d %B %Y" }}</time>
                                         <span class="hero-story-cta">
                                             خواندن گزارش
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -63,7 +64,7 @@
                                 <li>تعهد به کیفیت و ایمنی</li>
                             </ul>
                             <div class="hero-panel-footer">
-                                <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
+                                <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|jalali:"%d %B %Y" }}</time>
                                 <a class="hero-story-cta" href="{{ featured.get_absolute_url }}">خواندن گزارش ←</a>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                     <div class="hero-digest" aria-label="سرفصل دیگر اخبار">
                         {% for item in digest_items %}
                             <a class="hero-digest-item" href="{{ item.get_absolute_url }}">
-                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
+                                <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|jalali:"%d %B %Y" }}</time>
                                 <strong>{{ item.title }}</strong>
                             </a>
                         {% endfor %}
@@ -116,15 +117,15 @@
             </div>
 
             <div class="intro-cards editorial-cards">
-                <article class="feature-card" data-reveal>
+                <article class="card-base feature-card" data-reveal>
                     <h3>توسعه محصول</h3>
                     <p>طراحی و بهینه‌سازی محصولات با تمرکز بر کارایی، دوام و نوآوری.</p>
                 </article>
-                <article class="feature-card" data-reveal>
+                <article class="card-base feature-card" data-reveal>
                     <h3>تحقیق و پژوهش</h3>
                     <p>استفاده از رویکردهای علمی و مهندسی برای ارتقای ظرفیت‌های تولیدی.</p>
                 </article>
-                <article class="feature-card" data-reveal>
+                <article class="card-base feature-card" data-reveal>
                     <h3>همکاری‌های صنعتی</h3>
                     <p>ایجاد بسترهای هم‌افزایی با شرکای راهبردی در صنعت خودرو.</p>
                 </article>
@@ -184,14 +185,14 @@
             {% if section_links %}
                 <div class="sections-grid">
                     {% for link in section_links %}
-                        <a class="section-card capability-card editorial-card" href="{{ link.url }}" data-reveal>
+                        <a class="card-base section-card" href="{{ link.url }}" data-reveal>
                             {% if link.icon %}
-                                <i class="{{ link.icon }}" aria-hidden="true"></i>
+                                <i class="{{ link.icon }} section-card-icon" aria-hidden="true"></i>
                             {% else %}
                                 <span class="section-card-icon" aria-hidden="true">{{ link.title|slice:":1" }}</span>
                             {% endif %}
-                            <span class="section-card-title">{{ link.title }}</span>
-                            {% if link.description %}<span class="section-card-desc">{{ link.description }}</span>{% endif %}
+                            <h3 class="section-card-title">{{ link.title }}</h3>
+                            {% if link.description %}<p class="section-card-desc">{{ link.description }}</p>{% endif %}
                         </a>
                     {% endfor %}
                 </div>
@@ -239,34 +240,27 @@
                         <a class="see-all" href="{% url 'news:list' %}">مشاهده آرشیو کامل</a>
                     </div>
 
-                    <div class="news-modern-grid">
-                        {% with featured=rest_news.0 %}
-                            {% if featured %}
-                                <article class="news-featured" data-reveal>
-                                    {% if featured.cover_image %}
-                                        <img src="{{ featured.cover_image.url }}" alt="{{ featured.title }}" loading="lazy">
-                                    {% endif %}
-                                    <div class="news-featured-body">
+                    <div class="news-grid">
+                        {% for item in rest_news %}
+                            <article class="card-base news-card" data-reveal>
+                                {% if item.cover_image %}
+                                    <a href="{{ item.get_absolute_url }}" class="card-image" aria-hidden="true" tabindex="-1">
+                                        <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
+                                    </a>
+                                {% endif %}
+                                <div class="card-body">
+                                    <div class="card-meta">
                                         <span class="badge">خبر شرکت</span>
-                                        <h3><a href="{{ featured.get_absolute_url }}">{{ featured.title }}</a></h3>
-                                        <p>{{ featured.summary }}</p>
-                                        <time datetime="{{ featured.published_at|date:'c' }}">{{ featured.published_at|date:"j F Y" }}</time>
+                                        <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|jalali:"%d %B %Y" }}</time>
                                     </div>
-                                </article>
-                            {% endif %}
-                        {% endwith %}
-
-                        <div class="news-stack">
-                            {% for item in rest_news|slice:"1:5" %}
-                                <article class="news-stack-item" data-reveal>
-                                    <div>
-                                        <h3><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-                                        <p>{{ item.summary }}</p>
+                                    <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                                    <p class="card-description">{{ item.summary }}</p>
+                                    <div class="card-footer">
+                                        <a class="btn-link" href="{{ item.get_absolute_url }}">ادامه مطلب</a>
                                     </div>
-                                    <time datetime="{{ item.published_at|date:'c' }}">{{ item.published_at|date:"j F Y" }}</time>
-                                </article>
-                            {% endfor %}
-                        </div>
+                                </div>
+                            </article>
+                        {% endfor %}
                     </div>
                 </div>
             </section>
@@ -351,7 +345,7 @@
 
             <div class="announcement-gallery">
                 {% for announcement in announcements %}
-                    <article class="announcement-card">
+                    <article class="card-base announcement-card">
                         <button
                             type="button"
                             class="announcement-card-button"
