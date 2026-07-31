@@ -1,8 +1,23 @@
+import datetime
+
 import jdatetime
 from django import template
 from django.utils import timezone
 
 register = template.Library()
+
+
+def _to_jalali(value):
+    if isinstance(value, datetime.datetime):
+        if timezone.is_naive(value):
+            value = timezone.make_aware(value)
+        value = timezone.localtime(value)
+        return jdatetime.datetime.fromgregorian(datetime=value)
+
+    if isinstance(value, datetime.date):
+        return jdatetime.date.fromgregorian(date=value)
+
+    return None
 
 
 @register.filter(name='jalali')
@@ -35,15 +50,9 @@ def jalali(value, format_string='%d %B %Y'):
     if not value:
         return ""
 
-    # Make sure the datetime is timezone-aware
-    if timezone.is_naive(value):
-        value = timezone.make_aware(value)
-
-    # Convert to local timezone
-    value = timezone.localtime(value)
-
-    # Convert to Jalali date
-    jalali_date = jdatetime.datetime.fromgregorian(datetime=value)
+    jalali_date = _to_jalali(value)
+    if jalali_date is None:
+        return ""
 
     # Format the date
     return jalali_date.strftime(format_string)
@@ -55,11 +64,9 @@ def jalali_day(value):
     if not value:
         return ""
 
-    if timezone.is_naive(value):
-        value = timezone.make_aware(value)
-
-    value = timezone.localtime(value)
-    jalali_date = jdatetime.datetime.fromgregorian(datetime=value)
+    jalali_date = _to_jalali(value)
+    if jalali_date is None:
+        return ""
     return jalali_date.day
 
 
@@ -69,11 +76,9 @@ def jalali_month(value):
     if not value:
         return ""
 
-    if timezone.is_naive(value):
-        value = timezone.make_aware(value)
-
-    value = timezone.localtime(value)
-    jalali_date = jdatetime.datetime.fromgregorian(datetime=value)
+    jalali_date = _to_jalali(value)
+    if jalali_date is None:
+        return ""
     return jalali_date.strftime('%B')
 
 
@@ -83,11 +88,9 @@ def jalali_year(value):
     if not value:
         return ""
 
-    if timezone.is_naive(value):
-        value = timezone.make_aware(value)
-
-    value = timezone.localtime(value)
-    jalali_date = jdatetime.datetime.fromgregorian(datetime=value)
+    jalali_date = _to_jalali(value)
+    if jalali_date is None:
+        return ""
     return jalali_date.year
 
 
@@ -97,11 +100,9 @@ def jalali_weekday(value):
     if not value:
         return ""
 
-    if timezone.is_naive(value):
-        value = timezone.make_aware(value)
-
-    value = timezone.localtime(value)
-    jalali_date = jdatetime.datetime.fromgregorian(datetime=value)
+    jalali_date = _to_jalali(value)
+    if jalali_date is None:
+        return ""
     return jalali_date.strftime('%A')
 
 
