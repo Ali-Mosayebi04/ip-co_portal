@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load jalali_tags %}
 
 {% block title %}لغو جلسه: {{ meeting.title }} | پورتال خبری ایران‌خودرو{% endblock %}
 
@@ -19,7 +20,7 @@
             </div>
 
             <div class="meeting-summary">
-                <p><strong>تاریخ:</strong> {{ meeting.date|date:"l j F Y" }}</p>
+                <p><strong>تاریخ:</strong> {{ meeting.date|jalali:"%A %d %B %Y" }}</p>
                 <p><strong>زمان:</strong> {{ meeting.start_time|time:"H:i" }} تا {{ meeting.end_time|time:"H:i" }}</p>
                 <p><strong>اتاق:</strong> {{ meeting.room.name }}</p>
                 <p><strong>شرکت‌کنندگان:</strong> {{ meeting.attendees.count }} نفر</p>

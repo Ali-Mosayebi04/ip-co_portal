@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load jalali_tags %}
 
 {% block title %}جلسات پیش رو | پورتال خبری ایران‌خودرو{% endblock %}
 
@@ -25,10 +26,10 @@
         {% elif meetings %}
             <div class="meeting-list">
                 {% for meeting in meetings %}
-                    <article class="meeting-card" data-reveal>
+                    <article class="card-base meeting-card" data-reveal>
                         <div class="meeting-date">
-                            <span class="meeting-date-day">{{ meeting.date|date:"j" }}</span>
-                            <span class="meeting-date-month">{{ meeting.date|date:"F" }}</span>
+                            <span class="meeting-date-day">{{ meeting.date|jalali_day }}</span>
+                            <span class="meeting-date-month">{{ meeting.date|jalali_month }}</span>
                         </div>
                         <div class="meeting-info">
                             <h3>{{ meeting.title }}</h3>
