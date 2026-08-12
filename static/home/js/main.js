@@ -348,6 +348,75 @@
     if (announcementModalClose) announcementModalClose.addEventListener("click", closeAnnouncementModal);
 
     /* -----------------------------------------------------------------------
+     * Archive pages — command-palette morph search
+     * The circular launcher blooms into a floating search panel (`.is-open`
+     * on #archiveSearch). Open with click or Ctrl/Cmd+K; close with Esc, ×
+     * or a click anywhere outside the field.
+     * --------------------------------------------------------------------- */
+    var archiveSearch = $("#archiveSearch");
+    var archiveSearchTrigger = $("#archiveSearchTrigger");
+    var archiveSearchInput = $("#archiveSearchInput");
+    var archiveSearchClose = $("#archiveSearchClose");
+
+    function openArchiveSearch() {
+        if (!archiveSearch || archiveSearch.classList.contains("is-open")) return;
+        archiveSearch.classList.add("is-open");
+        if (archiveSearchTrigger) {
+            archiveSearchTrigger.setAttribute("aria-expanded", "true");
+            archiveSearchTrigger.setAttribute("tabindex", "-1");
+        }
+        if (archiveSearchInput) {
+            window.setTimeout(function () {
+                archiveSearchInput.focus({preventScroll: true});
+            }, 80);
+        }
+    }
+
+    function closeArchiveSearch() {
+        if (!archiveSearch || !archiveSearch.classList.contains("is-open")) return;
+        archiveSearch.classList.remove("is-open");
+        if (archiveSearchTrigger) {
+            archiveSearchTrigger.setAttribute("aria-expanded", "false");
+            archiveSearchTrigger.removeAttribute("tabindex");
+            archiveSearchTrigger.focus({preventScroll: true});
+        }
+    }
+
+    if (archiveSearchTrigger) {
+        archiveSearchTrigger.addEventListener("click", function (event) {
+            if (!archiveSearch.classList.contains("is-open")) {
+                event.preventDefault();
+                openArchiveSearch();
+            }
+        });
+    }
+
+    if (archiveSearchClose) {
+        archiveSearchClose.addEventListener("click", closeArchiveSearch);
+    }
+
+    document.addEventListener("click", function (event) {
+        if (archiveSearch && archiveSearch.classList.contains("is-open") &&
+            !archiveSearch.contains(event.target)) {
+            closeArchiveSearch();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if ((event.metaKey || event.ctrlKey) && (event.key === "k" || event.key === "K")) {
+            event.preventDefault();
+            if (archiveSearch && !archiveSearch.classList.contains("is-open")) {
+                openArchiveSearch();
+            } else if (archiveSearchInput) {
+                archiveSearchInput.focus({preventScroll: true});
+            }
+        }
+        if (event.key === "Escape" && archiveSearch && archiveSearch.classList.contains("is-open")) {
+            closeArchiveSearch();
+        }
+    });
+
+    /* -----------------------------------------------------------------------
      * Copy article link (news detail share rail)
      * --------------------------------------------------------------------- */
     $$("[data-copy-link]").forEach(function (button) {

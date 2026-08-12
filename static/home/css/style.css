@@ -2719,7 +2719,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 
 /* First card of the archive becomes the editorial feature */
 .news-grid--archive .news-card--featured {
-    grid-column: span 2;
+    grid-column: span 1;
     flex-direction: row;
 }
 

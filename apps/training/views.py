@@ -53,6 +53,9 @@ class CourseListView(ListView):
         context["search_query"] = self.request.GET.get("q", "").strip()
         context["active_category"] = self.request.GET.get("category", "").strip()
         context["categories"] = CourseCategory.objects.all()
+        context["training_pagination_extra"] = (
+            f"&category={context['active_category']}" if context["active_category"] else ""
+        )
         return context
 
 

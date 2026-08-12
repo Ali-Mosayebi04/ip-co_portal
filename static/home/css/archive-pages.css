@@ -1,0 +1,844 @@
+/* ==========================================================================
+   ARCHIVE PAGES — NEWS & TRAINING
+   --------------------------------------------------------------------------
+   Shared redesign: editorial hero with glow orbs + engineering grid, a
+   command-palette style morph-search launcher, minimal result/empty states,
+   category chips and a segmented minimal pagination. Built on strategy
+   'Precision' tokens only.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1 · ARCHIVE HERO
+   ========================================================================== */
+
+.archive-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-default);
+    background:
+        radial-gradient(1100px 460px at 90% -12%, var(--accent-soft) 0%, transparent 55%),
+        radial-gradient(760px 420px at -6% 115%, rgba(169, 124, 80, 0.14) 0%, transparent 60%),
+        var(--gradient-surface);
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* Floating colour orbs */
+.archive-hero__orb {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    animation: archiveOrbFloat 12s var(--ease-out) infinite;
+}
+
+.archive-hero__orb--a {
+    top: -140px;
+    right: -90px;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 68%);
+}
+
+.archive-hero__orb--b {
+    bottom: -170px;
+    left: 4%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(169, 124, 80, 0.22) 0%, transparent 68%);
+    animation-delay: -4s;
+}
+
+@keyframes archiveOrbFloat {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(0, 26px, 0) scale(1.08);
+    }
+}
+
+/* Fine engineering grid, faded to one corner */
+.archive-hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(to left, var(--border-default) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border-default) 1px, transparent 1px);
+    background-size: 54px 54px;
+    -webkit-mask-image: radial-gradient(circle at 78% 8%, #000 0%, transparent 62%);
+    mask-image: radial-gradient(circle at 78% 8%, #000 0%, transparent 62%);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.archive-hero__wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+/* Editorial copy */
+.archive-hero__copy {
+    max-width: 640px;
+}
+
+.archive-hero__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--sp-4);
+    padding: 9px 18px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-pill);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    animation: archiveRise 640ms var(--ease-out) both;
+}
+
+.live-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--signal);
+    flex-shrink: 0;
+}
+
+.live-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 2px solid var(--signal);
+    border-radius: 50%;
+    opacity: 0;
+    animation: archiveLivePing 2.2s var(--ease-out) infinite;
+}
+
+@keyframes archiveLivePing {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(2.1);
+        opacity: 0;
+    }
+}
+
+.archive-hero__title {
+    margin: 0;
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.28;
+    letter-spacing: -0.015em;
+    animation: archiveRise 640ms var(--ease-out) 90ms both;
+}
+
+.archive-hero__title-accent {
+    background: linear-gradient(120deg, var(--accent) 0%, var(--signal) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.archive-hero__lede {
+    margin: var(--sp-4) 0 0;
+    max-width: 54ch;
+    color: var(--text-secondary);
+    font-size: clamp(0.95rem, 1vw, 1.05rem);
+    line-height: 1.9;
+    animation: archiveRise 640ms var(--ease-out) 160ms both;
+}
+
+@keyframes archiveRise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Authority strip (light, non-cluttered) */
+.archive-hero__stats {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5);
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-5);
+    border-top: 1px solid var(--border-default);
+}
+
+.archive-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.archive-hero__stat-value {
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    line-height: 1.2;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.archive-hero__stat-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.archive-hero__stat-label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.archive-hero__divider {
+    align-self: stretch;
+    width: 1px;
+    background: var(--border-default);
+}
+
+/* ==========================================================================
+   2 · SEARCH BAR THAT EXPANDS  (top-left of the hero)
+   --------------------------------------------------------------------------
+   A single compact pill ("جستجو + Ctrl K") that morphs into a full search
+   field. One continuous element — the wrapper carries the border/radius/
+   shadow and animates its width, while the two content layers crossfade.
+   Open via click or Ctrl/Cmd+K; close via Esc, × or outside click.
+   ========================================================================== */
+
+.archive-hero__tools {
+    flex-shrink: 0;
+}
+
+.archive-search {
+    --search-h: 52px;
+    --search-closed-w: 184px;
+    --search-open-w: min(460px, calc(100vw - 2.5rem));
+    --ease-spring: cubic-bezier(0.34, 1.25, 0.36, 1);
+    position: relative;
+    width: var(--search-closed-w);
+    height: var(--search-h);
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    border-radius: 18px;
+    background: linear-gradient(180deg, var(--bg-surface-raised), var(--bg-surface));
+    box-shadow: var(--shadow-sm);
+    transition: width 460ms var(--ease-spring), border-color var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+    .archive-search:hover {
+        border-color: var(--accent);
+        box-shadow: var(--shadow-elevated);
+    }
+}
+
+.archive-search.is-open {
+    width: var(--search-open-w);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-default);
+}
+
+.archive-search:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow-lg);
+}
+
+/* --- Collapsed launcher content ----------------------------------------- */
+.archive-search__closed {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0 16px;
+    border: none;
+    background: none;
+    color: var(--text-secondary);
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 240ms var(--ease-out), color var(--duration-fast) var(--ease);
+}
+
+.archive-search__closed-label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+}
+
+.archive-search__closed-icon {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    color: var(--accent);
+    transition: transform 300ms var(--ease-out);
+}
+
+@media (hover: hover) {
+    .archive-search:hover .archive-search__closed {
+        color: var(--accent-strong);
+    }
+
+    .archive-search:hover .archive-search__closed-icon {
+        transform: scale(1.12);
+    }
+}
+
+.archive-search.is-open .archive-search__closed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- kbd chip (shared) --------------------------------------------------- */
+.archive-search__kbd {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-inline-start: auto;
+    padding: 3px 8px;
+    border: 1px solid var(--border-default);
+    border-radius: 7px;
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+    .archive-search__kbd {
+        display: none;
+    }
+}
+
+/* --- Expanded search field ------------------------------------------------ */
+.archive-search__panel {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 240ms var(--ease-out), visibility 0s linear 260ms;
+}
+
+.archive-search.is-open .archive-search__panel {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms var(--ease-out) 150ms, visibility 0s;
+}
+
+/* Staggered content entrance */
+.archive-search.is-open .archive-search__panel > * {
+    opacity: 0;
+    transform: translateY(5px);
+    animation: archiveFieldIn 340ms var(--ease-out) forwards;
+}
+
+.archive-search.is-open .archive-search__panel-icon {
+    animation-delay: 150ms;
+}
+
+.archive-search.is-open .archive-search__input {
+    animation-delay: 185ms;
+}
+
+.archive-search.is-open .archive-search__kbd {
+    animation-delay: 215ms;
+}
+
+.archive-search.is-open .archive-search__go {
+    animation-delay: 245ms;
+}
+
+.archive-search.is-open .archive-search__close {
+    animation-delay: 275ms;
+}
+
+@keyframes archiveFieldIn {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.archive-search__panel-icon {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+    margin-inline-start: 6px;
+    color: var(--accent);
+}
+
+.archive-search__input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0 8px;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--text-primary);
+    font: inherit;
+    font-size: var(--fs-sm);
+}
+
+.archive-search__input:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.archive-search__input::placeholder {
+    color: var(--text-muted);
+}
+
+.archive-search__input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.archive-search__kbd--panel {
+    margin-inline-start: 0;
+}
+
+.archive-search__go {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #ffffff;
+    font: inherit;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+    .archive-search__go:hover {
+        background: var(--accent-strong);
+        box-shadow: var(--shadow-sm);
+        transform: translateY(-1px);
+    }
+}
+
+.archive-search__go:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.archive-search__go svg {
+    width: 15px;
+    height: 15px;
+}
+
+.archive-search__close {
+    flex-shrink: 0;
+    display: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
+}
+
+@media (max-width: 639px) {
+    .archive-search__close {
+        display: grid;
+    }
+}
+
+@media (hover: hover) {
+    .archive-search__close:hover {
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+    }
+}
+
+.archive-search__close svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* ==========================================================================
+   3 · SECTION WRAPPER & RESULT BAR
+   ========================================================================== */
+
+.archive-section {
+    padding: 0 0 var(--sp-9);
+}
+
+.archive-results-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-2) var(--sp-4);
+    margin-bottom: var(--sp-6);
+    padding: var(--sp-3) var(--sp-5);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-pill);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--fs-sm);
+}
+
+.archive-results-bar__label {
+    color: var(--text-secondary);
+}
+
+.archive-results-bar__label strong {
+    color: var(--accent-strong);
+}
+
+.archive-results-bar__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-inline-start: auto;
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+}
+
+.archive-results-bar__count {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 700;
+}
+
+.archive-results-bar__reset {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease);
+}
+
+.archive-results-bar__reset:hover {
+    color: var(--error);
+}
+
+/* ==========================================================================
+   4 · CATEGORY CHIPS  (training)
+   ========================================================================== */
+
+.archive-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: var(--sp-6);
+}
+
+.archive-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-pill);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+    .archive-chip:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        transform: translateY(-1px);
+    }
+}
+
+.archive-chip.is-active {
+    background: var(--bg-inverse);
+    border-color: transparent;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   5 · EMPTY STATE
+   ========================================================================== */
+
+.archive-empty {
+    padding: var(--sp-8) var(--sp-6);
+    text-align: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+}
+
+.archive-empty__icon {
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto var(--sp-4);
+    border-radius: 22px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    animation: archiveOrbFloat 6s var(--ease-out) infinite;
+}
+
+.archive-empty__icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.archive-empty__title {
+    margin: 0 0 var(--sp-2);
+    font-size: var(--fs-lg);
+}
+
+.archive-empty__desc {
+    margin: 0 auto var(--sp-5);
+    max-width: 44ch;
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+}
+
+/* ==========================================================================
+   6 · MINIMAL PAGINATION
+   --------------------------------------------------------------------------
+   Quiet segmented control: rounded page pills, gradient active state,
+   chevron arrows and a one-line muted caption.
+   ========================================================================== */
+
+.archive-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: var(--sp-8);
+    --page-size: 44px;
+}
+
+.archive-pagination > * {
+    animation: archivePagIn 520ms var(--ease-out) both;
+}
+
+.archive-pagination > *:nth-child(2) {
+    animation-delay: 40ms;
+}
+
+.archive-pagination > *:nth-child(3) {
+    animation-delay: 80ms;
+}
+
+.archive-pagination > *:nth-child(4) {
+    animation-delay: 120ms;
+}
+
+.archive-pagination > *:nth-child(5) {
+    animation-delay: 160ms;
+}
+
+.archive-pagination > *:nth-child(6) {
+    animation-delay: 200ms;
+}
+
+.archive-pagination > *:nth-child(7) {
+    animation-delay: 240ms;
+}
+
+.archive-pagination > *:nth-child(8) {
+    animation-delay: 280ms;
+}
+
+@keyframes archivePagIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.archive-pagination__page,
+.archive-pagination__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--page-size);
+    height: var(--page-size);
+    padding: 0 var(--sp-2);
+    border: 1px solid var(--border-default);
+    border-radius: 14px;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    user-select: none;
+    transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease),
+    background var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease),
+    box-shadow var(--duration-fast) var(--ease);
+}
+
+@media (hover: hover) {
+    .archive-pagination__page:not(.is-current):hover,
+    .archive-pagination__arrow:not(.is-disabled):hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        transform: translateY(-2px);
+    }
+}
+
+.archive-pagination__page:active,
+.archive-pagination__arrow:active {
+    transform: translateY(0) scale(0.96);
+}
+
+.archive-pagination__page.is-current {
+    position: relative;
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    cursor: default;
+}
+
+.archive-pagination__page.is-current::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 18px;
+    box-shadow: 0 0 0 0 var(--accent-soft);
+    animation: archivePagGlow 2.6s var(--ease-out) infinite;
+    z-index: -1;
+}
+
+@keyframes archivePagGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 var(--accent-soft);
+    }
+    50% {
+        box-shadow: 0 0 0 10px transparent;
+    }
+}
+
+.archive-pagination__arrow {
+    width: var(--page-size);
+    flex: 0 0 auto;
+    background: var(--bg-subtle);
+}
+
+.archive-pagination__arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.archive-pagination__arrow.is-disabled {
+    opacity: 0.32;
+    pointer-events: none;
+}
+
+.archive-pagination__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: var(--page-size);
+    color: var(--text-muted);
+    font-weight: 700;
+    user-select: none;
+}
+
+.archive-pagination__caption {
+    width: 100%;
+    margin-top: var(--sp-3);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--fs-xs);
+}
+
+.archive-pagination__caption b {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   7 · RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    .archive-hero__wrap {
+        flex-direction: column;
+    }
+
+    .archive-hero__tools {
+        order: -1;
+        width: 100%;
+        display: flex;
+    }
+
+    .archive-search {
+        margin-inline-start: auto;
+    }
+}
+
+@media (max-width: 560px) {
+    .archive-hero__stats {
+        gap: var(--sp-4);
+    }
+
+    .archive-hero__stat-value {
+        font-size: var(--fs-lg);
+    }
+
+    .archive-pagination {
+        gap: 6px;
+        --page-size: 40px;
+    }
+}

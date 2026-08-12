@@ -1,33 +1,95 @@
 {% extends "home/base.html" %}
 {% load jalali_tags %}
 
-{% block title %}آرشیو اخبار | پورتال خبری ایران‌خودرو{% endblock %}
+{% block title %}اخبار و رویدادها | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
-    <section class="page-hero page-hero-news container">
-        <div class="page-hero-copy">
-            <span class="section-kicker">اخبار و رویدادها</span>
-            <h1>آرشیو اخبار ایپکو</h1>
-            <p>از تحولات فنی و صنعتی تا رویدادهای سازمانی، همه خبرها در یک تجربه خوانش مدرن و قابل‌فهم گردآوری
-                شده‌اند.</p>
-        </div>
-        <div class="page-hero-panel">
-            <span class="hero-panel-tag">به‌روزترین رویدادها</span>
-            <p>اخبار منتشرشده در شرکت با تمرکز بر شفافیت، دقت و روایت حرفه‌ای نمایش داده می‌شوند.</p>
+    <section class="archive-hero">
+        <div class="archive-hero__orb archive-hero__orb--a" aria-hidden="true"></div>
+        <div class="archive-hero__orb archive-hero__orb--b" aria-hidden="true"></div>
+        <div class="archive-hero__grid" aria-hidden="true"></div>
+
+        <div class="container archive-hero__wrap">
+            <header class="archive-hero__copy">
+                <span class="archive-hero__kicker" data-reveal>
+                    <span class="live-dot" aria-hidden="true"></span>
+                    اخبار و رویدادها
+                </span>
+                <h1 class="archive-hero__title" data-reveal>
+                    آخرین اخبار و رویدادهای <span class="archive-hero__title-accent">ایران‌خودرو ایپکو</span>
+                </h1>
+                <p class="archive-hero__lede" data-reveal>
+                    از تحولات فنی و صنعتی تا رویدادهای سازمانی؛ شفاف، دقیق و به‌روز.
+                    هر خبر، روایتی از حرکت استوار به‌سوی آینده است.
+                </p>
+                <div class="archive-hero__stats" data-reveal>
+                    <div class="archive-hero__stat">
+                        <span class="archive-hero__stat-value">{{ page_obj.paginator.count }}</span>
+                        <span class="archive-hero__stat-label">خبر منتشرشده</span>
+                    </div>
+                    <span class="archive-hero__divider" aria-hidden="true"></span>
+                    <div class="archive-hero__stat">
+                        <span class="archive-hero__stat-live">
+                            <span class="live-dot" aria-hidden="true"></span>
+                            همیشه به‌روز
+                        </span>
+                        <span class="archive-hero__stat-label">منبع اخبار سازمانی</span>
+                    </div>
+                </div>
+            </header>
+
+<div class="archive-hero__tools" data-reveal>
+                    <div class="archive-search{% if search_query %} is-open{% endif %}" id="archiveSearch">
+                        <button type="button" class="archive-search__closed" id="archiveSearchTrigger"
+                                aria-label="جستجو در اخبار"
+                                aria-expanded="{% if search_query %}true{% else %}false{% endif %}">
+                            <svg class="archive-search__closed-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="archive-search__closed-label">جستجو</span>
+                            <kbd class="archive-search__kbd" aria-hidden="true">Ctrl K</kbd>
+                        </button>
+                        <form class="archive-search__panel" method="get" role="search">
+                            <svg class="archive-search__panel-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <input type="search" name="q" id="archiveSearchInput"
+                                   class="archive-search__input"
+                                   placeholder="جستجو در عنوان یا خلاصه خبر…"
+                                   value="{{ search_query }}"
+                                   aria-label="جستجو در عنوان یا خلاصه خبر"
+                                   autocomplete="off">
+                            <kbd class="archive-search__kbd archive-search__kbd--panel" aria-hidden="true">Ctrl K</kbd>
+                            <button type="submit" class="archive-search__go">
+                                <span>جستجو</span>
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor"
+                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="archive-search__close" id="archiveSearchClose" aria-label="بستن جستجو">
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M6 6L18 18M18 6L6 18" stroke="currentColor"
+                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
         </div>
     </section>
 
-    <section class="news-archive container">
-        <div class="filter-bar">
-            <form role="search" method="get">
-                <input type="search" name="q" placeholder="جست‌وجو در عنوان یا خلاصه خبر…" value="{{ search_query }}"
-                       aria-label="جست‌وجو در اخبار">
-                <button type="submit" class="btn btn-solid">جست‌وجو</button>
-            </form>
-        </div>
-
+    <section class="archive-section container">
         {% if search_query %}
-            <p class="search-result-note">نتایج جست‌وجو برای «<strong>{{ search_query }}</strong>»</p>
+            <div class="archive-results-bar">
+                <span class="archive-results-bar__label">نتایج جستجو برای «<strong>{{ search_query }}</strong>»</span>
+                <span class="archive-results-bar__meta">
+                    <span class="archive-results-bar__count">{{ page_obj.paginator.count }} خبر</span>
+                    <a class="archive-results-bar__reset" href="?page=1">نمایش همه اخبار</a>
+                </span>
+            </div>
         {% endif %}
 
         {% if news_list %}
@@ -54,15 +116,29 @@
                 {% endfor %}
             </div>
 
-            {% include "partials/pagination_news.html" %}
+            {% include "partials/archive_pagination.html" with pagination_label="صفحه‌بندی اخبار" pagination_unit="خبر" %}
         {% else %}
-            <p class="empty-state">
+            <div class="archive-empty">
+                <div class="archive-empty__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 class="archive-empty__title">
+                    {% if search_query %}خبری یافت نشد{% else %}خبری برای نمایش وجود ندارد{% endif %}
+                </h3>
+                <p class="archive-empty__desc">
+                    {% if search_query %}
+                        عبارت دیگری را امتحان کنید یا به فهرست کامل اخبار بازگردید.
+                    {% else %}
+                        به‌زودی اخبار جدید در این بخش منتشر خواهد شد.
+                    {% endif %}
+                </p>
                 {% if search_query %}
-                    خبری مطابق با جست‌وجوی شما یافت نشد. عبارت دیگری را امتحان کنید.
-                {% else %}
-                    در حال حاضر خبری برای نمایش وجود ندارد.
+                    <a class="btn btn-outline" href="?page=1">مشاهده همه اخبار</a>
                 {% endif %}
-            </p>
+            </div>
         {% endif %}
     </section>
 {% endblock %}
