@@ -2,7 +2,7 @@
    IPCO Portal — main.js
    --------------------------------------------------------------------------
    Vanilla ES6, modular IIFE sections. Hooks expected by Django templates:
-     #theme-switcher / #theme-switcher-toggle / .theme-option / data-theme-choice
+     #theme-switcher / #theme-switcher-toggle
      #site-search / .header-search(.is-open) / #header-search-toggle / .search-close
      #main-nav / .nav-toggle / .nav-backdrop
      .nav-item-dropdown / .dropdown-toggle / .dropdown-panel
@@ -42,10 +42,7 @@
         root.setAttribute("data-theme", resolved);
     }
 
-    function updateThemeMenuState(theme) {
-        $$(".theme-option").forEach(function (btn) {
-            btn.setAttribute("aria-checked", btn.getAttribute("data-theme-choice") === theme ? "true" : "false");
-        });
+    function updateThemeIcon(theme) {
         var iconLight = $("#theme-icon-light");
         var iconDark = $("#theme-icon-dark");
         var resolved = theme === "system" ? (colorSchemeMql.matches ? "dark" : "light") : theme;
@@ -58,41 +55,29 @@
     function setTheme(theme) {
         try {
             localStorage.setItem(THEME_KEY, theme);
-        } catch (e) { /* private mode */
-        }
+        } catch (e) { /* private mode */ }
         applyTheme(theme);
-        updateThemeMenuState(theme);
+        updateThemeIcon(theme);
     }
 
-    var themeSwitcher = $("#theme-switcher");
     var themeToggle = $("#theme-switcher-toggle");
 
-    function closeThemeSwitcher() {
-        if (!themeSwitcher) return;
-        themeSwitcher.classList.remove("open");
-        if (themeToggle) themeToggle.setAttribute("aria-expanded", "false");
-    }
-
-    updateThemeMenuState(getStoredTheme());
+    updateThemeIcon(getStoredTheme());
     if (colorSchemeMql.addEventListener) {
         colorSchemeMql.addEventListener("change", function () {
             if (getStoredTheme() === "system") {
                 applyTheme("system");
-                updateThemeMenuState("system");
+                updateThemeIcon("system");
             }
         });
     }
-    $$(".theme-option").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            setTheme(btn.getAttribute("data-theme-choice"));
-            closeThemeSwitcher();
-        });
-    });
-    if (themeSwitcher && themeToggle) {
+    if (themeToggle) {
         themeToggle.addEventListener("click", function (event) {
             event.stopPropagation();
-            var isOpen = themeSwitcher.classList.toggle("open");
-            themeToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            var currentTheme = getStoredTheme();
+            var resolved = currentTheme === "system" ? (colorSchemeMql.matches ? "dark" : "light") : currentTheme;
+            var nextTheme = resolved === "dark" ? "light" : "dark";
+            setTheme(nextTheme);
         });
     }
     /* Unblock transitions now that the initial theme is painted. */
@@ -236,12 +221,10 @@
 
     document.addEventListener("click", function (event) {
         closeAllDropdowns(null);
-        if (themeSwitcher && !themeSwitcher.contains(event.target)) closeThemeSwitcher();
     });
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             closeAllDropdowns(null);
-            closeThemeSwitcher();
             closeDrawer();
             closeSearch();
             closeAnnouncementModal();

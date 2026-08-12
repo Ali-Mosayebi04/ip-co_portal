@@ -744,75 +744,47 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
     margin-inline-start: auto;
 }
 
-/* Theme switcher */
-.theme-switcher {
-    position: relative;
+.header-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.theme-switcher-menu {
-    position: absolute;
-    top: calc(100% + 10px);
-    inset-inline-end: 0;
-    min-width: 210px;
-    padding: 6px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-6px);
-    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease),
-    visibility var(--duration-fast) var(--ease);
-    z-index: 120;
+.header-nav .main-nav > .container {
+    width: 100%;
+    justify-content: center;
 }
 
-.theme-switcher.open .theme-switcher-menu {
+.header-nav .main-nav ul {
+    justify-content: center;
+}
+
+.header-nav .nav-item-dropdown:hover > .dropdown-toggle,
+.header-nav .nav-item-dropdown:hover > .dropdown-link {
+    color: var(--accent-strong);
+}
+
+.header-nav .nav-item-dropdown:hover .dropdown-panel {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
-.theme-option {
-    display: flex;
+/* Keep the mobile drawer hidden on desktop while using the header nav */
+.nav-bar {
+    display: none;
+}
+
+/* Theme switcher */
+.theme-switcher {
+    display: inline-flex;
     align-items: center;
-    gap: var(--sp-3);
-    width: 100%;
-    padding: 10px 12px;
-    border: none;
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--text-secondary);
-    font: inherit;
-    font-size: var(--fs-sm);
-    cursor: pointer;
-    text-align: start;
 }
 
-.theme-option::after {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-inline-start: auto;
-    background: var(--accent);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
-}
-
-.theme-option:hover {
-    background: var(--bg-subtle);
-}
-
-.theme-option[aria-checked="true"] {
-    color: var(--accent-strong);
-    font-weight: 700;
-}
-
-.theme-option[aria-checked="true"]::after {
-    opacity: 1;
-    transform: scale(1);
+.theme-switcher-menu,
+.theme-option {
+    display: none;
 }
 
 /* Notifications */
@@ -3831,8 +3803,13 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
         display: flex;
     }
 
+    .header-nav {
+        display: none;
+    }
+
     /* Mobile nav drawer */
     .nav-bar {
+        display: block;
         position: fixed;
         inset-inline-end: 0;
         inset-inline-start: auto;

@@ -49,6 +49,47 @@
             </div>
         </form>
 
+        <div class="header-nav">
+            <nav class="main-nav" aria-label="منوی اصلی">
+                <div class="container">
+                    <ul>
+                        <li>
+                            <a href="{% url 'news:list' %}" class="{% if request.resolver_match and request.resolver_match.namespace == 'news' %}is-active{% endif %}">اخبار</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'training:list' %}" class="{% if request.resolver_match and request.resolver_match.namespace == 'training' %}is-active{% endif %}">آموزش‌ها</a>
+                        </li>
+                        <li class="nav-item nav-item-dropdown">
+                            <button
+                                    type="button"
+                                    class="nav-link dropdown-toggle{% if request.resolver_match and request.resolver_match.namespace == 'workgroups' %} is-active{% endif %}"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    aria-controls="workgroups-dropdown"
+                            >
+                                کارگروه‌ها
+                                <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+                                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div class="dropdown-panel" id="workgroups-dropdown">
+                                <div class="dropdown-menu-wrap">
+                                    <div class="dropdown-menu">
+                                        {% for group in workgroups_nav %}
+                                            <a href="{% url 'workgroups:detail' slug=group.slug %}">{{ group.name }}</a>
+                                        {% empty %}
+                                            <p class="dropdown-empty dropdown-empty-block">هیچ کارگروه فعالی یافت نشد.</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
         <div class="header-actions">
                 <button type="button" class="icon-btn header-search-toggle" id="header-search-toggle"
                         aria-expanded="false" aria-controls="site-search" aria-label="جست‌وجو در پورتال">
@@ -59,8 +100,7 @@
                 </button>
 
                 <div class="theme-switcher" id="theme-switcher">
-                    <button type="button" class="icon-btn" id="theme-switcher-toggle" aria-haspopup="true"
-                            aria-expanded="false" aria-controls="theme-switcher-menu" aria-label="تغییر پوسته نمایش">
+                    <button type="button" class="icon-btn" id="theme-switcher-toggle" aria-label="تغییر پوسته نمایش">
                         <svg id="theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none"
                              aria-hidden="true">
                             <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"></circle>
@@ -73,17 +113,6 @@
                                   stroke-width="1.8" stroke-linejoin="round"></path>
                         </svg>
                     </button>
-                    <div class="theme-switcher-menu" id="theme-switcher-menu" role="menu" aria-label="گزینه‌های پوسته">
-                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light"
-                                aria-checked="false">حالت روشن
-                        </button>
-                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark"
-                                aria-checked="false">حالت تیره
-                        </button>
-                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system"
-                                aria-checked="false">هماهنگ با سیستم
-                        </button>
-                    </div>
                 </div>
 
                 <div class="nav-item-dropdown notifications-menu">
@@ -232,71 +261,6 @@
 
     <div class="nav-backdrop" aria-hidden="true"></div>
 
-    <div class="nav-bar" id="main-nav">
-        <nav class="main-nav" aria-label="منوی اصلی">
-            <div class="container">
-                <ul>
-                    <li class="nav-item nav-item-dropdown">
-                        <button
-                                type="button"
-                                class="nav-link dropdown-toggle{% if nav_company_menu_active %} is-active{% endif %}"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                aria-controls="company-dropdown"
-                        >
-                            شرکت
-                            <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
-                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-panel mega-panel" id="company-dropdown">
-                            <div class="dropdown-menu-wrap">
-                                <div class="mega-grid">
-                                    <div class="mega-column">
-                                        <h3>درباره ایپکو</h3>
-                                        <a href="{% url 'home:about_company' %}">درباره شرکت</a>
-                                        <a href="{% url 'news:list' %}">اخبار و رویدادها</a>
-                                        <a href="{% url 'training:list' %}">آموزش و توانمندسازی</a>
-                                        {% if request.user.is_authenticated %}
-                                            {% if request.user.is_superuser %}
-                                                <a href="{% url 'meetings:list' %}">مدیریت جلسات</a>
-                                            {% else %}
-                                                <a href="{% url 'meetings:upcoming' %}">جلسات من</a>
-                                            {% endif %}
-                                        {% else %}
-                                            <a href="{% url 'meetings:upcoming' %}">جلسات سازمانی</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="mega-column">
-                                        <h3>سازمان</h3>
-                                        <a href="{% url 'workgroups:list' %}">کارگروه‌ها</a>
-                                        <a href="{% url 'home:contact' %}">ارتباط با سازمان</a>
-                                        <a href="{% url 'training:list' %}">دوره‌های آموزشی</a>
-                                        {% if request.user.is_superuser %}
-                                            <a href="{% url 'admin:index' %}">پنل مدیریت</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="mega-card">
-                                        <span class="hero-panel-tag">پیشرو در مهندسی</span>
-                                        <h4>قدرت صنعتی در خدمت آینده</h4>
-                                        <p>ایپکو با رویکردی دقیق، مدرن و آینده‌محور در مسیر ارتقای فناوری و تولید پیش
-                                            می‌رود.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    {% for item in nav_items %}
-                        <li>
-                            <a href="{{ item.url }}" class="{% if item.is_current %}is-active{% endif %}"
-                               {% if item.open_in_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                                {{ item.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </nav>
-    </div>
+
+
 </header>
