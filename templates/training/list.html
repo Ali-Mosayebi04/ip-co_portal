@@ -3,105 +3,177 @@
 {% block title %}آموزش‌ها | پورتال خبری ایران‌خودرو{% endblock %}
 
 {% block content %}
-    <section class="page-hero container">
-        <div class="page-hero-copy">
-            <span class="section-kicker">آموزش و توانمندسازی</span>
-            <h1>دوره‌های آموزشی ایپکو</h1>
-            <p>سرمایه‌گذاری روی آدم‌ها، مهم‌ترین سرمایه‌گذاری مهندسی است؛ دوره‌های تخصصی را بر اساس حوزه‌ی کاری خود پیدا
-                کنید و مسیر رشدتان را بسازید.</p>
-        </div>
-        <div class="page-hero-panel">
-            <span class="hero-panel-tag">توسعه‌ی تخصص</span>
-            <p>از مهارت‌های نرم تا تخصص‌های عمیق موتور و کیفیت؛ تقویم دوره‌ها به‌صورت مستمر به‌روزرسانی می‌شود.</p>
+    <section class="archive-hero">
+        <div class="archive-hero__orb archive-hero__orb--a" aria-hidden="true"></div>
+        <div class="archive-hero__orb archive-hero__orb--b" aria-hidden="true"></div>
+        <div class="archive-hero__grid" aria-hidden="true"></div>
+
+        <div class="container archive-hero__wrap">
+            <header class="archive-hero__copy">
+                <span class="archive-hero__kicker" data-reveal>
+                    <span class="live-dot" aria-hidden="true"></span>
+                    آموزش و توانمندسازی
+                </span>
+                <h1 class="archive-hero__title" data-reveal>
+                    دوره‌های تخصصی <span class="archive-hero__title-accent">ایران‌خودرو ایپکو</span>
+                </h1>
+                <p class="archive-hero__lede" data-reveal>
+                    سرمایه‌گذاری روی آدم‌ها، مهم‌ترین سرمایه‌گذاری مهندسی است؛ دوره‌های تخصصی را بر اساس
+                    حوزه‌ی کاری خود پیدا کنید و مسیر رشدتان را بسازید.
+                </p>
+                <div class="archive-hero__stats" data-reveal>
+                    <div class="archive-hero__stat">
+                        <span class="archive-hero__stat-value">{{ page_obj.paginator.count }}</span>
+                        <span class="archive-hero__stat-label">دورهٔ آموزشی</span>
+                    </div>
+                    <span class="archive-hero__divider" aria-hidden="true"></span>
+                    <div class="archive-hero__stat">
+                        <span class="archive-hero__stat-live">
+                            <span class="live-dot" aria-hidden="true"></span>
+                            به‌روزرسانی مستمر
+                        </span>
+                        <span class="archive-hero__stat-label">از مهارت نرم تا تخصص موتور</span>
+                    </div>
+                </div>
+            </header>
+
+<div class="archive-hero__tools" data-reveal>
+                    <div class="archive-search{% if search_query %} is-open{% endif %}" id="archiveSearch">
+                        <button type="button" class="archive-search__closed" id="archiveSearchTrigger"
+                                aria-label="جستجو در دوره‌ها"
+                                aria-expanded="{% if search_query %}true{% else %}false{% endif %}">
+                            <svg class="archive-search__closed-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="archive-search__closed-label">جستجو</span>
+                            <kbd class="archive-search__kbd" aria-hidden="true">Ctrl K</kbd>
+                        </button>
+                        <form class="archive-search__panel" method="get" role="search">
+                            <svg class="archive-search__panel-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <input type="search" name="q" id="archiveSearchInput"
+                                   class="archive-search__input"
+                                   placeholder="جستجو در عنوان دوره‌ها…"
+                                   value="{{ search_query }}"
+                                   aria-label="جستجو در عنوان دوره‌ها"
+                                   autocomplete="off">
+                            <kbd class="archive-search__kbd archive-search__kbd--panel" aria-hidden="true">Ctrl K</kbd>
+                            <button type="submit" class="archive-search__go">
+                                <span>جستجو</span>
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor"
+                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="archive-search__close" id="archiveSearchClose" aria-label="بستن جستجو">
+                                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M6 6L18 18M18 6L6 18" stroke="currentColor"
+                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
         </div>
     </section>
 
-    <section class="training-archive container">
-        {% with items=courses %}
+    <section class="archive-section container">
+        {% if categories %}
+            <div class="archive-chip-row" role="navigation" aria-label="دسته‌بندی دوره‌ها" data-reveal>
+                <a class="archive-chip{% if not active_category %} is-active{% endif %}"
+                   href="{% url 'training:list' %}">همه دوره‌ها</a>
+                {% for cat in categories %}
+                    {% if cat.get_absolute_url %}
+                        <a class="archive-chip{% if active_category == cat.slug %} is-active{% endif %}"
+                           href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                    {% else %}
+                        <a class="archive-chip{% if active_category == cat.slug %} is-active{% endif %}"
+                           href="?category={{ cat.slug }}">{{ cat.name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-            <div class="filter-bar">
-                <form role="search" method="get">
-                    <input type="search" name="q" placeholder="جست‌وجو در عنوان دوره‌ها…" value="{{ search_query }}"
-                           aria-label="جست‌وجو در دوره‌ها">
-                    <button type="submit" class="btn btn-solid">جست‌وجو</button>
-                </form>
+        {% if search_query %}
+            <div class="archive-results-bar">
+                <span class="archive-results-bar__label">نتایج جستجو برای «<strong>{{ search_query }}</strong>»</span>
+                <span class="archive-results-bar__meta">
+                    <span class="archive-results-bar__count">{{ page_obj.paginator.count }} دوره</span>
+                    <a class="archive-results-bar__reset" href="{% url 'training:list' %}">نمایش همه دوره‌ها</a>
+                </span>
+            </div>
+        {% endif %}
+
+        {% if courses %}
+            <div class="training-grid">
+                {% for item in courses %}
+                    <article class="card-base course-card" data-reveal>
+                        {% if item.cover_image %}
+                            <a href="{{ item.get_absolute_url }}" class="card-image" aria-hidden="true" tabindex="-1">
+                                <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
+                            </a>
+                        {% else %}
+                            <div class="card-image" style="display: flex; align-items: center; justify-content: center; background: var(--bg-subtle);" aria-hidden="true">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="color: var(--text-muted);">
+                                    <path d="M12 6c-1.8-1.6-4.2-2-8-2v14c3.8 0 6.2.4 8 2 1.8-1.6 4.2-2 8-2V4c-3.8 0-6.2.4-8 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+                                    <path d="M12 6v14" stroke="currentColor" stroke-width="1.6"></path>
+                                </svg>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="card-meta">
+                                {% if item.category %}<span class="badge badge-success">{{ item.category }}</span>{% endif %}
+                                {% if item.level %}<span class="badge">{{ item.get_level_display }}</span>{% endif %}
+                            </div>
+                            <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                            {% if item.summary %}
+                                <p class="card-description">{{ item.summary }}</p>
+                            {% elif item.description %}
+                                <p class="card-description">{{ item.description|truncatewords:24 }}</p>
+                            {% endif %}
+                            <div class="card-footer">
+                                {% if item.duration_hours %}
+                                    <span class="course-meta-item">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle>
+                                            <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                                        </svg>
+                                        {{ item.duration_hours }} ساعت
+                                    </span>
+                                {% endif %}
+                                <a class="btn-link" href="{{ item.get_absolute_url }}">جزئیات دوره</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
             </div>
 
-            {% if categories %}
-                <div class="category-filters" role="navigation" aria-label="دسته‌بندی دوره‌ها">
-                    <a class="category-chip{% if not active_category %} active{% endif %}"
-                       href="{% url 'training:list' %}">همه دوره‌ها</a>
-                    {% for cat in categories %}
-                        {% if cat.get_absolute_url %}
-                            <a class="category-chip{% if active_category == cat.id %} active{% endif %}"
-                               href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-                        {% else %}
-                            <a class="category-chip{% if active_category == cat.id %} active{% endif %}"
-                               href="?category={{ cat.id }}">{{ cat.name }}</a>
-                        {% endif %}
-                    {% endfor %}
+            {% include "partials/archive_pagination.html" with pagination_label="صفحه‌بندی دوره‌ها" pagination_unit="دوره" pagination_extra=training_pagination_extra %}
+        {% else %}
+            <div class="archive-empty">
+                <div class="archive-empty__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21L16.65 16.65M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
-            {% endif %}
-
-            {% if search_query %}
-                <p class="search-result-note">نتایج جست‌وجو برای «<strong>{{ search_query }}</strong>»</p>
-            {% endif %}
-
-            {% if items %}
-                <div class="training-grid">
-                    {% for item in items %}
-                        <article class="card-base course-card" data-reveal>
-                            {% if item.cover_image %}
-                                <a href="{{ item.get_absolute_url }}" class="card-image" aria-hidden="true" tabindex="-1">
-                                    <img src="{{ item.cover_image.url }}" alt="{{ item.title }}" loading="lazy">
-                                </a>
-                            {% else %}
-                                <div class="card-image" style="display: flex; align-items: center; justify-content: center; background: var(--bg-subtle);" aria-hidden="true">
-                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="color: var(--text-muted);">
-                                        <path d="M12 6c-1.8-1.6-4.2-2-8-2v14c3.8 0 6.2.4 8 2 1.8-1.6 4.2-2 8-2V4c-3.8 0-6.2.4-8 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
-                                        <path d="M12 6v14" stroke="currentColor" stroke-width="1.6"></path>
-                                    </svg>
-                                </div>
-                            {% endif %}
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    {% if item.category %}<span class="badge badge-success">{{ item.category }}</span>{% endif %}
-                                    {% if item.level %}<span class="badge">{{ item.get_level_display }}</span>{% endif %}
-                                </div>
-                                <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
-                                {% if item.summary %}
-                                    <p class="card-description">{{ item.summary }}</p>
-                                {% elif item.description %}
-                                    <p class="card-description">{{ item.description|truncatewords:24 }}</p>
-                                {% endif %}
-                                <div class="card-footer">
-                                    {% if item.duration_hours %}
-                                        <span class="course-meta-item">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle>
-                                                <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-                                            </svg>
-                                            {{ item.duration_hours }} ساعت
-                                        </span>
-                                    {% endif %}
-                                    <a class="btn-link" href="{{ item.get_absolute_url }}">جزئیات دوره</a>
-                                </div>
-                            </div>
-                        </article>
-                    {% endfor %}
-                </div>
-
-                {% include "partials/pagination_training.html" %}
-            {% else %}
-                <p class="empty-state">
+                <h3 class="archive-empty__title">
+                    {% if search_query %}دوره‌ای یافت نشد{% else %}دوره‌ای برای نمایش وجود ندارد{% endif %}
+                </h3>
+                <p class="archive-empty__desc">
                     {% if search_query %}
-                        دوره‌ای مطابق با جست‌وجوی شما یافت نشد. عبارت دیگری را امتحان کنید.
+                        عبارت دیگری را امتحان کنید یا به فهرست کامل دوره‌ها بازگردید.
                     {% else %}
-                        در حال حاضر دوره‌ی آموزشی برای نمایش وجود ندارد.
+                        به‌زودی دوره‌های جدید در این بخش منتشر خواهد شد.
                     {% endif %}
                 </p>
-            {% endif %}
-
-        {% endwith %}
+                {% if search_query %}
+                    <a class="btn btn-outline" href="{% url 'training:list' %}">مشاهده همه دوره‌ها</a>
+                {% endif %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

@@ -1,0 +1,64 @@
+{% if is_paginated %}
+    <nav class="archive-pagination" aria-label="{{ pagination_label|default:'صفحه‌بندی' }}">
+        {% if page_obj.has_previous %}
+            <a class="archive-pagination__arrow" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{{ pagination_extra }}" aria-label="صفحه قبل" rel="prev">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        {% else %}
+            <span class="archive-pagination__arrow is-disabled" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        {% endif %}
+
+        {% if page_obj.number > 3 %}
+            <a class="archive-pagination__page" href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{{ pagination_extra }}">1</a>
+            {% if page_obj.number > 4 %}
+                <span class="archive-pagination__ellipsis" aria-hidden="true">…</span>
+            {% endif %}
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <span class="archive-pagination__page is-current" aria-current="page">{{ num }}</span>
+            {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                <a class="archive-pagination__page" href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{{ pagination_extra }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+            {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                <span class="archive-pagination__ellipsis" aria-hidden="true">…</span>
+            {% endif %}
+            <a class="archive-pagination__page"
+               href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{{ pagination_extra }}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a class="archive-pagination__arrow" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{{ pagination_extra }}" aria-label="صفحه بعد" rel="next">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        {% else %}
+            <span class="archive-pagination__arrow is-disabled" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        {% endif %}
+
+        <span class="archive-pagination__caption">
+            صفحه <b>{{ page_obj.number }}</b> از <b>{{ page_obj.paginator.num_pages }}</b>
+            ·
+            مجموع <b>{{ page_obj.paginator.count }}</b> {{ pagination_unit|default:'مورد' }}
+        </span>
+    </nav>
+{% endif %}

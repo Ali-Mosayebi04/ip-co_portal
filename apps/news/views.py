@@ -8,7 +8,7 @@ from django.views.generic import DetailView, ListView
 
 from .models import News
 
-PAGE_SIZE = 5
+PAGE_SIZE = 6
 _NEWS_LIST_FIELDS = ("id", "title", "slug", "summary", "cover_image", "published_at")
 
 
@@ -36,13 +36,6 @@ class NewsListView(ListView):
 
 
 class NewsDetailView(DetailView):
-    """Public news detail page.
-
-    Only ever exposes published news, even to someone who guesses or
-    shares a slug for a draft, and records a view atomically at the
-    database level so concurrent hits never clobber each other's count.
-    """
-
     model = News
     template_name = "news/detail.html"
     context_object_name = "news_item"
@@ -75,9 +68,5 @@ class NewsDetailView(DetailView):
 
     @staticmethod
     def _record_view(news_item: News) -> None:
-        """Increment the view counter with a single atomic UPDATE
-        (``F('views') + 1``) instead of read-modify-write in Python, so
-        two simultaneous requests can never overwrite each other's
-        increment."""
         News.objects.filter(pk=news_item.pk).update(views=F("views") + 1)
         news_item.refresh_from_db(fields=["views"])
