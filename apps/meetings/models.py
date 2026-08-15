@@ -1,13 +1,3 @@
-"""Domain models for the ``meetings`` app: meeting-room booking.
-
-A manager books a :class:`MeetingRoom` for a specific date/time range
-and picks the :class:`~apps.workgroups.models.Employee` attendees. Each
-attendee gets a :class:`MeetingInvitation` row, which is also where we
-record whether (and when) the invitation email actually went out —
-this is what lets us safely resend to *only* newly-added attendees
-later, and gives an audit trail if an email bounces.
-"""
-
 from __future__ import annotations
 
 from django.core.exceptions import ValidationError
@@ -18,7 +8,6 @@ from apps.workgroups.models import Employee
 
 
 class MeetingRoom(models.Model):
-    """A physical meeting room that can be booked."""
 
     name = models.CharField("نام اتاق", max_length=100, unique=True)
     location = models.CharField("محل استقرار", max_length=200, blank=True)
@@ -35,7 +24,6 @@ class MeetingRoom(models.Model):
 
 
 class Meeting(models.Model):
-    """A single booking of a room for a date/time range."""
 
     room = models.ForeignKey(
         MeetingRoom,
@@ -117,19 +105,13 @@ class Meeting(models.Model):
                 )
 
     def cancel(self) -> None:
-        """Mark the meeting cancelled. Sending the cancellation email to
-        already-invited attendees is a separate step (see
-        ``apps.meetings.emails.send_meeting_cancellations``) so that
-        cancelling never silently fails to save because of an email
-        problem."""
+        
         self.is_cancelled = True
         self.cancelled_at = timezone.now()
         self.save(update_fields=["is_cancelled", "cancelled_at", "updated_at"])
 
 
 class MeetingInvitation(models.Model):
-    """One attendee's invitation to one meeting, and whether the email
-    for it has actually been sent yet."""
 
     meeting = models.ForeignKey(
         Meeting,

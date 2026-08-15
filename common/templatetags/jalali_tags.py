@@ -10,14 +10,12 @@ def _to_jalali(value):
     if not value:
         return None
 
-    # datetime
     if isinstance(value, datetime.datetime):
         if timezone.is_naive(value):
             value = timezone.make_aware(value)
         value = timezone.localtime(value)
         return jdatetime.datetime.fromgregorian(datetime=value)
 
-    # date
     if isinstance(value, datetime.date):
         return jdatetime.date.fromgregorian(date=value)
 
@@ -71,14 +69,7 @@ def jalali_weekday(value):
 
 @register.simple_tag
 def jalali_now(format_string='%d %B %Y'):
-    """
-    Display current date/time in Jalali calendar format.
 
-    Usage in templates:
-        {% jalali_now %}
-        {% jalali_now "%A، %d %B %Y" %}
-        {% jalali_now "%Y" %}
-    """
     now = timezone.now()
     now = timezone.localtime(now)
     jalali_date = jdatetime.datetime.fromgregorian(datetime=now)

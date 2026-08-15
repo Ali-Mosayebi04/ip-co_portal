@@ -137,18 +137,10 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# ---------------------------------------------------------------------------
-# Authentication
-# ---------------------------------------------------------------------------
-
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "meetings:upcoming"
 LOGOUT_REDIRECT_URL = "home:index"
 
-
-# ---------------------------------------------------------------------------
-# Email (used by apps.meetings to send meeting invitations/cancellations)
-# ---------------------------------------------------------------------------
 
 EMAIL_BACKEND = os.environ.get(
     "DJANGO_EMAIL_BACKEND",

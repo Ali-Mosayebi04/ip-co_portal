@@ -1,9 +1,3 @@
-"""Small, dependency-free helpers shared across apps.
-
-This is a plain Python package, not a Django app — it holds no models,
-so it never needs to appear in ``INSTALLED_APPS`` or own migrations.
-"""
-
 from __future__ import annotations
 
 from django.core.exceptions import ValidationError
@@ -14,7 +8,6 @@ ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"]
 
 
 def validate_image_size(image) -> None:
-    """Reject uploaded images larger than ``MAX_IMAGE_SIZE_MB``."""
     if image.size > MAX_IMAGE_SIZE_MB * 1024 * 1024:
         raise ValidationError(
             f"حجم تصویر نباید بیشتر از {MAX_IMAGE_SIZE_MB} مگابایت باشد."
@@ -22,13 +15,7 @@ def validate_image_size(image) -> None:
 
 
 def validate_image_content(image) -> None:
-    """Verify the uploaded file is a genuine, decodable image.
 
-    The extension whitelist alone can be defeated by renaming an
-    arbitrary file to ``.jpg``. Asking Pillow to actually decode the
-    file closes that gap without adding a runtime dependency, since
-    Pillow is already required for ``ImageField``.
-    """
     from PIL import Image, UnidentifiedImageError
 
     try:

@@ -1,6 +1,3 @@
-"""Domain models for the ``training`` app: company training courses
-(دوره‌های آموزشی) organized into categories."""
-
 from __future__ import annotations
 
 import os
@@ -18,7 +15,6 @@ from common.validators import IMAGE_VALIDATORS
 
 
 def course_cover_upload_path(instance: "Course", filename: str) -> str:
-    """Random, collision-free filename for course cover images."""
     ext = os.path.splitext(filename)[1].lower()
     return f"training/covers/{uuid.uuid4().hex}{ext}"
 
@@ -35,7 +31,6 @@ class CourseStatus(models.TextChoices):
 
 
 class CourseCategory(models.Model):
-    """A grouping for courses, e.g. «ایمنی و بهداشت» یا «مهارت‌های فنی»."""
 
     name = models.CharField("نام دسته", max_length=100)
     slug = models.SlugField(
@@ -71,8 +66,7 @@ class CourseCategory(models.Model):
 
 class CourseQuerySet(models.QuerySet):
     def published(self) -> "CourseQuerySet":
-        """Everything visible to the public: published *and* whose
-        scheduled publish time has already passed."""
+
         return self.filter(
             status=CourseStatus.PUBLISHED,
             published_at__lte=timezone.now(),
@@ -157,7 +151,6 @@ class Course(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    # -- slug -------------------------------------------------------------
 
     def _build_unique_slug(self) -> str:
         base_slug = slugify(self.title, allow_unicode=True) or uuid.uuid4().hex[:10]
@@ -168,7 +161,6 @@ class Course(models.Model):
             slug = f"{base_slug}-{counter}"
         return slug
 
-    # -- persistence --------------------------------------------------------
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:

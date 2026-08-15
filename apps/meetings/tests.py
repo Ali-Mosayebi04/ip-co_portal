@@ -178,8 +178,6 @@ class MeetingCancellationEmailTests(TestCase):
         MeetingInvitation.objects.create(meeting=self.meeting, employee=self.alice)
 
     def test_cancellation_only_notifies_people_who_were_invited(self):
-        # Never sent an invitation in the first place, so there's
-        # nothing to notify them about when the meeting is cancelled.
         self.meeting.cancel()
         result = send_meeting_cancellations(self.meeting)
         self.assertEqual(result.sent, 0)
@@ -300,8 +298,6 @@ class LoginFlowTests(TestCase):
 
     def test_logout_requires_post(self):
         self.client.login(username="alice", password="pass12345")
-        # Django 5's LogoutView only accepts POST; GET must not log the
-        # user out (this would be a CSRF/link-based-logout footgun).
         response = self.client.get(reverse("logout"))
         self.assertEqual(response.status_code, 405)
 

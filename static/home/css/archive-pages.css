@@ -1,17 +1,3 @@
-/* ==========================================================================
-   ARCHIVE PAGES — NEWS & TRAINING
-   --------------------------------------------------------------------------
-   Shared redesign: editorial hero with glow orbs + engineering grid, a
-   command-palette style morph-search launcher, minimal result/empty states,
-   category chips and a segmented minimal pagination. Built on strategy
-   'Precision' tokens only.
-   ========================================================================== */
-
-
-/* ==========================================================================
-   1 · ARCHIVE HERO
-   ========================================================================== */
-
 .archive-hero {
     position: relative;
     isolation: isolate;
@@ -24,7 +10,6 @@
     padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(3.5rem, 6vw, 5.5rem);
 }
 
-/* Floating colour orbs */
 .archive-hero__orb {
     position: absolute;
     z-index: -1;
@@ -60,7 +45,6 @@
     }
 }
 
-/* Fine engineering grid, faded to one corner */
 .archive-hero__grid {
     position: absolute;
     inset: 0;
@@ -82,7 +66,6 @@
     gap: clamp(2.5rem, 6vw, 5rem);
 }
 
-/* Editorial copy */
 .archive-hero__copy {
     max-width: 640px;
 }
@@ -169,7 +152,6 @@
     }
 }
 
-/* Authority strip (light, non-cluttered) */
 .archive-hero__stats {
     display: flex;
     align-items: center;
@@ -215,14 +197,6 @@
     background: var(--border-default);
 }
 
-/* ==========================================================================
-   2 · SEARCH BAR THAT EXPANDS  (top-left of the hero)
-   --------------------------------------------------------------------------
-   A single compact pill ("جستجو + Ctrl K") that morphs into a full search
-   field. One continuous element — the wrapper carries the border/radius/
-   shadow and animates its width, while the two content layers crossfade.
-   Open via click or Ctrl/Cmd+K; close via Esc, × or outside click.
-   ========================================================================== */
 
 .archive-hero__tools {
     flex-shrink: 0;
@@ -263,7 +237,6 @@
     box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow-lg);
 }
 
-/* --- Collapsed launcher content ----------------------------------------- */
 .archive-search__closed {
     position: absolute;
     inset: 0;
@@ -310,7 +283,6 @@
     pointer-events: none;
 }
 
-/* --- kbd chip (shared) --------------------------------------------------- */
 .archive-search__kbd {
     flex-shrink: 0;
     display: inline-flex;
@@ -335,7 +307,6 @@
     }
 }
 
-/* --- Expanded search field ------------------------------------------------ */
 .archive-search__panel {
     position: absolute;
     inset: 0;
@@ -355,7 +326,6 @@
     transition: opacity 300ms var(--ease-out) 150ms, visibility 0s;
 }
 
-/* Staggered content entrance */
 .archive-search.is-open .archive-search__panel > * {
     opacity: 0;
     transform: translateY(5px);
@@ -496,9 +466,6 @@
     height: 15px;
 }
 
-/* ==========================================================================
-   3 · SECTION WRAPPER & RESULT BAR
-   ========================================================================== */
 
 .archive-section {
     padding: 0 0 var(--sp-9);
@@ -556,10 +523,6 @@
     color: var(--error);
 }
 
-/* ==========================================================================
-   4 · CATEGORY CHIPS  (training)
-   ========================================================================== */
-
 .archive-chip-row {
     display: flex;
     flex-wrap: wrap;
@@ -601,10 +564,6 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* ==========================================================================
-   5 · EMPTY STATE
-   ========================================================================== */
-
 .archive-empty {
     padding: var(--sp-8) var(--sp-6);
     text-align: center;
@@ -642,13 +601,6 @@
     color: var(--text-secondary);
     font-size: var(--fs-sm);
 }
-
-/* ==========================================================================
-   6 · MINIMAL PAGINATION
-   --------------------------------------------------------------------------
-   Quiet segmented control: rounded page pills, gradient active state,
-   chevron arrows and a one-line muted caption.
-   ========================================================================== */
 
 .archive-pagination {
     display: flex;
@@ -807,10 +759,6 @@
     color: var(--text-secondary);
     font-weight: 700;
 }
-
-/* ==========================================================================
-   7 · RESPONSIVE
-   ========================================================================== */
 
 @media (max-width: 900px) {
     .archive-hero__wrap {

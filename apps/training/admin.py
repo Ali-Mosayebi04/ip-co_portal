@@ -55,8 +55,6 @@ class CourseAdmin(admin.ModelAdmin):
         return "—"
 
     def save_model(self, request, obj, form, change):
-        # Auto-assign the current staff user as the instructor on first
-        # save, so editors never have to pick themselves manually.
         if not change and not obj.instructor_id:
             obj.instructor = request.user
         super().save_model(request, obj, form, change)

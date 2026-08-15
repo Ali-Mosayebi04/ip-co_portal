@@ -1,9 +1,3 @@
-"""Views for the ``meetings`` app.
-
-Provides both employee-facing views (see their own upcoming meetings) and
-admin-only views (create, edit, delete meetings).
-"""
-
 from __future__ import annotations
 
 from django.contrib import messages
@@ -22,12 +16,6 @@ from .models import Meeting
 
 
 class UpcomingMeetingsView(LoginRequiredMixin, TemplateView):
-    """Meetings the logged-in employee is invited to, from today
-    onward. If the logged-in account isn't linked to an ``Employee``
-    record, we say so plainly instead of showing a confusing empty
-    list — the fix is an admin linking the account, not the employee
-    doing anything differently.
-    """
 
     template_name = "meetings/upcoming.html"
 
@@ -60,7 +48,6 @@ class UpcomingMeetingsView(LoginRequiredMixin, TemplateView):
 
 
 class AdminRequiredMixin(UserPassesTestMixin):
-    """Mixin to restrict access to admin users only."""
 
     def test_func(self):
         return self.request.user.is_staff and self.request.user.is_superuser
@@ -74,7 +61,6 @@ class AdminRequiredMixin(UserPassesTestMixin):
 
 
 class MeetingListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
-    """List all meetings for admins to manage."""
 
     model = Meeting
     template_name = "meetings/meeting_list.html"
@@ -90,7 +76,6 @@ class MeetingListView(LoginRequiredMixin, AdminRequiredMixin, ListView):
 
 
 class MeetingDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView):
-    """Detailed view of a single meeting for admins."""
 
     model = Meeting
     template_name = "meetings/meeting_detail.html"
@@ -103,7 +88,6 @@ class MeetingDetailView(LoginRequiredMixin, AdminRequiredMixin, DetailView):
 
 
 class MeetingCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
-    """Create a new meeting and send email invitations (admin only)."""
 
     model = Meeting
     form_class = MeetingForm
@@ -137,7 +121,6 @@ class MeetingCreateView(LoginRequiredMixin, AdminRequiredMixin, CreateView):
 
 
 class MeetingUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
-    """Edit an existing meeting and notify newly-added attendees (admin only)."""
 
     model = Meeting
     form_class = MeetingForm
@@ -171,7 +154,6 @@ class MeetingUpdateView(LoginRequiredMixin, AdminRequiredMixin, UpdateView):
 
 
 class MeetingDeleteView(LoginRequiredMixin, AdminRequiredMixin, DeleteView):
-    """Cancel a meeting and notify all attendees (admin only)."""
 
     model = Meeting
     template_name = "meetings/meeting_confirm_delete.html"

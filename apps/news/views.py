@@ -1,5 +1,3 @@
-"""Views for the ``news`` app."""
-
 from __future__ import annotations
 
 from django.db.models import F, Q, QuerySet
@@ -13,7 +11,6 @@ _NEWS_LIST_FIELDS = ("id", "title", "slug", "summary", "cover_image", "published
 
 
 class NewsListView(ListView):
-    """Full, paginated news archive."""
 
     model = News
     template_name = "news/list.html"

@@ -1,11 +1,3 @@
-"""Email-sending logic for the ``meetings`` app.
-
-Kept out of ``models.py`` and ``admin.py`` on purpose: sending email is
-an I/O side effect, not persistence, so it belongs in its own module
-that both the admin and (if needed later) a management command or API
-view can call the same way.
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -35,18 +27,7 @@ class EmailBatchResult:
 def send_meeting_invitations(
     meeting: Meeting, *, only_new: bool = True
 ) -> EmailBatchResult:
-    """Send the invitation email to a meeting's attendees.
 
-    By default (``only_new=True``) this only emails attendees who
-    haven't received one yet, so re-saving a meeting in the admin never
-    spams everyone again — only newly-added attendees get an email.
-    Pass ``only_new=False`` to force a resend to everyone (used by the
-    explicit "resend invitations" admin action).
-
-    Attendees without an email on file are skipped (and counted) rather
-    than raising, since a missing email shouldn't block the rest of the
-    batch from going out.
-    """
     invitations = meeting.invitations.select_related("employee").all()
     if only_new:
         invitations = invitations.filter(sent_at__isnull=True)
@@ -96,9 +77,7 @@ def send_meeting_invitations(
 
 
 def send_meeting_cancellations(meeting: Meeting) -> EmailBatchResult:
-    """Notify everyone who was actually sent an invitation that the
-    meeting has been cancelled. Attendees who never got the original
-    invite (e.g. missing email) have nothing to be notified about."""
+
     invitations = (
         meeting.invitations.select_related("employee")
         .filter(sent_at__isnull=False, cancellation_sent_at__isnull=True)

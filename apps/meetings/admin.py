@@ -12,10 +12,7 @@ class MeetingRoomAdmin(admin.ModelAdmin):
 
 
 class MeetingInvitationInline(admin.TabularInline):
-    """Add/remove attendees here. ``sent_at``/``send_error`` are
-    read-only status columns — a delivery report, not something an
-    admin edits by hand."""
-
+  
     model = MeetingInvitation
     extra = 1
     autocomplete_fields = ("employee",)
@@ -61,10 +58,7 @@ class MeetingAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def save_related(self, request, form, formsets, change):
-        # Runs after the inline MeetingInvitation rows have been saved,
-        # so the attendee list on `form.instance` is final. Only
-        # newly-added attendees (sent_at is still empty) get emailed —
-        # editing an existing meeting never re-spams everyone.
+    
         super().save_related(request, form, formsets, change)
 
         if form.instance.is_cancelled:

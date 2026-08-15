@@ -37,8 +37,6 @@ class NewsAdmin(admin.ModelAdmin):
         return "—"
 
     def save_model(self, request, obj, form, change):
-        # Auto-assign the current staff user as the author on first save,
-        # so editors never have to pick themselves manually.
         if not change and not obj.author_id:
             obj.author = request.user
         super().save_model(request, obj, form, change)

@@ -1,26 +1,16 @@
-/* ==========================================================================
-   UI ENHANCEMENTS - Modern Design Improvements
-   Loaded after main style.css to enhance existing components
-   ========================================================================== */
-
-/* Enhanced Design Tokens */
 :root {
     --gradient-primary: linear-gradient(135deg, #155fa0 0%, #0e2a48 100%);
     --gradient-accent: linear-gradient(135deg, #3f7fb8 0%, #155fa0 100%);
     --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
     --gradient-hover: linear-gradient(135deg, #14497c 0%, #0a1c30 100%);
 
-    /* Glass morphism */
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.18);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
 
-    /* Enhanced shadows */
     --shadow-elevated: 0 10px 40px -10px rgba(10, 28, 48, 0.15);
     --shadow-floating: 0 20px 60px -15px rgba(10, 28, 48, 0.25);
     --shadow-intense: 0 30px 80px -20px rgba(10, 28, 48, 0.35);
-
-    /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -40,9 +30,6 @@
     --shadow-intense: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
 }
 
-/* ==========================================================================
-   ENHANCED BUTTONS & INTERACTIONS
-   ========================================================================== */
 
 .btn, .btn-primary, .btn-secondary, .btn-brand, .btn-solid {
     position: relative;
@@ -87,7 +74,6 @@
     background: var(--gradient-hover);
 }
 
-/* Icon buttons with ripple effect */
 .icon-btn {
     position: relative;
     transition: var(--transition-smooth);
@@ -101,10 +87,6 @@
 .icon-btn:active {
     transform: scale(0.95);
 }
-
-/* ==========================================================================
-   ENHANCED CARDS
-   ========================================================================== */
 
 .news-card, .course-card, .meeting-card, .employee-card {
     transition: var(--transition-smooth);
@@ -133,7 +115,6 @@
     transform: scaleX(1);
 }
 
-/* Card media effects */
 .news-card-media img, .course-card-media img {
     transition: var(--transition-smooth);
 }
@@ -142,10 +123,6 @@
 .course-card:hover .course-card-media img {
     transform: scale(1.05);
 }
-
-/* ==========================================================================
-   ENHANCED HEADER
-   ========================================================================== */
 
 .site-header {
     backdrop-filter: blur(10px);
@@ -170,7 +147,6 @@
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-/* Navigation items */
 .nav-link {
     position: relative;
     transition: var(--transition-smooth);
@@ -192,7 +168,6 @@
     width: 100%;
 }
 
-/* Dropdown animations */
 .dropdown-panel {
     animation: dropdownSlide 0.3s var(--ease-out);
 }
@@ -207,10 +182,6 @@
         transform: translateY(0);
     }
 }
-
-/* ==========================================================================
-   ENHANCED PAGE HERO
-   ========================================================================== */
 
 .page-hero {
     background: var(--gradient-surface);
@@ -263,10 +234,6 @@
     box-shadow: var(--shadow-elevated);
 }
 
-/* ==========================================================================
-   ENHANCED BADGES & TAGS
-   ========================================================================== */
-
 .badge {
     transition: var(--transition-smooth);
     box-shadow: var(--shadow-sm);
@@ -292,10 +259,6 @@
     background: linear-gradient(135deg, var(--warning) 0%, #a68420 100%);
 }
 
-/* ==========================================================================
-   ENHANCED FORMS
-   ========================================================================== */
-
 .form-control, input[type="text"], input[type="email"],
 input[type="password"], input[type="search"],
 textarea, select {
@@ -313,7 +276,6 @@ textarea, select {
     transform: translateY(-2px);
 }
 
-/* Checkbox and radio with smooth animations */
 input[type="checkbox"], input[type="radio"] {
     cursor: pointer;
     transition: var(--transition-smooth);
@@ -322,10 +284,6 @@ input[type="checkbox"], input[type="radio"] {
 input[type="checkbox"]:checked, input[type="radio"]:checked {
     transform: scale(1.1);
 }
-
-/* ==========================================================================
-   ENHANCED MEETING CARDS
-   ========================================================================== */
 
 .meeting-card {
     background: var(--gradient-surface);
@@ -360,10 +318,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     transform: scale(1.1) rotate(-5deg);
 }
 
-/* ==========================================================================
-   ENHANCED NOTIFICATIONS
-   ========================================================================== */
-
 .notification-item {
     transition: var(--transition-smooth);
     border-left: 3px solid transparent;
@@ -383,10 +337,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
 .notification-item:hover .notification-badge {
     transform: scale(1.1);
 }
-
-/* ==========================================================================
-   ENHANCED PAGINATION
-   ========================================================================== */
 
 .pagination a {
     transition: var(--transition-smooth);
@@ -415,10 +365,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     transform: scale(1.05);
 }
 
-/* ==========================================================================
-   ENHANCED BREADCRUMB
-   ========================================================================== */
-
 .breadcrumb-bar {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -434,10 +380,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     background: var(--accent-soft);
     transform: translateX(-3px);
 }
-
-/* ==========================================================================
-   ENHANCED SEARCH
-   ========================================================================== */
 
 .header-search-field {
     position: relative;
@@ -470,10 +412,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     right: -15px;
 }
 
-/* ==========================================================================
-   SMOOTH SCROLLBAR
-   ========================================================================== */
-
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -492,11 +430,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
 }
-
-/* ==========================================================================
-   LOADING ANIMATIONS
-   ========================================================================== */
-
 @keyframes shimmer {
     0% {
         background-position: -1000px 0;
@@ -516,10 +449,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     background-size: 1000px 100%;
     animation: shimmer 2s infinite;
 }
-
-/* ==========================================================================
-   ENHANCED HOVER EFFECTS
-   ========================================================================== */
 
 .hover-lift {
     transition: var(--transition-smooth);
@@ -546,10 +475,6 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     box-shadow: 0 0 20px var(--accent-soft);
 }
 
-/* ==========================================================================
-   ENHANCED TABLES (for meeting attendees, etc.)
-   ========================================================================== */
-
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -567,10 +492,6 @@ table tbody tr:hover {
     background: var(--bg-subtle);
     transform: scale(1.01);
 }
-
-/* ==========================================================================
-   ENHANCED FOOTER
-   ========================================================================== */
 
 .site-footer {
     background: var(--gradient-primary);
@@ -597,10 +518,6 @@ table tbody tr:hover {
         transform: translate(10%, 10%);
     }
 }
-
-/* ==========================================================================
-   ENHANCED TOOLTIPS
-   ========================================================================== */
 
 [title] {
     position: relative;
@@ -634,9 +551,6 @@ table tbody tr:hover {
     }
 }
 
-/* ==========================================================================
-   ENHANCED FOCUS STATES
-   ========================================================================== */
 
 *:focus-visible {
     outline: 3px solid var(--accent);
@@ -645,9 +559,6 @@ table tbody tr:hover {
     transition: outline-offset 0.2s var(--ease);
 }
 
-/* ==========================================================================
-   RESPONSIVE ENHANCEMENTS
-   ========================================================================== */
 
 @media (max-width: 768px) {
     .hover-lift:hover, .hover-scale:hover {
@@ -659,9 +570,6 @@ table tbody tr:hover {
     }
 }
 
-/* ==========================================================================
-   ACCESSIBILITY ENHANCEMENTS
-   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -671,7 +579,6 @@ table tbody tr:hover {
     }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
     .btn, .badge, .card {
         border-width: 2px;

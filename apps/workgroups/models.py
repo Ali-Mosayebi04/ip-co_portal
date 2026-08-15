@@ -1,6 +1,3 @@
-"""Domain models for the ``workgroups`` app: the company's work groups
-(کارگروه‌ها) and the employees that belong to each one."""
-
 from __future__ import annotations
 
 import os
@@ -15,7 +12,6 @@ from common.validators import IMAGE_VALIDATORS
 
 
 def employee_photo_upload_path(instance: "Employee", filename: str) -> str:
-    """Random, collision-free filename for employee photos."""
     ext = os.path.splitext(filename)[1].lower()
     return f"workgroups/employees/{uuid.uuid4().hex}{ext}"
 

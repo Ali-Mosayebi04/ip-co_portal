@@ -1,5 +1,3 @@
-"""Domain model for the ``news`` app: company news articles."""
-
 from __future__ import annotations
 
 import os
@@ -17,11 +15,7 @@ from common.validators import IMAGE_VALIDATORS
 
 
 def news_cover_upload_path(instance: "News", filename: str) -> str:
-    """Store news covers under a random UUID name.
-
-    This avoids both path traversal from a hostile filename and
-    collisions between unrelated uploads that happen to share a name.
-    """
+  
     ext = os.path.splitext(filename)[1].lower()
     return f"news/covers/{uuid.uuid4().hex}{ext}"
 
@@ -33,8 +27,7 @@ class NewsStatus(models.TextChoices):
 
 class NewsQuerySet(models.QuerySet):
     def published(self) -> "NewsQuerySet":
-        """Everything visible to the public: published *and* whose
-        scheduled publish time has already passed."""
+        
         return self.filter(
             status=NewsStatus.PUBLISHED,
             published_at__lte=timezone.now(),
@@ -88,9 +81,7 @@ class News(models.Model):
     objects = NewsQuerySet.as_manager()
 
     class Meta:
-        # Keep pointing at the table this model already had while it
-        # lived in ``apps.home``, so moving the app doesn't require any
-        # data migration — see apps/news/migrations/0001_initial.py.
+
         db_table = "home_news"
         verbose_name = "خبر"
         verbose_name_plural = "اخبار"
@@ -105,8 +96,6 @@ class News(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    # -- slug -------------------------------------------------------------
-
     def _build_unique_slug(self) -> str:
         base_slug = slugify(self.title, allow_unicode=True) or uuid.uuid4().hex[:10]
         slug = base_slug
@@ -116,7 +105,6 @@ class News(models.Model):
             slug = f"{base_slug}-{counter}"
         return slug
 
-    # -- persistence --------------------------------------------------------
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:

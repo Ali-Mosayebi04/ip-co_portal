@@ -63,8 +63,6 @@ class WorkGroupDetailViewTests(TestCase):
 
 class WorkGroupsHeaderDropdownTests(TestCase):
     def test_dropdown_appears_on_unrelated_pages(self):
-        # The dropdown is injected by a context processor, so it must
-        # show up even on a page that has nothing to do with workgroups.
         WorkGroup.objects.create(name="حقوقی")
         response = self.client.get(reverse("home:index"))
         self.assertContains(response, "حقوقی")

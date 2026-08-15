@@ -1,7 +1,3 @@
-"""Registered in ``config.settings.TEMPLATES`` so the header's
-"کارگروه‌ها" dropdown always has the current list of work groups,
-regardless of which app rendered the page."""
-
 from __future__ import annotations
 
 from django.http import HttpRequest

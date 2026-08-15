@@ -1,5 +1,3 @@
-"""Views for the ``training`` app."""
-
 from __future__ import annotations
 
 from django.db.models import F, Q, QuerySet
@@ -23,8 +21,6 @@ _COURSE_LIST_FIELDS = (
 
 
 class CourseListView(ListView):
-    """Course archive: searchable by title/summary and optionally
-    filtered to a single category via ``?category=<slug>``."""
 
     model = Course
     template_name = "training/list.html"
@@ -60,12 +56,6 @@ class CourseListView(ListView):
 
 
 class CourseDetailView(DetailView):
-    """Public course detail page.
-
-    Only ever exposes published courses, even to someone who guesses or
-    shares a slug for a draft, and records a view atomically at the
-    database level so concurrent hits never clobber each other's count.
-    """
 
     model = Course
     template_name = "training/detail.html"
@@ -84,9 +74,6 @@ class CourseDetailView(DetailView):
 
     @staticmethod
     def _record_view(course: Course) -> None:
-        """Increment the view counter with a single atomic UPDATE
-        (``F('views') + 1``) instead of read-modify-write in Python, so
-        two simultaneous requests can never overwrite each other's
-        increment."""
+
         Course.objects.filter(pk=course.pk).update(views=F("views") + 1)
         course.refresh_from_db(fields=["views"])

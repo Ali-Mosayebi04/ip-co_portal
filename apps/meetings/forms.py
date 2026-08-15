@@ -1,5 +1,3 @@
-"""Forms for creating and editing meetings with employee selection."""
-
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -9,7 +7,6 @@ from .models import Meeting, MeetingRoom
 
 
 class MeetingForm(forms.ModelForm):
-    """Form for creating and editing meetings with attendee selection."""
 
     attendees = forms.ModelMultipleChoiceField(
         queryset=Employee.objects.select_related("workgroup").all(),

@@ -1,16 +1,4 @@
-/* ==========================================================================
-   UNIFIED CARD DESIGN SYSTEM
-   --------------------------------------------------------------------------
-   Enterprise-grade card system with strict dimensions, perfect alignment,
-   and consistent spacing across all card categories.
-   ========================================================================== */
-
-/* ==========================================================================
-   CARD SYSTEM TOKENS
-   ========================================================================== */
-
 :root {
-    /* Card dimensions by category */
     --card-news-height: 420px;
     --card-training-height: 400px;
     --card-meeting-height: 180px;
@@ -18,44 +6,35 @@
     --card-feature-height: 200px;
     --card-announcement-height: 280px;
 
-    /* Card featured variants */
     --card-news-featured-height: 480px;
     --card-hero-featured-height: 520px;
 
-    /* Image aspect ratios */
     --aspect-news: 16 / 9;
     --aspect-training: 16 / 9;
     --aspect-announcement: 4 / 3;
 
-    /* Card spacing */
     --card-padding: 24px;
     --card-padding-sm: 20px;
     --card-gap: 24px;
     --card-image-height-news: 220px;
     --card-image-height-training: 200px;
 
-    /* Card visual system */
     --card-radius: 12px;
     --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
     --card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
     --card-border: 1px solid var(--border-default, #dfe4ec);
 
-    /* Typography clamping */
     --card-title-lines: 2;
     --card-desc-lines: 3;
     --card-title-line-height: 1.4;
     --card-desc-line-height: 1.6;
 }
 
-/* Dark theme adjustments */
 [data-theme="dark"] {
     --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
     --card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* ==========================================================================
-   BASE CARD STRUCTURE
-   ========================================================================== */
 
 .card-base {
     display: flex;
@@ -73,7 +52,6 @@
     transform: translateY(-2px);
 }
 
-/* Card image container with fixed aspect ratio */
 .card-image {
     position: relative;
     width: 100%;
@@ -94,7 +72,6 @@
     transform: scale(1.05);
 }
 
-/* Card body with flex growth for equal heights */
 .card-body {
     display: flex;
     flex-direction: column;
@@ -103,7 +80,6 @@
     min-height: 0;
 }
 
-/* Card meta (badges, date, etc.) */
 .card-meta {
     display: flex;
     align-items: center;
@@ -112,7 +88,6 @@
     flex-wrap: wrap;
 }
 
-/* Card title with line clamping */
 .card-title {
     font-size: 1.125rem;
     font-weight: 700;
@@ -136,7 +111,6 @@
     color: var(--accent, #155fa0);
 }
 
-/* Card description with line clamping */
 .card-description {
     font-size: 0.9375rem;
     line-height: var(--card-desc-line-height);
@@ -150,7 +124,6 @@
     flex: 1;
 }
 
-/* Card footer - always at bottom */
 .card-footer {
     margin-top: auto;
     padding-top: 16px;
@@ -159,10 +132,6 @@
     justify-content: space-between;
     gap: 12px;
 }
-
-/* ==========================================================================
-   NEWS CARDS
-   ========================================================================== */
 
 .news-grid {
     display: grid;
@@ -178,7 +147,6 @@
     height: var(--card-image-height-news);
 }
 
-/* Featured news card variant */
 .news-card--featured {
     height: var(--card-news-featured-height);
     grid-column: span 2;
@@ -193,14 +161,9 @@
     -webkit-line-clamp: 2;
 }
 
-/* News archive grid - consistent 3 columns */
 .news-grid--archive {
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
-
-/* ==========================================================================
-   TRAINING/COURSE CARDS
-   ========================================================================== */
 
 .training-grid {
     display: grid;
@@ -216,7 +179,6 @@
     height: var(--card-image-height-training);
 }
 
-/* Course metadata row */
 .course-meta-row {
     display: flex;
     align-items: center;
@@ -233,10 +195,6 @@
     align-items: center;
     gap: 6px;
 }
-
-/* ==========================================================================
-   MEETING CARDS
-   ========================================================================== */
 
 .meeting-list {
     display: grid;
@@ -323,9 +281,6 @@
     margin-right: 24px;
 }
 
-/* ==========================================================================
-   DEPARTMENT/SECTION CARDS
-   ========================================================================== */
 
 .sections-grid {
     display: grid;
@@ -381,10 +336,6 @@
     overflow: hidden;
 }
 
-/* ==========================================================================
-   FEATURE CARDS (Home sections)
-   ========================================================================== */
-
 .intro-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -417,10 +368,6 @@
     -webkit-line-clamp: 3;
     overflow: hidden;
 }
-
-/* ==========================================================================
-   ANNOUNCEMENT CARDS
-   ========================================================================== */
 
 .announcement-gallery {
     display: grid;
@@ -474,10 +421,6 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-
-/* ==========================================================================
-   WORKGROUP CARDS
-   ========================================================================== */
 
 .workgroup-grid {
     display: grid;
@@ -546,9 +489,6 @@
     color: var(--accent, #155fa0);
 }
 
-/* ==========================================================================
-   RESPONSIVE ADJUSTMENTS
-   ========================================================================== */
 
 @media (max-width: 1200px) {
     .news-card--featured {
@@ -612,11 +552,7 @@
     }
 }
 
-/* ==========================================================================
-   UTILITY CLASSES
-   ========================================================================== */
 
-/* Force equal heights in flex containers */
 .cards-equal-height {
     display: flex;
     flex-wrap: wrap;
@@ -628,7 +564,6 @@
     min-width: 320px;
 }
 
-/* Card spacing utilities */
 .card-gap-sm {
     gap: 16px;
 }
@@ -637,7 +572,6 @@
     gap: 32px;
 }
 
-/* Line clamp overrides */
 .clamp-1 {
     -webkit-line-clamp: 1 !important;
 }
