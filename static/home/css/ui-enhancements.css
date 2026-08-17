@@ -1,32 +1,32 @@
 :root {
-    --gradient-primary: linear-gradient(135deg, #155fa0 0%, #0e2a48 100%);
-    --gradient-accent: linear-gradient(135deg, #3f7fb8 0%, #155fa0 100%);
-    --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
-    --gradient-hover: linear-gradient(135deg, #14497c 0%, #0a1c30 100%);
+    --gradient-primary: linear-gradient(135deg, #0e4e8a 0%, #0a3558 100%);
+    --gradient-accent: linear-gradient(135deg, #3a79b4 0%, #0e4e8a 100%);
+    --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
+    --gradient-hover: linear-gradient(135deg, #0d426f 0%, #0a2d4d 100%);
 
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --glass-bg: rgba(255, 255, 255, 0.76);
+    --glass-border: rgba(14, 78, 138, 0.15);
+    --glass-shadow: 0 10px 30px 0 rgba(15, 27, 42, 0.08);
 
-    --shadow-elevated: 0 10px 40px -10px rgba(10, 28, 48, 0.15);
-    --shadow-floating: 0 20px 60px -15px rgba(10, 28, 48, 0.25);
-    --shadow-intense: 0 30px 80px -20px rgba(10, 28, 48, 0.35);
+    --shadow-elevated: 0 10px 40px -10px rgba(10, 28, 48, 0.16);
+    --shadow-floating: 0 18px 50px -20px rgba(10, 28, 48, 0.22);
+    --shadow-intense: 0 30px 80px -20px rgba(10, 28, 48, 0.28);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 [data-theme="dark"] {
-    --gradient-primary: linear-gradient(135deg, #63a1dd 0%, #111c2e 100%);
-    --gradient-accent: linear-gradient(135deg, #8fc0ee 0%, #63a1dd 100%);
-    --gradient-surface: linear-gradient(180deg, #0d1624 0%, #070d16 100%);
-    --gradient-hover: linear-gradient(135deg, #8fc0ee 0%, #4b82c0 100%);
+    --gradient-primary: linear-gradient(135deg, #80afe9 0%, #122333 100%);
+    --gradient-accent: linear-gradient(135deg, #9ac3f3 0%, #80afe9 100%);
+    --gradient-surface: linear-gradient(180deg, #0d1d2c 0%, #091821 100%);
+    --gradient-hover: linear-gradient(135deg, #9ac3f3 0%, #6ea1dd 100%);
 
-    --glass-bg: rgba(17, 28, 46, 0.7);
-    --glass-border: rgba(99, 161, 221, 0.18);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-bg: rgba(18, 35, 51, 0.72);
+    --glass-border: rgba(128, 175, 233, 0.2);
+    --glass-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.36);
 
-    --shadow-elevated: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
-    --shadow-floating: 0 20px 60px -15px rgba(0, 0, 0, 0.5);
+    --shadow-elevated: 0 10px 40px -10px rgba(0, 0, 0, 0.38);
+    --shadow-floating: 0 18px 50px -20px rgba(0, 0, 0, 0.5);
     --shadow-intense: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
 }
 

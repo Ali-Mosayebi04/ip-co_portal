@@ -10,6 +10,15 @@
           rel="stylesheet">
     <style>
         :root {
+            --color-bg-primary: #f4f7fb;
+            --color-bg-secondary: #edf3fa;
+            --color-surface: #ffffff;
+            --color-text-primary: #101b2a;
+            --color-text-secondary: #38485e;
+            --color-primary: #0e4e8a;
+            --color-primary-hover: #0d426f;
+            --color-warning: #9a6b1d;
+            --color-warning-soft: #fff5e2;
             color-scheme: light;
         }
 
@@ -20,9 +29,9 @@
         body {
             margin: 0;
             font-family: "Vazirmatn", "IBM Plex Sans Arabic", Tahoma, sans-serif;
-            background: radial-gradient(720px 380px at 85% 0%, rgba(63, 127, 184, 0.14), transparent 65%),
-            linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
-            color: #141c28;
+            background: radial-gradient(720px 380px at 85% 0%, rgba(14, 78, 138, 0.12), transparent 65%),
+            linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
+            color: var(--color-text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -41,7 +50,7 @@
             font-weight: 800;
             line-height: 1;
             margin: 0 0 20px;
-            background: linear-gradient(140deg, #155fa0, #0a1c30);
+            background: linear-gradient(140deg, var(--color-primary), #0a3558);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -51,7 +60,7 @@
             width: 42px;
             height: 2px;
             margin: 0 auto 20px;
-            background: #a97c50;
+            background: var(--color-warning);
             border-radius: 2px;
         }
 
@@ -62,7 +71,7 @@
         }
 
         p {
-            color: #3d4a5d;
+            color: var(--color-text-secondary);
             margin: 0 0 32px;
         }
 
@@ -71,7 +80,7 @@
             align-items: center;
             min-height: 48px;
             padding: 0 24px;
-            background: #155fa0;
+            background: var(--color-primary);
             color: #fff;
             border-radius: 12px;
             text-decoration: none;
@@ -82,7 +91,7 @@
         }
 
         a:hover {
-            background: #11385f;
+            background: var(--color-primary-hover);
             transform: translateY(-1px);
         }
     </style>
