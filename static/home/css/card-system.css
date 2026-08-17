@@ -310,7 +310,7 @@
 
 .section-card:hover .section-card-icon {
     background: var(--accent, #155fa0);
-    color: white;
+    color: var(--accent-contrast, #ffffff);
     transform: scale(1.05);
 }
 
@@ -408,11 +408,15 @@
     left: 0;
     right: 0;
     padding: 20px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    background: linear-gradient(
+        to top,
+        var(--announcement-overlay-end, rgba(6, 13, 26, 0.86)),
+        var(--announcement-overlay-start, rgba(6, 13, 26, 0.04))
+    );
 }
 
 .announcement-card-title {
-    color: white;
+    color: var(--hero-text, #f4f8fe);
     font-size: 1rem;
     font-weight: 600;
     margin: 0;
