@@ -206,6 +206,9 @@
         if (!button) return;
         button.addEventListener("click", function (event) {
             event.stopPropagation();
+            if (item.classList.contains("workgroups-nav-item") && window.matchMedia("(min-width: 901px)").matches) {
+                return;
+            }
             var wasOpen = item.classList.contains("open");
             closeAllDropdowns(item);
             if (wasOpen) {

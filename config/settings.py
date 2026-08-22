@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = env_bool("DJANGO_DEBUG", default=True)
 
-ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "localhost,127.0.0.1")
+ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", default="localhost,127.0.0.1")
 
 
 INSTALLED_APPS = [
@@ -164,6 +164,15 @@ SERVER_EMAIL = os.environ.get("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
 USE_HTTPS = env_bool("USE_HTTPS", default=False)
 
+# Allow the local HTTP/HTTPS origins used by the development server.
+CSRF_TRUSTED_ORIGINS = env_list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=(
+        "http://localhost:8000,http://127.0.0.1:8000,"
+        "https://localhost:8000,https://127.0.0.1:8000"
+    ),
+)
+
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -176,4 +185,3 @@ if not DEBUG:
         SECURE_HSTS_SECONDS = 31536000
         SECURE_HSTS_INCLUDE_SUBDOMAINS = True
         SECURE_HSTS_PRELOAD = True
-        CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")

@@ -44,7 +44,7 @@
         </form>
 
         <div class="header-nav">
-            <nav class="main-nav" aria-label="منوی اصلی">
+            <nav class="main-nav nav-bar" id="main-nav" aria-label="منوی اصلی">
                 <div class="container">
                     <ul>
                         <li>
@@ -53,7 +53,7 @@
                         <li>
                             <a href="{% url 'training:list' %}" class="{% if request.resolver_match and request.resolver_match.namespace == 'training' %}is-active{% endif %}">آموزش‌ها</a>
                         </li>
-                        <li class="nav-item nav-item-dropdown">
+                        <li class="nav-item nav-item-dropdown workgroups-nav-item">
                             <button
                                     type="button"
                                     class="nav-link dropdown-toggle{% if request.resolver_match and request.resolver_match.namespace == 'workgroups' %} is-active{% endif %}"
@@ -61,7 +61,7 @@
                                     aria-expanded="false"
                                     aria-controls="workgroups-dropdown"
                             >
-                                کارگروه‌ها
+                                <span class="workgroups-nav-label">کارگروه‌ها</span>
                                 <svg class="dropdown-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
                                     <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
                                           stroke-linecap="round" stroke-linejoin="round"></path>

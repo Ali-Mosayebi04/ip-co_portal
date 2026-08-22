@@ -193,7 +193,14 @@
 .course-meta-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
+}
+
+.course-meta-item svg,
+.meeting-meta svg,
+.card-meta svg,
+.section-card-icon {
+    flex: 0 0 auto;
 }
 
 .meeting-list {
