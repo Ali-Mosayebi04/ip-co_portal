@@ -4,8 +4,8 @@ IPCO Internal News & Corporate Information Portal
   <strong>A Django-based internal corporate portal for centralized news, announcements, meetings, training, and organizational information.</strong>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/Django-5.x-092E20?style=for-the-badge&logo=django&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white">
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
 </p>
@@ -138,13 +138,6 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 
-Application:
-
-http://127.0.0.1:8000/
-
-Admin:
-
-http://127.0.0.1:8000/admin/
 
 📧 Email Workflow
 
@@ -204,13 +197,13 @@ University	Kharazmi University
 Major	Software Engineering
 Project Type	Internal Corporate Web Application
 Developer	Shahab Hamidi
-Academic Supervisor	Dr. Mansouri
 Company Supervisor	Mehralizadeh
 Period	July 2026
 
 👨‍💻 Developer
 
 Shahab Hamidi
+Ali Mosayebi
 
 Software Engineering Student | Backend Developer
 
