@@ -193,7 +193,6 @@ Potential extensions include:
 Field	Information
 Organization	Iran Khodro Powertrain Company (IPCO)
 Department	IT Department
-University	Kharazmi University
 Major	Software Engineering
 Project Type	Internal Corporate Web Application
 Developer	Shahab Hamidi
@@ -203,6 +202,7 @@ Period	July 2026
 👨‍💻 Developer
 
 Shahab Hamidi
+
 Ali Mosayebi
 
 Software Engineering Student | Backend Developer
@@ -215,13 +215,7 @@ Python · Django · Django REST Framework · Backend Development · Database Des
 
 Completed — Functional Internal Corporate Portal
 
-This repository represents the implementation developed during the internship. Features listed under Future Development are planned architectural extensions and are not necessarily part of the current version.
-
-⚠️ Confidentiality
-
 This project was developed for an internal organizational environment.
-
-Before making the repository public, ensure that no production credentials, employee information, passwords, email credentials, sensitive organizational data, or private infrastructure configuration are included.
 
 ⸻
 
@@ -230,5 +224,5 @@ Before making the repository public, ensure that no production credentials, empl
   <br>
   Built with Python & Django
   <br><br>
-  <sub>Software Engineering Internship Project — Kharazmi University</sub>
+  <sub>Software Engineering Project</sub>
 </p>
